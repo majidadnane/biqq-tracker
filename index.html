@@ -212,6 +212,7 @@ input,select,textarea{font:inherit;color:inherit}
 .row-main{flex:1;min-width:0}
 .row-title{display:block;font-weight:600;font-size:16px;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;transition:color .2s}
 .row-sub{display:block;font-size:14.5px;color:var(--text-3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:1px}
+.row-who{display:block;font-size:13px;font-weight:600;color:var(--primary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:2px;letter-spacing:.01em}
 .row-aside{font-size:14px;color:var(--text-3);white-space:nowrap}
 .date-chip{width:50px;height:54px;flex-shrink:0;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:12px;background:var(--surface-2);border:1px solid var(--line)}
 .date-chip .d{font-size:24px;font-weight:600;line-height:.95;color:var(--heading);font-variant-numeric:tabular-nums}
@@ -565,6 +566,186 @@ body.locked{overflow:hidden}
 }
 .signin{position:fixed;inset:0;z-index:400;display:flex;align-items:center;justify-content:center;padding:20px;background:var(--paper)}
 .signin[hidden]{display:none}
+/* ───────── Version 2 ───────── */
+body:not(.is-admin) .admin-only{display:none !important}
+.field[hidden],.filter[hidden],.w-pane[hidden]{display:none !important}
+.opt{font-weight:400;color:var(--text-3)}
+
+/* chips */
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{display:inline-flex;align-items:center;gap:6px;min-height:26px;padding:2px 10px;border-radius:999px;font-size:13px;font-weight:600;line-height:1.3;color:var(--text-2);background:var(--surface-2);border:1px solid var(--line);vertical-align:middle}
+.chip .ic{width:13px;height:13px;color:var(--icon)}
+.chip-sub{font-weight:400;color:var(--text-3)}
+.chip.warn{color:var(--accent-text);background:var(--accent-wash);border-color:var(--accent-line)}
+.chip.med{--tone:#b3362a;color:color-mix(in srgb,var(--tone) 85%,var(--text));background:color-mix(in srgb,var(--tone) 9%,var(--surface));border-color:color-mix(in srgb,var(--tone) 26%,transparent)}
+.chip.med .ic{color:inherit}
+:root[data-theme="dark"] .chip.med{color:#f2a194}
+.student-card .chips{margin-top:-4px}
+
+/* notices for the admin */
+.notice{display:flex;align-items:center;justify-content:space-between;gap:12px 16px;flex-wrap:wrap;padding:12px 14px 12px 18px;margin-bottom:14px;border-radius:14px;background:var(--accent-wash);border:1px solid var(--accent-line)}
+.notice-text{display:flex;align-items:center;gap:10px;font-size:16px;font-weight:600;color:var(--text)}
+.notice-text .ic{color:var(--accent-text)}
+#admin-notice:not(:empty){margin-bottom:8px}
+
+/* profile */
+.ph-actions{display:flex;flex-direction:column;gap:10px;flex-shrink:0}
+.h-meta{display:flex;align-items:center;gap:7px;margin-top:8px;font-size:14px;color:var(--text-3)}
+.h-meta .ic{width:14px;height:14px;color:var(--icon)}
+
+/* safeguarding */
+.sg-card .card-title{display:flex;align-items:center;gap:10px}
+.sg-card .card-title .ic{width:20px;height:20px;color:var(--icon)}
+.sg-warn{display:flex;gap:10px;align-items:flex-start;margin:10px 26px 0;padding:12px 14px;border-radius:12px;background:var(--accent-wash);border:1px solid var(--accent-line);font-size:15px;color:var(--text)}
+.sg-warn .ic{color:var(--accent-text);margin-top:2px}
+.sg-health{--tone:#b3362a;display:grid;gap:6px;margin:12px 26px 0;padding:12px 16px;border-radius:12px;background:color-mix(in srgb,var(--tone) 7%,var(--surface));border:1px solid color-mix(in srgb,var(--tone) 24%,transparent)}
+.sg-health div{display:grid;grid-template-columns:160px minmax(0,1fr);gap:12px;font-size:15px}
+.sg-health strong{font-weight:600;color:color-mix(in srgb,var(--tone) 80%,var(--text))}
+:root[data-theme="dark"] .sg-health strong{color:#f2a194}
+.sg-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:2px 32px;padding:8px 26px 24px}
+.sg-group h3{margin:14px 0 4px;font-size:13.5px;font-weight:600;color:var(--text-3)}
+.sg-group dl > div{display:grid;grid-template-columns:120px minmax(0,1fr);gap:10px;padding:4px 0;font-size:15px}
+.sg-group dt{color:var(--text-3)}
+.sg-group dd{color:var(--text);overflow-wrap:anywhere}
+.sg-group a{color:var(--primary);font-weight:600;text-decoration:none}
+.sg-group a:hover{text-decoration:underline}
+
+/* student form */
+.modal.form-modal{max-width:720px}
+.form-section{grid-column:1/-1;margin-top:6px;padding-top:16px;border-top:1px solid var(--line);font-size:16px;font-weight:700;color:var(--heading)}
+.form-section:first-child{margin-top:0;padding-top:0;border-top:0}
+.form-section span{display:block;margin-top:2px;font-size:14px;font-weight:400;color:var(--text-3)}
+.check{display:flex;align-items:flex-start;gap:10px;font-size:15px;color:var(--text-2);cursor:pointer}
+.check input{flex-shrink:0;width:18px;height:18px;margin-top:2px;accent-color:var(--primary)}
+
+/* class picker */
+.pick-label{margin-top:10px;font-size:13.5px;font-weight:600;color:var(--text-3)}
+.pick-list{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.pick{display:inline-flex;align-items:center;gap:8px;min-height:36px;padding:4px 14px 4px 10px;border-radius:999px;border:1px solid var(--line-2);background:var(--field);font-size:14.5px;font-weight:600;color:var(--text-2);cursor:pointer;transition:border-color .15s,background .15s,color .15s}
+.pick input{width:16px;height:16px;accent-color:var(--primary)}
+.pick:has(input:checked){border-color:var(--primary);color:var(--primary);background:var(--icon-wash)}
+#pick-list{display:flex;flex-wrap:wrap;gap:8px}
+
+/* staff page */
+.staff-row{display:flex;align-items:flex-start;gap:14px;padding:16px 0}
+.staff-row + .staff-row{border-top:1px solid var(--line)}
+.staff-main{flex:1;min-width:0}
+.staff-main .row-title,.staff-main .row-sub{white-space:normal}
+.staff-actions{display:flex;gap:8px;flex-shrink:0;flex-wrap:wrap;justify-content:flex-end}
+#class-list .fc-icon{width:38px;height:38px}
+.class-add{display:flex;flex-wrap:wrap;gap:10px;padding:8px 26px 24px}
+.class-add .input{flex:1 1 240px;height:42px}
+
+/* register */
+.reg-controls{gap:10px 14px}
+.reg-controls .input{width:auto;min-width:180px}
+.reg-row{display:flex;align-items:center;gap:14px;padding:12px 0}
+.reg-row + .reg-row{border-top:1px solid var(--line)}
+.reg-row .row-sub{white-space:normal;margin-top:4px}
+.marks{display:inline-flex;gap:6px;flex-shrink:0}
+.mark{--tone:#6f6a60;min-width:44px;height:40px;padding:0 14px;border-radius:10px;border:1px solid var(--line-2);background:var(--field);font-size:14.5px;font-weight:600;color:var(--text-2);transition:background .15s,border-color .15s,color .15s}
+.mark:hover{border-color:var(--tone);color:var(--text)}
+.mark.on{background:var(--tone);border-color:var(--tone);color:#fff}
+.mark .short{display:none}
+
+/* welcome */
+.welcome{position:fixed;inset:0;z-index:450;overflow-y:auto;background:var(--paper)}
+.welcome[hidden]{display:none}
+.welcome::before{content:"";position:fixed;inset:0;background-image:var(--petals);background-size:56px;opacity:.07;pointer-events:none;
+  -webkit-mask-image:radial-gradient(60% 50% at 50% 0%,#000,transparent 80%);mask-image:radial-gradient(60% 50% at 50% 0%,#000,transparent 80%)}
+:root[data-theme="dark"] .welcome::before{opacity:.05}
+.welcome-inner{position:relative;min-height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 16px 48px}
+.w-lockup{width:250px;height:85px;color:var(--primary)}
+:root[data-theme="dark"] .w-lockup{color:var(--accent-soft)}
+.w-pane{width:100%;display:flex;flex-direction:column;align-items:center}
+.w-title{margin-top:28px;font-size:42px;font-weight:600;line-height:1.05;letter-spacing:-.02em;text-align:center;color:var(--heading)}
+.w-sub{margin-top:10px;max-width:44ch;font-size:17.5px;text-align:center;color:var(--text-2)}
+.w-choices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;width:min(620px,100%);margin-top:30px}
+.w-choice{display:flex;flex-direction:column;align-items:flex-start;gap:8px;padding:24px;border-radius:18px;background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow-1);text-align:left;transition:border-color .2s,box-shadow .2s,transform .2s}
+.w-choice:hover{border-color:var(--cartouche);box-shadow:var(--shadow-2);transform:translateY(-1px)}
+.w-choice .fc-icon{margin-bottom:6px}
+.w-choice strong{font-size:22px;font-weight:600;color:var(--heading)}
+.w-choice span:last-child{font-size:15px;line-height:1.5;color:var(--text-3)}
+.w-card{width:min(460px,100%);margin-top:28px;padding:26px 26px 22px;border-radius:20px;background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow-2);align-items:stretch}
+.w-card h2{font-size:27px;font-weight:600;line-height:1.1;letter-spacing:-.015em;color:var(--heading)}
+.w-help{margin-top:6px;font-size:15.5px;color:var(--text-3)}
+.w-form{display:flex;flex-direction:column;gap:14px;margin-top:18px}
+.w-form .btn{width:100%;height:46px}
+.w-status{min-height:1.4em;font-size:15px;font-weight:600;color:var(--accent-text)}
+.w-links{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:14px}
+.w-divider{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:18px;padding-top:16px;border-top:1px solid var(--line);font-size:15px;color:var(--text-2)}
+
+/* class report */
+.rp-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:16px;align-items:start}
+.rp-grid .rp-block{margin-top:0}
+.rp-att{padding:12px 14px 14px;font-size:14px;color:var(--text-2)}
+.rp-big{font-size:28px;font-weight:600;line-height:1;color:var(--heading);margin-right:4px}
+.rp-att-bar{display:flex;height:10px;margin:12px 0 10px;border-radius:999px;overflow:hidden;background:#ece6dc}
+.rp-att-bar i{display:block;height:100%}
+.rp-att-figs{display:flex;flex-wrap:wrap;gap:6px 20px;font-size:13px;color:var(--text-2)}
+.rp-att-figs span{display:inline-flex;align-items:center;gap:7px}
+.rp-att-figs i{width:9px;height:9px;border-radius:50%}
+.rp-att-figs b{color:var(--heading)}
+.rp-prog{display:grid;gap:10px;padding:12px 14px 12px}
+.rp-prog .prog-top{margin-bottom:5px}
+.rp-prog .prog-val{font-size:20px}
+.rp-small{font-size:12.5px;color:var(--text-3)}
+.rp-beh{display:flex;flex-wrap:wrap;gap:8px;padding:12px 14px 6px}
+.rp-notes-list{list-style:none;padding:4px 14px 12px}
+.rp-notes-list li{display:grid;grid-template-columns:62px minmax(0,1fr);gap:10px;padding:5px 0;border-top:1px solid #f0ebe4}
+.rp-notes-list li:first-child{border-top:0}
+.rp-notes-list span{font-size:12.5px;color:var(--text-3)}
+.rp-notes-list p{white-space:pre-line;overflow-wrap:anywhere}
+
+@media (max-width:640px){
+  .ph-actions{width:100%}
+  .sg-grid{grid-template-columns:1fr;padding:4px 18px 20px}
+  .rp-grid{grid-template-columns:1fr}
+  .sg-warn,.sg-health{margin-left:18px;margin-right:18px}
+  .sg-health div{grid-template-columns:1fr;gap:0}
+  .sg-group dl > div{grid-template-columns:110px minmax(0,1fr)}
+  .class-add{padding:8px 18px 20px}
+  .staff-row{flex-wrap:wrap}
+  .staff-actions{width:100%;justify-content:flex-start;padding-left:56px}
+  .reg-controls .filter{width:100%}
+  .reg-controls .input{flex:1}
+  .reg-row{gap:10px}
+  .reg-row .avatar{display:none}
+  .mark{min-width:0;height:38px;padding:0 9px;font-size:13.5px;border-radius:9px}
+  .marks{gap:5px}
+  #page-register .card-head{flex-wrap:wrap;row-gap:6px}
+  #page-register .card-head .card-title{font-size:20px}
+  #page-register .save-bar .msg{display:block;font-size:13.5px;line-height:1.3}
+  #page-register .save-bar .btns{width:auto}
+  .w-choices{grid-template-columns:1fr}
+  .w-title{font-size:34px}
+  .w-card{padding:22px 18px 18px}
+  .w-lockup{width:210px;height:71px}
+}
+@media (max-width:380px){
+  .mark .full{display:none}
+  .mark .short{display:inline}
+  .mark{min-width:38px}
+}
+@media print{
+  .rp-block,.rp-note{break-inside:avoid}
+}
+
+/* ───────── Parents ───────── */
+body.parent-mode .staff-only{display:none !important}
+.parents-lead{margin:0 26px 6px;font-size:15px;color:var(--text-2);max-width:64ch}
+.row.static{cursor:default}
+.row.static:hover .row-title{color:var(--text)}
+.g-status{color:var(--text-3)}
+.g-status.on{color:var(--accent-text);font-weight:600}
+.g-actions{display:flex;gap:8px;flex-shrink:0}
+.guardian-add{display:flex;flex-wrap:wrap;gap:10px;padding:8px 26px 24px}
+.guardian-add .input{flex:1 1 240px;height:42px}
+@media (max-width:640px){
+  .parents-lead{margin:0 18px 6px}
+  .guardian-add{padding:8px 18px 20px}
+  .g-actions .label{display:none}
+}
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none !important;transition:none !important}
 }
@@ -607,6 +788,12 @@ body.locked{overflow:hidden}
   <symbol id="i-moon" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9z"/></symbol>
   <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M4.6 4.6l1.4 1.4M18 18l1.4 1.4M2.5 12h2M19.5 12h2M4.6 19.4 6 18M18 6l1.4-1.4"/></symbol>
   <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+  <symbol id="i-register" viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="17.5" rx="2"/><path d="M9 4V3a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v1"/><path d="m9 13 2 2 4-4"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 21.5s7.5-3.5 7.5-9.5V5.5L12 2.5l-7.5 3V12c0 6 7.5 9.5 7.5 9.5z"/></symbol>
+  <symbol id="i-badge" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.4-3.6 3-6 6.5-6 1.6 0 3 .5 4.1 1.3"/><path d="m15.5 17.5 2 2 4-4"/></symbol>
+  <symbol id="i-chart" viewBox="0 0 24 24"><path d="M4.5 20.5V11M10.5 20.5V4.5M16.5 20.5v-6.5M21 20.5H3"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 6.5 8.5 6.5 8.5-6.5"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4.5" y="10.5" width="15" height="10" rx="2"/><path d="M8 10.5V7a4 4 0 0 1 8 0v3.5"/></symbol>
   <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
   <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 8v5"/><path d="M12 16.5h.01"/><circle cx="12" cy="12" r="9"/></symbol>
 </svg>
@@ -620,10 +807,12 @@ body.locked{overflow:hidden}
       <svg class="logo lk-ar" aria-hidden="true"><use href="#biqq-ar"/></svg>
     </div>
     <nav class="nav" aria-label="Main">
-      <button class="nav-item" data-nav="dashboard" onclick="showPage('dashboard')"><svg class="ic"><use href="#i-home"/></svg><span>Dashboard</span></button>
+      <button class="nav-item staff-only" data-nav="dashboard" onclick="showPage('dashboard')"><svg class="ic"><use href="#i-home"/></svg><span>Dashboard</span></button>
       <button class="nav-item" data-nav="students" onclick="showPage('students')"><svg class="ic"><use href="#i-users"/></svg><span>Students</span></button>
-      <button class="nav-item" data-nav="log-session" onclick="showPage('log-session')"><svg class="ic"><use href="#i-pen"/></svg><span>Log a session</span></button>
+      <button class="nav-item staff-only" data-nav="register" onclick="showPage('register')"><svg class="ic"><use href="#i-register"/></svg><span>Take the register</span></button>
+      <button class="nav-item staff-only" data-nav="log-session" onclick="showPage('log-session')"><svg class="ic"><use href="#i-pen"/></svg><span>Log a session</span></button>
       <button class="nav-item" data-nav="history" onclick="showPage('history')"><svg class="ic"><use href="#i-library"/></svg><span>Session history</span></button>
+      <button class="nav-item staff-only admin-only" data-nav="staff" onclick="showPage('staff')"><svg class="ic"><use href="#i-badge"/></svg><span>Staff and classes</span></button>
     </nav>
     <div class="side-foot">
       <div class="basmala" lang="ar" dir="rtl">بسم الله الرحمن الرحيم</div>
@@ -642,7 +831,7 @@ body.locked{overflow:hidden}
     </div>
     <div class="tb-actions">
       <button class="tb-theme" id="theme-toggle" onclick="setTheme(currentTheme() === 'dark' ? 'light' : 'dark')" aria-label="Switch theme"></button>
-      <button class="btn btn-accent btn-sm" onclick="showPage('log-session')"><svg class="ic"><use href="#i-plus"/></svg>Log</button>
+      <button class="btn btn-accent btn-sm staff-only" onclick="showPage('log-session')"><svg class="ic"><use href="#i-plus"/></svg>Log</button>
     </div>
   </header>
 
@@ -659,7 +848,8 @@ body.locked{overflow:hidden}
             <p class="hero-sub" id="hero-sub"></p>
             <div class="hero-actions">
               <button class="btn btn-accent" onclick="showPage('log-session')"><svg class="ic"><use href="#i-plus"/></svg>Log a session</button>
-              <button class="btn btn-dark" onclick="openAddStudentModal()"><svg class="ic"><use href="#i-user"/></svg>Add a student</button>
+              <button class="btn btn-dark" onclick="showPage('register')"><svg class="ic"><use href="#i-register"/></svg>Take the register</button>
+              <button class="btn btn-dark admin-only" onclick="showPage('staff')"><svg class="ic"><use href="#i-badge"/></svg>Staff and classes</button>
             </div>
           </div>
           <figure class="hero-verse">
@@ -668,6 +858,7 @@ body.locked{overflow:hidden}
           </figure>
         </div>
 
+        <div id="admin-notice"></div>
         <section class="ledger" aria-label="Summary">
           <div class="ledger-item"><span class="ledger-label">Students</span><span class="ledger-value" id="stat-students">0</span><span class="ledger-note">On your roster</span></div>
           <div class="ledger-item"><span class="ledger-label">Sessions logged</span><span class="ledger-value" id="stat-sessions">0</span><span class="ledger-note">Since you started</span></div>
@@ -694,7 +885,10 @@ body.locked{overflow:hidden}
             <h1 class="page-title">Students</h1>
             <p class="page-sub">Everyone you teach, and how each of them is getting on.</p>
           </div>
-          <div class="head-actions"><button class="btn btn-accent" onclick="openAddStudentModal()"><svg class="ic"><use href="#i-plus"/></svg>Add a student</button></div>
+          <div class="head-actions">
+            <label class="filter staff-only" id="student-class-wrap" hidden><span>Class</span><select id="student-class-filter" class="input" onchange="renderStudentList()"></select></label>
+            <button class="btn btn-accent staff-only" onclick="openStudentForm()"><svg class="ic"><use href="#i-plus"/></svg>Add a student</button>
+          </div>
         </header>
         <div class="student-grid" id="student-list"></div>
       </section>
@@ -786,12 +980,12 @@ body.locked{overflow:hidden}
             <div class="fc-head">
               <div class="fc-title-wrap">
                 <span class="fc-icon"><svg class="ic"><use href="#i-heart"/></svg></span>
-                <div><h2 class="fc-title">How they felt, and what's next</h2></div>
+                <div><h2 class="fc-title">Behaviour, and what's next</h2><p class="fc-sub">Parents see the rating and the notes</p></div>
               </div>
             </div>
             <div class="form-grid">
-              <div class="field full"><span class="label">How did they seem today?</span><div class="moods" id="mood-grid"></div></div>
-              <div class="field"><label for="feelings-notes">A few words on their mood</label><textarea id="feelings-notes" class="input" dir="auto" placeholder="How was their energy, focus and attitude?"></textarea></div>
+              <div class="field full"><span class="label">How was their behaviour?</span><div class="moods" id="mood-grid"></div></div>
+              <div class="field"><label for="behaviour-notes">Behaviour notes</label><textarea id="behaviour-notes" class="input" dir="auto" placeholder="What happened, and how it was handled"></textarea></div>
               <div class="field"><label for="targets">Targets for next session</label><textarea id="targets" class="input" dir="auto" placeholder="What should they prepare before you next meet?"></textarea></div>
             </div>
           </section>
@@ -818,6 +1012,54 @@ body.locked{overflow:hidden}
         </div>
       </section>
 
+      <!-- REGISTER -->
+      <section class="page" id="page-register">
+        <header class="page-head">
+          <div>
+            <h1 class="page-title">Take the register</h1>
+            <p class="page-sub">Mark everyone in the class, then save. You can come back and correct it later.</p>
+          </div>
+          <div class="head-actions reg-controls">
+            <label class="filter"><span>Class</span><select id="reg-class" class="input" onchange="loadRegister()"></select></label>
+            <label class="filter"><span>Date</span><input type="date" id="reg-date" class="input" onchange="loadRegister()"></label>
+          </div>
+        </header>
+        <section class="card">
+          <div class="card-head"><h2 class="card-title" id="reg-title">Register</h2><button class="link-btn" onclick="markAll('present')">Mark the rest present<svg class="ic"><use href="#i-chev"/></svg></button></div>
+          <div class="list" id="reg-list"></div>
+        </section>
+        <div class="save-bar">
+          <span class="msg" id="reg-summary">Nothing to save yet</span>
+          <div class="btns"><button class="btn btn-accent btn-sm" onclick="saveRegister()"><svg class="ic"><use href="#i-check"/></svg>Save register</button></div>
+        </div>
+      </section>
+
+      <!-- STAFF AND CLASSES (admin) -->
+      <section class="page" id="page-staff">
+        <header class="page-head">
+          <div>
+            <h1 class="page-title">Staff and classes</h1>
+            <p class="page-sub">Approve new teachers, and choose who teaches each class.</p>
+          </div>
+        </header>
+        <section class="card">
+          <div class="card-head"><h2 class="card-title">Waiting for approval</h2><span class="card-note" id="req-note"></span></div>
+          <div class="list" id="req-list"></div>
+        </section>
+        <section class="card" style="margin-top:20px">
+          <div class="card-head"><h2 class="card-title">Teachers</h2><span class="card-note">Each sees only their own classes</span></div>
+          <div class="list" id="teacher-list"></div>
+        </section>
+        <section class="card" style="margin-top:20px">
+          <div class="card-head"><h2 class="card-title">Classes</h2></div>
+          <div class="list" id="class-list"></div>
+          <div class="class-add">
+            <input type="text" id="new-class-name" class="input" placeholder="New class name, for example Juz 29 hifz" onkeydown="if (event.key === 'Enter') createClass()">
+            <button class="btn btn-primary" onclick="createClass()"><svg class="ic"><use href="#i-plus"/></svg>Add class</button>
+          </div>
+        </section>
+      </section>
+
       <!-- HISTORY -->
       <section class="page" id="page-history">
         <header class="page-head">
@@ -826,6 +1068,7 @@ body.locked{overflow:hidden}
             <p class="page-sub">Every lesson you've recorded, newest first.</p>
           </div>
           <div class="head-actions">
+            <label class="filter staff-only" id="history-class-wrap" hidden><span>Class</span><select id="history-class" class="input" onchange="renderHistory()"><option value="">All classes</option></select></label>
             <label class="filter"><span>Showing</span><select id="history-filter" class="input" onchange="renderHistory()"><option value="">All students</option></select></label>
           </div>
         </header>
@@ -836,34 +1079,105 @@ body.locked{overflow:hidden}
   </main>
 
   <nav class="tabbar" aria-label="Main">
-    <button class="tab" data-nav="dashboard" onclick="showPage('dashboard')"><svg class="ic"><use href="#i-home"/></svg>Home</button>
+    <button class="tab staff-only" data-nav="dashboard" onclick="showPage('dashboard')"><svg class="ic"><use href="#i-home"/></svg>Home</button>
     <button class="tab" data-nav="students" onclick="showPage('students')"><svg class="ic"><use href="#i-users"/></svg>Students</button>
-    <button class="tab" data-nav="log-session" onclick="showPage('log-session')"><svg class="ic"><use href="#i-pen"/></svg>Log</button>
+    <button class="tab staff-only" data-nav="register" onclick="showPage('register')"><svg class="ic"><use href="#i-register"/></svg>Register</button>
+    <button class="tab staff-only" data-nav="log-session" onclick="showPage('log-session')"><svg class="ic"><use href="#i-pen"/></svg>Log</button>
     <button class="tab" data-nav="history" onclick="showPage('history')"><svg class="ic"><use href="#i-library"/></svg>History</button>
   </nav>
 </div>
 
-<!-- ADD STUDENT -->
+<!-- ADD OR EDIT A STUDENT -->
 <div class="modal-overlay" id="modal-add-student">
-  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="add-title">
+  <div class="modal form-modal" role="dialog" aria-modal="true" aria-labelledby="add-title">
     <div class="modal-head">
-      <div><h3 class="modal-title" id="add-title">Add a student</h3><p class="modal-sub">Only their name is needed. You can fill in the rest later.</p></div>
+      <div><h3 class="modal-title" id="add-title">Add a student</h3><p class="modal-sub" id="add-sub"></p></div>
       <button class="icon-close" onclick="closeModal('modal-add-student')" aria-label="Close"><svg class="ic"><use href="#i-x"/></svg></button>
     </div>
     <div class="modal-body">
       <div class="form-grid">
-        <div class="field full"><label for="new-student-name">Full name <span class="req">*</span></label><input type="text" id="new-student-name" class="input" placeholder="Student's full name"></div>
-        <div class="field full"><label for="new-student-class">Class <span class="req">*</span></label><select id="new-student-class" class="input"></select></div>
-        <div class="field"><label for="new-student-age">Age</label><input type="number" id="new-student-age" class="input" min="3" max="99" placeholder="e.g. 12"></div>
-        <div class="field"><label for="new-student-start">Start date</label><input type="date" id="new-student-start" class="input"></div>
-        <div class="field full"><label for="new-student-level">Where they are in the Qur'an</label><input type="text" id="new-student-level" class="input" dir="auto" placeholder="e.g. Confident with Juz 30, starting Juz 29"></div>
-        <div class="field full"><label for="new-student-targets">Starting targets</label><textarea id="new-student-targets" class="input short" dir="auto" placeholder="What are they aiming for to begin with?"></textarea></div>
-        <div class="field full"><label for="new-student-notes">Background</label><textarea id="new-student-notes" class="input short" dir="auto" placeholder="Anything worth knowing about them"></textarea></div>
+        <div class="form-section">About the student</div>
+        <div class="field full"><label for="sf-name">Full name <span class="req">*</span></label><input type="text" id="sf-name" class="input" autocomplete="off"></div>
+        <div class="field full" id="sf-class-field"><label for="sf-class">Class <span class="req">*</span></label><select id="sf-class" class="input"></select></div>
+        <div class="field"><label for="sf-dob">Date of birth</label><input type="date" id="sf-dob" class="input"></div>
+        <div class="field"><label for="sf-start">Start date</label><input type="date" id="sf-start" class="input"></div>
+        <div class="field full"><label for="sf-level">Where they are in the Qur'an</label><input type="text" id="sf-level" class="input" dir="auto" placeholder="e.g. Confident with Juz 30, starting Juz 29"></div>
+        <div class="field full"><label for="sf-targets">Starting targets</label><textarea id="sf-targets" class="input short" dir="auto" placeholder="What are they aiming for to begin with?"></textarea></div>
+
+        <div class="form-section">Main contact<span>The parent or guardian staff should call first.</span></div>
+        <div class="field"><label for="sf-contact-name">Name <span class="req">*</span></label><input type="text" id="sf-contact-name" class="input" autocomplete="off"></div>
+        <div class="field"><label for="sf-contact-rel">Relationship to the child</label><input type="text" id="sf-contact-rel" class="input" list="relationships" placeholder="e.g. Mother"></div>
+        <div class="field"><label for="sf-contact-phone">Phone <span class="req">*</span></label><input type="tel" id="sf-contact-phone" class="input" autocomplete="off"></div>
+        <div class="field"><label for="sf-contact-email">Email</label><input type="email" id="sf-contact-email" class="input" autocomplete="off"></div>
+        <div class="field full" id="sf-access-field"><label class="check"><input type="checkbox" id="sf-parent-access" checked><span>Let this contact follow the child's progress in the parent portal, using the email above</span></label></div>
+
+        <div class="form-section">Home address</div>
+        <div class="field full"><label for="sf-address">Address</label><textarea id="sf-address" class="input short" autocomplete="off"></textarea></div>
+        <div class="field"><label for="sf-postcode">Postcode</label><input type="text" id="sf-postcode" class="input" autocomplete="off"></div>
+
+        <div class="form-section">Emergency contact<span>Someone else to call if the main contact can't be reached.</span></div>
+        <div class="field"><label for="sf-em-name">Name</label><input type="text" id="sf-em-name" class="input" autocomplete="off"></div>
+        <div class="field"><label for="sf-em-rel">Relationship to the child</label><input type="text" id="sf-em-rel" class="input" list="relationships"></div>
+        <div class="field"><label for="sf-em-phone">Phone</label><input type="tel" id="sf-em-phone" class="input" autocomplete="off"></div>
+
+        <div class="form-section">Health and needs<span>Only the admin and this child's teachers can see these.</span></div>
+        <div class="field full"><label for="sf-medical">Medical conditions</label><textarea id="sf-medical" class="input short" placeholder="e.g. Asthma, uses an inhaler"></textarea></div>
+        <div class="field"><label for="sf-allergies">Allergies</label><input type="text" id="sf-allergies" class="input" placeholder="e.g. Peanuts"></div>
+        <div class="field"><label for="sf-medication">Medication</label><input type="text" id="sf-medication" class="input"></div>
+        <div class="field full"><label for="sf-needs">Additional or learning needs</label><textarea id="sf-needs" class="input short"></textarea></div>
+
+        <div class="form-section">Collection and consent</div>
+        <div class="field full"><label for="sf-collect">Who may collect them</label><input type="text" id="sf-collect" class="input" placeholder="e.g. Mother, father or uncle Yusuf only"></div>
+        <div class="field"><label for="sf-photo">Photos and video</label><select id="sf-photo" class="input"><option value="">Not asked yet</option><option value="yes">Yes, they consent</option><option value="no">No consent</option></select></div>
+
+        <div class="form-section">Background notes<span>For staff only. Parents never see these.</span></div>
+        <div class="field full"><label for="sf-notes" class="sr-label">Background notes</label><textarea id="sf-notes" class="input short" dir="auto" placeholder="Anything else worth knowing about them"></textarea></div>
       </div>
+      <datalist id="relationships"><option value="Mother"><option value="Father"><option value="Guardian"><option value="Grandparent"><option value="Aunt"><option value="Uncle"><option value="Older sibling"><option value="Carer"></datalist>
     </div>
     <div class="modal-foot">
       <button class="btn btn-ghost" onclick="closeModal('modal-add-student')">Cancel</button>
-      <button class="btn btn-primary" onclick="addStudent()"><svg class="ic"><use href="#i-plus"/></svg>Add student</button>
+      <button class="btn btn-primary" id="sf-save" onclick="saveStudentForm()">Add student</button>
+    </div>
+  </div>
+</div>
+
+<!-- CHOOSE CLASSES -->
+<div class="modal-overlay" id="modal-pick">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="pick-title">
+    <div class="modal-head">
+      <div><h3 class="modal-title" id="pick-title">Classes</h3><p class="modal-sub" id="pick-sub"></p></div>
+      <button class="icon-close" onclick="closeModal('modal-pick')" aria-label="Close"><svg class="ic"><use href="#i-x"/></svg></button>
+    </div>
+    <div class="modal-body"><div id="pick-list"></div></div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost" onclick="closeModal('modal-pick')">Cancel</button>
+      <button class="btn btn-primary" onclick="savePicker()"><svg class="ic"><use href="#i-check"/></svg>Save classes</button>
+    </div>
+  </div>
+</div>
+
+<!-- CLASS REPORT -->
+<div class="modal-overlay" id="modal-class-report">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="cr-title">
+    <div class="modal-head">
+      <div><h3 class="modal-title" id="cr-title">Make a class report</h3><p class="modal-sub" id="cr-sub"></p></div>
+      <button class="icon-close" onclick="closeModal('modal-class-report')" aria-label="Close"><svg class="ic"><use href="#i-x"/></svg></button>
+    </div>
+    <div class="modal-body">
+      <div class="form-grid">
+        <div class="field full"><label for="cr-period">Period</label>
+          <select id="cr-period" class="input" onchange="crPeriodChanged()">
+            <option value="term">This term</option><option value="4w">Last 4 weeks</option><option value="3m">Last 3 months</option><option value="all">Since they started</option><option value="custom">Choose dates</option>
+          </select></div>
+        <div class="field" id="cr-from-f" hidden><label for="cr-from">From</label><input type="date" id="cr-from" class="input"></div>
+        <div class="field" id="cr-to-f" hidden><label for="cr-to">To</label><input type="date" id="cr-to" class="input"></div>
+        <div class="field full"><label for="cr-comments">Teacher's comments <span class="opt">(optional, printed on the report)</span></label><textarea id="cr-comments" class="input" dir="auto" placeholder="Strengths, what to work on next, and how parents can help at home"></textarea></div>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost" onclick="closeModal('modal-class-report')">Cancel</button>
+      <button class="btn btn-accent" onclick="makeClassReport()"><svg class="ic"><use href="#i-chart"/></svg>Make report</button>
     </div>
   </div>
 </div>
@@ -898,7 +1212,7 @@ body.locked{overflow:hidden}
 <!-- REPORT -->
 <div id="pdf-report">
   <div class="report-bar">
-    <div class="rb-left"><svg class="ic"><use href="#i-file"/></svg><span>Session report preview</span></div>
+    <div class="rb-left"><svg class="ic"><use href="#i-file"/></svg><span id="rb-label">Session report preview</span></div>
     <div class="rb-actions">
       <button class="btn btn-dark btn-sm" onclick="closeReport()"><svg class="ic"><use href="#i-x"/></svg>Close</button>
       <button class="btn btn-accent btn-sm" onclick="window.print()"><svg class="ic"><use href="#i-printer"/></svg>Print or save as PDF</button>
@@ -907,16 +1221,88 @@ body.locked{overflow:hidden}
   <article class="report-sheet" id="report-content"></article>
 </div>
 
-<section class="signin" id="signin" hidden>
-  <div class="modal small">
-    <div class="modal-head"><div><h3 class="modal-title">Sign in</h3><p class="modal-sub" id="signin-status">We'll email you a link. There's no password to remember.</p></div></div>
-    <div class="modal-body"><div class="field"><label for="signin-email">Email address</label><input type="email" id="signin-email" class="input" autocomplete="email"></div></div>
-    <div class="modal-foot"><button class="btn btn-primary" onclick="sendSignInLink()">Email me a sign-in link</button></div>
+<section class="welcome" id="welcome" hidden>
+  <div class="welcome-inner">
+    <svg class="logo w-lockup" role="img" aria-label="British Institute of Qur'an and Qira'at"><use href="#biqq-lockup"/></svg>
+
+    <div class="w-pane" data-pane="choose">
+      <h1 class="w-title">As-salāmu ‘alaykum</h1>
+      <p class="w-sub">Welcome to the British Institute of Qur'an &amp; Qira'at. Are you here as a parent or as a teacher?</p>
+      <div class="w-choices">
+        <button class="w-choice" onclick="showWelcome('parent')"><span class="fc-icon"><svg class="ic"><use href="#i-heart"/></svg></span><strong>I'm a parent</strong><span>Follow your child's progress and read their reports.</span></button>
+        <button class="w-choice" onclick="showWelcome('teacher')"><span class="fc-icon alt"><svg class="ic"><use href="#i-book"/></svg></span><strong>I'm a teacher</strong><span>Take the register, log sessions and make class reports.</span></button>
+      </div>
+    </div>
+
+    <div class="w-pane w-card" data-pane="parent" hidden>
+      <h2>Parent sign in</h2>
+      <p class="w-help">Use the email the institute has for you. We'll send you a link, so there's no password to remember.</p>
+      <div class="w-form">
+        <div class="field"><label for="parent-email">Email address</label><input type="email" id="parent-email" class="input" autocomplete="email" onkeydown="if (event.key === 'Enter') sendParentLink()"></div>
+        <button class="btn btn-primary" onclick="sendParentLink()"><svg class="ic"><use href="#i-mail"/></svg>Email me a sign-in link</button>
+        <p class="w-status" id="parent-status" aria-live="polite"></p>
+      </div>
+      <div class="w-links"><button class="link-btn" onclick="showWelcome('choose')"><svg class="ic" style="transform:scaleX(-1)"><use href="#i-chev"/></svg>Back</button></div>
+    </div>
+
+    <div class="w-pane w-card" data-pane="teacher" hidden>
+      <h2>Teacher sign in</h2>
+      <div class="w-form">
+        <div class="field"><label for="teacher-email">Email address</label><input type="email" id="teacher-email" class="input" autocomplete="email"></div>
+        <div class="field"><label for="teacher-password">Password</label><input type="password" id="teacher-password" class="input" autocomplete="current-password" onkeydown="if (event.key === 'Enter') teacherSignIn()"></div>
+        <button class="btn btn-primary" onclick="teacherSignIn()"><svg class="ic"><use href="#i-lock"/></svg>Sign in</button>
+      </div>
+      <div class="w-links">
+        <button class="link-btn" onclick="showWelcome('choose')"><svg class="ic" style="transform:scaleX(-1)"><use href="#i-chev"/></svg>Back</button>
+        <button class="link-btn" onclick="showWelcome('forgot')">Forgot your password?</button>
+      </div>
+      <div class="w-divider"><span>New to the institute?</span><button class="btn btn-ghost btn-sm" onclick="showWelcome('request')">Ask for access</button></div>
+    </div>
+
+    <div class="w-pane w-card" data-pane="request" hidden>
+      <h2>Ask for teacher access</h2>
+      <p class="w-help">The institute will check your details. Once you're approved, we'll email you a link to set your password.</p>
+      <div class="w-form">
+        <div class="field"><label for="req-first">First name</label><input type="text" id="req-first" class="input" autocomplete="given-name"></div>
+        <div class="field"><label for="req-last">Last name</label><input type="text" id="req-last" class="input" autocomplete="family-name"></div>
+        <div class="field"><label for="req-email">Email address</label><input type="email" id="req-email" class="input" autocomplete="email" onkeydown="if (event.key === 'Enter') requestAccess()"></div>
+        <button class="btn btn-primary" onclick="requestAccess()">Send my request</button>
+      </div>
+      <div class="w-links"><button class="link-btn" onclick="showWelcome('teacher')"><svg class="ic" style="transform:scaleX(-1)"><use href="#i-chev"/></svg>I already have a password</button></div>
+    </div>
+
+    <div class="w-pane w-card" data-pane="requested" hidden>
+      <h2 id="requested-title">Thank you</h2>
+      <p class="w-help">Your request has gone to the institute. Once they approve it, you'll get an email with a link to set your password. You can close this page now.</p>
+      <div class="w-links"><button class="link-btn" onclick="showWelcome('choose')"><svg class="ic" style="transform:scaleX(-1)"><use href="#i-chev"/></svg>Back to the start</button></div>
+    </div>
+
+    <div class="w-pane w-card" data-pane="forgot" hidden>
+      <h2>Reset your password</h2>
+      <p class="w-help">Enter your email and we'll send you a link to choose a new password.</p>
+      <div class="w-form">
+        <div class="field"><label for="forgot-email">Email address</label><input type="email" id="forgot-email" class="input" autocomplete="email" onkeydown="if (event.key === 'Enter') sendReset()"></div>
+        <button class="btn btn-primary" onclick="sendReset()"><svg class="ic"><use href="#i-mail"/></svg>Email me a reset link</button>
+        <p class="w-status" id="forgot-status" aria-live="polite"></p>
+      </div>
+      <div class="w-links"><button class="link-btn" onclick="showWelcome('teacher')"><svg class="ic" style="transform:scaleX(-1)"><use href="#i-chev"/></svg>Back to sign in</button></div>
+    </div>
+
+    <div class="w-pane w-card" data-pane="password" hidden>
+      <h2 id="pw-title">Choose your password</h2>
+      <p class="w-help">From now on you'll sign in with your email and this password. Use at least 8 characters.</p>
+      <div class="w-form">
+        <div class="field"><label for="pw-new">New password</label><input type="password" id="pw-new" class="input" autocomplete="new-password"></div>
+        <div class="field"><label for="pw-again">Type it again</label><input type="password" id="pw-again" class="input" autocomplete="new-password" onkeydown="if (event.key === 'Enter') savePassword()"></div>
+        <button class="btn btn-primary" onclick="savePassword()"><svg class="ic"><use href="#i-lock"/></svg>Save password</button>
+      </div>
+      <div class="w-links"><button class="link-btn" onclick="signOut()">Sign out</button></div>
+    </div>
   </div>
 </section>
 <section class="signin" id="not-invited" hidden>
   <div class="modal small">
-    <div class="modal-head"><div><h3 class="modal-title">You're signed in</h3><p class="modal-sub">You haven't been added to an institute yet. Ask your admin to invite this email address, then sign in again.</p></div></div>
+    <div class="modal-head"><div><h3 class="modal-title">You're signed in</h3><p class="modal-sub">This email isn't linked to a teacher or a student yet. Ask the institute to add it, then sign in again.</p></div></div>
     <div class="modal-foot"><button class="btn btn-ghost" onclick="signOut()">Sign out</button></div>
   </div>
 </section>
@@ -927,19 +1313,22 @@ body.locked{overflow:hidden}
 // ── Constants ──
 const SUPABASE_URL = 'https://jasydhtioaddbsxxpxxk.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_BSq3lejgQFM7S0zNLmtj0g_7uAvznI4';
-const db = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+const INSTITUTE = 'biqq';   // this institute's short name, set in the database update
+const RECOVERY_LINK = location.hash.includes('type=recovery');   // arrived from a password reset email
+const db = supabase.createClient(SUPABASE_URL, SUPABASE_KEY, { auth: { flowType: 'implicit' } });
 
 const THEME_KEY = 'biqq-theme';
 const APP_TITLE = 'BIQQ Student Tracker';
-const MOODS = {
-  motivated:  { label: 'Motivated',  tone: '#2a7262' },
-  focused:    { label: 'Focused',    tone: '#1f5f7a' },
-  confident:  { label: 'Confident',  tone: '#3e7a3a' },
-  happy:      { label: 'Happy',      tone: '#a8771f' },
-  tired:      { label: 'Tired',      tone: '#6f6a60' },
-  distracted: { label: 'Distracted', tone: '#9a5f2e' },
-  anxious:    { label: 'Anxious',    tone: '#7d4f6b' },
-  struggling: { label: 'Struggling', tone: '#9e3a2b' }
+const BEHAVIOURS = {
+  exemplary:         { label: 'Exemplary',         tone: '#2e7d4f' },
+  good:              { label: 'Good',              tone: '#1f6f8b' },
+  needs_improvement: { label: 'Needs improvement', tone: '#976611' },
+  critical:          { label: 'Critical',          tone: '#b3362a' }
+};
+const MARKS = {
+  present: { label: 'Present', short: 'P', tone: '#2e7d4f' },
+  late:    { label: 'Late',    short: 'L', tone: '#976611' },
+  absent:  { label: 'Absent',  short: 'A', tone: '#b3362a' }
 };
 const RATING_WORDS = ['Not rated', 'Needs work', 'Developing', 'Good', 'Very good', 'Excellent'];
 const SECTIONS = {
@@ -950,7 +1339,9 @@ const SECTIONS = {
 const HIJRI_MONTHS = ['Muharram', 'Safar', 'Rabi‘ al-Awwal', 'Rabi‘ al-Thani', 'Jumada al-Ula', 'Jumada al-Akhirah', 'Rajab', 'Sha‘ban', 'Ramadan', 'Shawwal', 'Dhu al-Qa‘dah', 'Dhu al-Hijjah'];
 
 // ── State ──
-const state = { students: [], sessions: [], classes: [], enrolments: [], role: null, orgId: null, ratings: { mem: 0, rev: 0, rec: 0 }, selectedMood: '', currentStudentId: null, currentSessionId: null, currentPage: 'dashboard' };
+const state = { students: [], sessions: [], classes: [], enrolments: [], guardians: [], guardiansOn: false, members: [], classTeachers: [], invites: [], requests: [],
+  me: null, role: null, orgId: null, ratings: { mem: 0, rev: 0, rec: 0 }, selectedBehaviour: '', currentStudentId: null, currentSessionId: null, currentPage: 'dashboard',
+  register: { classId: '', date: '', marks: {}, saved: {} }, editingStudentId: null, reportStudentId: null, recovering: RECOVERY_LINK, passwordJustUsed: false };
 
 // ── Small helpers ──
 const $ = id => document.getElementById(id);
@@ -958,7 +1349,7 @@ const ic = (name, cls = '') => `<svg class="ic ${cls}" aria-hidden="true"><use h
 function uid() { return Math.random().toString(36).slice(2, 11) + Date.now().toString(36); }
 function esc(v) { return String(v ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])); }
 function val(v) { return v ? esc(v) : '<span class="empty">Not recorded</span>'; }
-function plural(n, word) { return `${n} ${word}${n === 1 ? '' : 's'}`; }
+function plural(n, word, many) { return `${n} ${n === 1 ? word : (many || word + 's')}`; }
 function mean(nums) { const v = nums.map(Number).filter(n => n > 0); return v.length ? v.reduce((a, b) => a + b, 0) / v.length : null; }
 
 // ── Theme ──
@@ -1016,21 +1407,6 @@ function hijri(d) {
 }
 
 // ── Data ──
-function normalizeSession(s) {
-  const q = v => Math.max(0, Math.min(5, parseInt(v, 10) || 0));
-  const out = {
-    id: s.id || uid(), studentId: s.studentId, date: s.date || '',
-    memorization: Object.assign({ surah: '', verses: '', quality: 0, notes: '' }, s.memorization || {}),
-    revision: Object.assign({ content: '', mistakes: '', quality: 0, notes: '' }, s.revision || {}),
-    recitation: Object.assign({ surah: '', tajweed: '', quality: 0, notes: '' }, s.recitation || {}),
-    feelings: Object.assign({ mood: '', notes: '' }, s.feelings || {}),
-    targets: s.targets || '', reflection: s.reflection || ''
-  };
-  out.memorization.quality = q(out.memorization.quality);
-  out.revision.quality = q(out.revision.quality);
-  out.recitation.quality = q(out.recitation.quality);
-  return out;
-}
 const getStudent = id => state.students.find(s => s.id === id);
 const byDateDesc = (a, b) => (b.date || '').localeCompare(a.date || '');
 const sessionAvg = s => mean([s.memorization.quality, s.revision.quality, s.recitation.quality]);
@@ -1064,7 +1440,6 @@ function triad(s) {
     <span class="tri" title="Recitation">${ic('mic')}${dots(s.recitation.quality, true)}</span>
   </span>`;
 }
-function moodTag(m) { const mo = MOODS[m]; return mo ? `<span class="mood-tag" style="--tone:${mo.tone}"><i></i>${mo.label}</span>` : ''; }
 function emptyState(title, text, button = '') {
   return `<div class="empty-state"><svg class="logo empty-mark" aria-hidden="true"><use href="#biqq-mark"/></svg><h3>${title}</h3><p>${text}</p>${button}</div>`;
 }
@@ -1072,111 +1447,15 @@ function dateChip(dateStr) {
   const d = parseDate(dateStr);
   return `<span class="date-chip"><span class="d">${d ? d.getDate() : '?'}</span><span class="m">${d ? d.toLocaleDateString('en-GB', { month: 'short' }) : ''}</span></span>`;
 }
-const btnLog = (label = 'Log a session') => `<button class="btn btn-accent" onclick="showPage('log-session')">${ic('plus')}${label}</button>`;
-const btnAdd = (cls = 'btn-primary') => `<button class="btn ${cls}" onclick="openAddStudentModal()">${ic('plus')}Add a student</button>`;
+const btnLog = (label = 'Log a session') => `<button class="btn btn-accent staff-only" onclick="showPage('log-session')">${ic('plus')}${label}</button>`;
+const btnAdd = (cls = 'btn-primary') => `<button class="btn ${cls} staff-only" onclick="openAddStudentModal()">${ic('plus')}Add a student</button>`;
 
 // ── Navigation ──
-function showPage(id) {
-  state.currentPage = id;
-  document.querySelectorAll('.page').forEach(p => p.classList.toggle('active', p.id === 'page-' + id));
-  const navKey = id === 'student-profile' ? 'students' : id;
-  document.querySelectorAll('[data-nav]').forEach(b => {
-    const on = b.dataset.nav === navKey;
-    b.classList.toggle('active', on);
-    if (on) b.setAttribute('aria-current', 'page'); else b.removeAttribute('aria-current');
-  });
-  if (id === 'dashboard') renderDashboard();
-  if (id === 'students') renderStudentList();
-  if (id === 'log-session') renderStudentSelects();
-  if (id === 'history') { renderStudentSelects(); renderHistory(); }
-  window.scrollTo(0, 0);
-}
-function renderAll() {
-  renderDashboard(); renderStudentList(); renderStudentSelects(); renderHistory();
-  if (state.currentPage === 'student-profile' && state.currentStudentId) viewStudent(state.currentStudentId, true);
-}
 
 // ── Dashboard ──
-function renderDashboard() {
-  const now = new Date();
-  $('hero-greg').textContent = now.toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
-  const h = hijri(now);
-  $('hero-hijri').textContent = h;
-  $('hero-sep').style.display = h ? '' : 'none';
-
-  const weekStart = parseDate(localISO()); weekStart.setDate(weekStart.getDate() - 6);
-  const from = localISO(weekStart), to = localISO();
-  const weekCount = state.sessions.filter(s => s.date && s.date >= from && s.date <= to).length;
-  const nS = state.students.length;
-  $('hero-sub').textContent = !nS
-    ? 'Add your first student and their progress will start to build up here.'
-    : `You're teaching ${plural(nS, 'student')}, ${weekCount ? `with ${plural(weekCount, 'session')} logged in the last week.` : 'and nothing has been logged in the last week yet.'}`;
-
-  $('stat-students').textContent = nS;
-  $('stat-sessions').textContent = state.sessions.length;
-  const avg = mean(state.sessions.map(sessionAvg).filter(Boolean));
-  $('stat-avg').innerHTML = avg ? `${avg.toFixed(1)}<small>/5</small>` : '<span class="na">Nothing rated yet</span>';
-  $('stat-thisweek').textContent = weekCount;
-
-  const recent = [...state.sessions].sort(byDateDesc).slice(0, 5);
-  $('recent-sessions-list').innerHTML = recent.length ? recent.map(s => {
-    const st = getStudent(s.studentId);
-    return `<div class="row" role="button" tabindex="0" onclick="viewSessionDetail('${s.id}')">
-      ${dateChip(s.date)}
-      <span class="row-main"><span class="row-title">${esc(st ? st.name : 'Unknown student')}</span><span class="row-sub">${esc(sessionSummary(s))}</span></span>
-      ${triad(s)}${ic('chev', 'chev')}
-    </div>`;
-  }).join('') : emptyState('No sessions yet', 'Log a lesson and it will show up here.', nS ? btnLog() : '');
-
-  $('dashboard-students').innerHTML = nS ? state.students.map(st => {
-    const ss = studentStats(st.id);
-    return `<div class="row" role="button" tabindex="0" onclick="viewStudent('${st.id}')">
-      ${avatar(st.name)}
-      <span class="row-main"><span class="row-title">${esc(st.name)}</span><span class="row-sub">${plural(ss.count, 'session')}${ss.avg ? `, averaging ${ss.avg.toFixed(1)}` : ''}</span></span>
-      <span class="row-aside">${ss.last ? relDate(ss.last.date) : 'No sessions'}</span>${ic('chev', 'chev')}
-    </div>`;
-  }).join('') : emptyState('No students yet', 'Add a student to start tracking their progress.', btnAdd());
-}
 
 // ── Students ──
-function renderStudentList() {
-  const el = $('student-list');
-  if (!state.students.length) {
-    el.style.display = 'block';
-    el.innerHTML = `<div class="card">${emptyState('No students yet', 'Add your first student to start tracking their memorisation, revision and recitation.', btnAdd())}</div>`;
-    return;
-  }
-  el.style.display = '';
-  el.innerHTML = state.students.map(st => {
-    const ss = studentStats(st.id);
-    const meta = [st.startDate ? `Started ${formatDate(st.startDate)}` : 'No start date', st.age ? `age ${esc(st.age)}` : ''].filter(Boolean).join(', ');
-    return `<article class="student-card" onclick="viewStudent('${st.id}')">
-      <div class="sc-top">
-        ${avatar(st.name, 'lg')}
-        <div class="sc-id"><h3>${esc(st.name)}</h3><p>${meta}</p></div>
-        <button class="btn btn-quiet btn-icon btn-sm" onclick="event.stopPropagation();deleteStudent('${st.id}')" aria-label="Remove ${esc(st.name)}" title="Remove student">${ic('trash')}</button>
-      </div>
-      <p class="sc-level">${st.level ? esc(st.level) : '<span class="empty">No starting level recorded</span>'}</p>
-      <div class="sc-stats">
-        <div><span class="v">${ss.count}</span><span class="l">Sessions</span></div>
-        <div><span class="v">${ss.avg ? ss.avg.toFixed(1) : '<span class="na">None</span>'}</span><span class="l">Average</span></div>
-        <div><span class="v word">${ss.last ? relDate(ss.last.date) : '<span class="na">None</span>'}</span><span class="l">Last seen</span></div>
-      </div>
-      <div class="sc-actions">
-        <button class="btn btn-ghost btn-sm" onclick="event.stopPropagation();viewStudent('${st.id}')">View profile</button>
-        <button class="btn btn-primary btn-sm" onclick="event.stopPropagation();logSessionFor('${st.id}')">${ic('plus')}Log session</button>
-      </div>
-    </article>`;
-  }).join('') + `<button class="add-card" onclick="openAddStudentModal()"><span class="plus">${ic('plus')}</span>Add a student</button>`;
-}
 
-function openAddStudentModal() {
-  ['new-student-name', 'new-student-age', 'new-student-level', 'new-student-targets', 'new-student-notes'].forEach(id => $(id).value = '');
-  $('new-student-start').value = localISO();
-  fillClassPicker();
-  openModal('modal-add-student');
-  setTimeout(() => $('new-student-name').focus(), 60);
-}
 
 // ── Student profile ──
 function progRow(label, ar, icon, v, alt) {
@@ -1186,74 +1465,6 @@ function progRow(label, ar, icon, v, alt) {
     <div class="bar ${alt ? 'alt' : ''}"><i data-w="${v ? (v / 5 * 100).toFixed(1) : 0}"></i></div>
   </div>`;
 }
-function viewStudent(id, silent = false) {
-  const st = getStudent(id); if (!st) return;
-  state.currentStudentId = id;
-  const ss = studentStats(id);
-  const fromSession = ss.sessions.find(s => s.targets);
-  const targets = fromSession ? fromSession.targets : (st.targets || '');
-  const targetsNote = fromSession ? `Set ${relDate(fromSession.date, true)}` : (st.targets ? 'Set when they joined' : '');
-
-  $('profile-content').innerHTML = `
-    <button class="back-link" onclick="showPage('students')">${ic('arrow-left')}All students</button>
-    <section class="profile-hero">
-      ${avatar(st.name, 'xl')}
-      <div class="ph-main">
-        <div class="ph-kicker">Student profile</div>
-        <h1 class="ph-name">${esc(st.name)}</h1>
-        <div class="ph-meta">
-          ${st.startDate ? `<span>${ic('calendar')}Started ${formatDate(st.startDate)}</span>` : ''}
-          ${st.age ? `<span>${ic('user')}Age ${esc(st.age)}</span>` : ''}
-          <span>${ic('book')}${plural(ss.count, 'session')}</span>
-        </div>
-      </div>
-      <button class="btn btn-accent" onclick="logSessionFor('${id}')">${ic('plus')}Log a session</button>
-    </section>
-
-    <section class="ledger three">
-      <div class="ledger-item"><span class="ledger-label">Sessions</span><span class="ledger-value">${ss.count}</span><span class="ledger-note">Logged so far</span></div>
-      <div class="ledger-item"><span class="ledger-label">Average rating</span><span class="ledger-value">${ss.avg ? ss.avg.toFixed(1) + '<small>/5</small>' : '<span class="na">Nothing rated yet</span>'}</span><span class="ledger-note">Across all three areas</span></div>
-      <div class="ledger-item"><span class="ledger-label">Last session</span><span class="ledger-value text">${ss.last ? relDate(ss.last.date) : '<span class="na">None yet</span>'}</span><span class="ledger-note">${ss.last ? formatDate(ss.last.date, { weekday: 'long', day: 'numeric', month: 'long' }) : 'Log one to get started'}</span></div>
-    </section>
-
-    <div class="grid-2">
-      <section class="card">
-        <div class="card-head"><h2 class="card-title">Progress</h2><span class="card-note">Average rating in each area</span></div>
-        <div class="prog">
-          ${progRow(SECTIONS.mem.label, SECTIONS.mem.ar, 'book', ss.mem)}
-          ${progRow(SECTIONS.rev.label, SECTIONS.rev.ar, 'repeat', ss.rev)}
-          ${progRow(SECTIONS.rec.label, SECTIONS.rec.ar, 'mic', ss.rec, true)}
-        </div>
-      </section>
-      <section class="card">
-        <div class="card-head"><h2 class="card-title">Current targets</h2>${targetsNote ? `<span class="card-note">${targetsNote}</span>` : ''}</div>
-        ${targets ? `<div class="targets" dir="auto">${esc(targets)}</div>` : '<p class="note-text empty" style="margin-top:12px">No targets set yet. Add some when you log their next session.</p>'}
-        ${st.level ? `<div class="note-label">Where they started</div><p class="note-text" dir="auto">${esc(st.level)}</p>` : ''}
-        ${st.notes ? `<div class="note-label">Background</div><p class="note-text" dir="auto">${esc(st.notes)}</p>` : ''}
-      </section>
-    </div>
-
-    <section class="card" style="margin-top:20px">
-      <div class="card-head"><h2 class="card-title">Sessions</h2><span class="card-note">Newest first</span></div>
-      <div class="list">
-        ${ss.sessions.length ? ss.sessions.map(s => `
-          <div class="row" role="button" tabindex="0" onclick="viewSessionDetail('${s.id}')">
-            ${dateChip(s.date)}
-            <span class="row-main"><span class="row-title">${esc(sessionSummary(s))}</span><span class="row-sub">${formatDate(s.date, { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}</span></span>
-            ${triad(s)}
-            <button class="btn btn-ghost btn-sm btn-icon" onclick="event.stopPropagation();exportSession('${s.id}')" aria-label="Export PDF" title="Export PDF">${ic('file')}</button>
-          </div>`).join('') : emptyState('No sessions yet', 'Log their first lesson to start building a record.', `<button class="btn btn-accent" onclick="logSessionFor('${id}')">${ic('plus')}Log a session</button>`)}
-      </div>
-    </section>`;
-
-  if (!silent) {
-    document.querySelectorAll('.page').forEach(p => p.classList.toggle('active', p.id === 'page-student-profile'));
-    state.currentPage = 'student-profile';
-    document.querySelectorAll('[data-nav]').forEach(b => b.classList.toggle('active', b.dataset.nav === 'students'));
-    window.scrollTo(0, 0);
-  }
-  animateBars();
-}
 function animateBars() {
   requestAnimationFrame(() => requestAnimationFrame(() => {
     document.querySelectorAll('.bar > i[data-w]').forEach(el => { el.style.width = el.dataset.w + '%'; });
@@ -1261,17 +1472,6 @@ function animateBars() {
 }
 
 // ── Log a session ──
-function renderStudentSelects() {
-  const opts = state.students.map(s => `<option value="${s.id}">${esc(s.name)}</option>`).join('');
-  const sel = $('session-student'); const cur = sel.value;
-  sel.innerHTML = '<option value="">Select a student</option>' + opts;
-  if (cur && getStudent(cur)) sel.value = cur;
-  const hsel = $('history-filter'); const hcur = hsel.value;
-  hsel.innerHTML = '<option value="">All students</option>' + opts;
-  if (hcur && getStudent(hcur)) hsel.value = hcur;
-  $('no-students-note').hidden = state.students.length > 0;
-  updateSaveBar();
-}
 function updateSaveBar() {
   const st = getStudent($('session-student').value);
   $('save-bar-text').innerHTML = st ? `Logging a session for <strong>${esc(st.name)}</strong>` : 'Choose a student to begin';
@@ -1311,23 +1511,6 @@ function paintRating(field, v, preview = false) {
   w.textContent = RATING_WORDS[v];
   w.classList.toggle('set', v > 0 && !preview);
 }
-function renderMoods() {
-  $('mood-grid').innerHTML = Object.entries(MOODS).map(([k, m]) =>
-    `<button type="button" class="mood" style="--tone:${m.tone}" data-mood="${k}" aria-pressed="false" onclick="selectMood(this,'${k}')"><i></i>${m.label}</button>`).join('');
-}
-function selectMood(btn, mood) {
-  const same = state.selectedMood === mood;
-  document.querySelectorAll('.mood').forEach(b => { b.classList.remove('selected'); b.setAttribute('aria-pressed', 'false'); });
-  state.selectedMood = same ? '' : mood;
-  if (!same) { btn.classList.add('selected'); btn.setAttribute('aria-pressed', 'true'); }
-}
-function clearSessionForm() {
-  ['mem-surah', 'mem-verses', 'mem-notes', 'rev-content', 'rev-mistakes', 'rev-notes', 'rec-surah', 'rec-tajweed', 'rec-notes', 'feelings-notes', 'targets', 'reflection'].forEach(id => $(id).value = '');
-  state.ratings = { mem: 0, rev: 0, rec: 0 };
-  ['mem', 'rev', 'rec'].forEach(f => paintRating(f, 0));
-  state.selectedMood = '';
-  document.querySelectorAll('.mood').forEach(b => { b.classList.remove('selected'); b.setAttribute('aria-pressed', 'false'); });
-}
 
 // ── History ──
 function scoreBlock(key, q, detail) {
@@ -1336,38 +1519,6 @@ function scoreBlock(key, q, detail) {
     <div class="sb-top"><span class="sb-label">${ic(sec.icon)}${sec.label}</span>${q ? rubs(q) : '<span class="na">Not rated</span>'}</div>
     <div class="sb-detail" dir="auto">${detail ? esc(detail) : '<span class="empty">No passage noted</span>'}</div>
   </div>`;
-}
-function renderHistory() {
-  const filter = $('history-filter').value;
-  let list = [...state.sessions].sort(byDateDesc);
-  if (filter) list = list.filter(s => s.studentId === filter);
-  const el = $('history-list');
-  if (!list.length) {
-    el.innerHTML = `<div class="card">${emptyState('No sessions found', filter ? 'Nothing has been logged for this student yet.' : 'Once you log a session, it will appear here.', state.students.length ? btnLog() : btnAdd())}</div>`;
-    return;
-  }
-  el.innerHTML = list.map(s => {
-    const st = getStudent(s.studentId); const name = st ? st.name : 'Unknown student';
-    const d = parseDate(s.date);
-    return `<article class="h-card">
-      <div class="h-date"><span class="d">${d ? d.getDate() : '?'}</span><span class="m">${d ? d.toLocaleDateString('en-GB', { month: 'long' }) : ''}</span><span class="y">${d ? d.getFullYear() : ''}</span></div>
-      <div class="h-body">
-        <div class="h-top">
-          <div class="h-who">${avatar(name, 'sm')}<span class="h-name">${esc(name)}</span>${moodTag(s.feelings.mood)}</div>
-          <div class="h-actions">
-            <button class="btn btn-ghost btn-sm" onclick="viewSessionDetail('${s.id}')">${ic('eye')}View</button>
-            <button class="btn btn-accent btn-sm" onclick="exportSession('${s.id}')">${ic('file')}Export PDF</button>
-          </div>
-        </div>
-        <div class="h-scores">
-          ${scoreBlock('mem', s.memorization.quality, s.memorization.surah)}
-          ${scoreBlock('rev', s.revision.quality, s.revision.content)}
-          ${scoreBlock('rec', s.recitation.quality, s.recitation.surah)}
-        </div>
-        ${s.targets ? `<div class="h-targets">${ic('target')}<div><strong>Targets for next session</strong><p dir="auto">${esc(s.targets)}</p></div></div>` : ''}
-      </div>
-    </article>`;
-  }).join('');
 }
 
 // ── Session detail ──
@@ -1380,20 +1531,6 @@ function detailBlock(key, q, fields) {
     </div>
     <dl class="kv">${fields.map(([label, v]) => `<div><dt>${label}</dt><dd dir="auto">${val(v)}</dd></div>`).join('')}</dl>
   </div>`;
-}
-function viewSessionDetail(id) {
-  const s = state.sessions.find(x => x.id === id); if (!s) return;
-  state.currentSessionId = id;
-  const st = getStudent(s.studentId); const name = st ? st.name : 'Unknown student';
-  $('detail-head').innerHTML = `<div class="dh">${avatar(name, 'lg')}<div><h3 class="modal-title">${esc(name)}</h3><p class="modal-sub">${formatDate(s.date, { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}</p></div></div>`;
-  $('detail-body').innerHTML = `
-    ${detailBlock('mem', s.memorization.quality, [['Surah or passage', s.memorization.surah], ['Verses memorised', s.memorization.verses], ['Notes', s.memorization.notes]])}
-    ${detailBlock('rev', s.revision.quality, [['Content revised', s.revision.content], ['Mistakes', s.revision.mistakes], ['Notes', s.revision.notes]])}
-    ${detailBlock('rec', s.recitation.quality, [['Passage recited', s.recitation.surah], ['Tajweed', s.recitation.tajweed], ['Notes', s.recitation.notes]])}
-    ${(s.feelings.mood || s.feelings.notes) ? `<div class="d-block"><div class="d-head"><span class="d-title">${ic('heart')}How they felt</span>${moodTag(s.feelings.mood)}</div>${s.feelings.notes ? `<p class="d-text" dir="auto">${esc(s.feelings.notes)}</p>` : ''}</div>` : ''}
-    ${s.targets ? `<div class="d-block"><div class="d-head"><span class="d-title">${ic('target')}Targets for next session</span></div><div class="targets flush" dir="auto">${esc(s.targets)}</div></div>` : ''}
-    ${s.reflection ? `<div class="d-block"><div class="d-head"><span class="d-title">${ic('moon')}Reflection<span lang="ar">تأمل</span></span></div><p class="reflection" dir="auto">${esc(s.reflection)}</p></div>` : ''}`;
-  openModal('modal-session-detail');
 }
 function exportCurrentSession() {
   closeModal('modal-session-detail');
@@ -1414,44 +1551,6 @@ function reportBlock(key, q, fields) {
       : '<p class="rp-none">Not covered in this session.</p>'}
   </section>`;
 }
-function exportSession(id) {
-  const s = state.sessions.find(x => x.id === id); if (!s) return;
-  const st = getStudent(s.studentId); const name = st ? st.name : 'Unknown student';
-  const d = parseDate(s.date); const hj = d ? hijri(d) : '';
-  const mood = MOODS[s.feelings.mood] ? MOODS[s.feelings.mood].label : (s.feelings.mood ? esc(s.feelings.mood) : '');
-
-  $('report-content').innerHTML = `
-    <header class="rp-head">
-      <svg class="logo rp-lockup" role="img" aria-label="British Institute of Qur'an and Qira'at"><use href="#biqq-lockup"/></svg>
-      <div class="rp-head-right"><div class="rp-doc">Session report</div><div class="rp-ar" lang="ar" dir="rtl">تقرير الجلسة</div><div class="rp-date">${formatDate(s.date)}</div></div>
-    </header>
-    <div class="rp-rule"></div>
-    <section>
-      <div class="rp-kicker">Prepared for</div>
-      <h1 class="rp-name">${esc(name)}</h1>
-      <div class="rp-meta">
-        <div><span>Date</span><strong>${formatDate(s.date, { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}</strong></div>
-        ${hj ? `<div><span>Hijri</span><strong>${esc(hj)}</strong></div>` : ''}
-        ${mood ? `<div><span>How they felt</span><strong>${mood}</strong></div>` : ''}
-      </div>
-      ${st && st.level ? `<div class="rp-level"><span>Current level</span><p dir="auto">${esc(st.level)}</p></div>` : ''}
-    </section>
-    ${reportBlock('mem', s.memorization.quality, [['Surah or passage', s.memorization.surah], ['Verses memorised', s.memorization.verses], ['Notes', s.memorization.notes]])}
-    ${reportBlock('rev', s.revision.quality, [['Content revised', s.revision.content], ['Mistakes', s.revision.mistakes], ['Notes', s.revision.notes]])}
-    ${reportBlock('rec', s.recitation.quality, [['Passage recited', s.recitation.surah], ['Tajweed', s.recitation.tajweed], ['Notes', s.recitation.notes]])}
-    ${s.feelings.notes ? `<section class="rp-note"><h3>A note on how they felt</h3><p dir="auto">${esc(s.feelings.notes)}</p></section>` : ''}
-    ${s.targets ? `<section class="rp-note rp-targets"><h3>Targets for next session</h3><p dir="auto">${esc(s.targets)}</p></section>` : ''}
-    ${s.reflection ? `<section class="rp-note rp-reflection"><h3>Reflection</h3><p dir="auto">${esc(s.reflection)}</p></section>` : ''}
-    <footer class="rp-foot">
-      <div class="rp-verse" lang="ar" dir="rtl">وَرَتِّلِ الْقُرْآنَ تَرْتِيلًا</div>
-      <div class="rp-verse-en">And recite the Qur'an with measured recitation. Al-Muzzammil 73:4</div>
-    </footer>`;
-
-  document.title = `Session report, ${name}, ${formatDate(s.date)}`;   // becomes the suggested PDF file name
-  document.body.classList.add('report-open', 'locked');
-  $('pdf-report').classList.add('open');
-  $('pdf-report').scrollTop = 0;
-}
 function closeReport() {
   $('pdf-report').classList.remove('open');
   document.body.classList.remove('report-open');
@@ -1461,123 +1560,17 @@ function closeReport() {
 
 
 // ── Supabase: sign-in, loading ──
-async function sendSignInLink() {
-  const email = $('signin-email').value.trim();
-  if (!email) return toast('Enter your email address', 'warn');
-  const { error } = await db.auth.signInWithOtp({
-    email,
-    options: { emailRedirectTo: location.origin + location.pathname }
-  });
-  if (error) return toast(error.message, 'warn');
-  $('signin-status').textContent = 'Check your email and tap the link to sign in.';
-}
 
-async function signOut() {
-  await db.auth.signOut();
-  location.reload();
-}
 
 // ── 6d: start-up ──
-async function start() {
-  const { data: { session } } = await db.auth.getSession();
-  if (!session) { $('signin').hidden = false; return; }
-  $('signin').hidden = true;
 
-  await db.rpc('accept_invites');
-  const { data: me, error } = await db.from('members')
-    .select('org_id, role, display_name')
-    .eq('user_id', session.user.id);
-  if (error) return toast(error.message, 'warn');
-  if (!me.length) { $('not-invited').hidden = false; return; }
 
-  state.orgId = me[0].org_id;
-  state.role = me[0].role;
-  await loadAll();
-  renderAll();
-  showPage('dashboard');
-}
-
-db.auth.onAuthStateChange((event) => {
-  if (event === 'SIGNED_IN' || event === 'SIGNED_OUT') setTimeout(start, 0);
-});
 
 // ── 6e: loading ──
-async function loadAll() {
-  const [cls, studs, enr, sess] = await Promise.all([
-    db.from('classes').select('id, name').eq('archived', false).order('name'),
-    db.from('students').select('*').order('name'),
-    db.from('enrolments').select('student_id, class_id'),
-    db.from('sessions').select('*').order('session_date', { ascending: false })
-  ]);
-  const failed = [cls, studs, enr, sess].find(r => r.error);
-  if (failed) { toast('Could not load your data: ' + failed.error.message, 'warn'); return; }
-
-  state.classes = cls.data;
-  state.enrolments = enr.data;
-  state.students = studs.data.map(s => ({
-    id: s.id, name: s.name, age: s.age ?? '', startDate: s.start_date ?? '',
-    level: s.level, targets: s.targets, notes: s.notes
-  }));
-  state.sessions = sess.data.map(fromRow);
-}
-
-function fromRow(r) {
-  return normalizeSession({
-    id: r.id, studentId: r.student_id, date: r.session_date,
-    memorization: { surah: r.mem_surah, verses: r.mem_verses, quality: r.mem_quality, notes: r.mem_notes },
-    revision: { content: r.rev_content, mistakes: r.rev_mistakes, quality: r.rev_quality, notes: r.rev_notes },
-    recitation: { surah: r.rec_surah, tajweed: r.rec_tajweed, quality: r.rec_quality, notes: r.rec_notes },
-    feelings: { mood: r.mood, notes: r.mood_notes },
-    targets: r.targets, reflection: r.reflection
-  });
-}
 
 
-function fillClassPicker() {
-  $('new-student-class').innerHTML = state.classes
-    .map(c => `<option value="${c.id}">${esc(c.name)}</option>`).join('');
-}
 
-async function saveSession() {
-  const studentId = $('session-student').value;
-  const date = $('session-date').value;
-  if (!studentId) { toast('Choose which student this session was with', 'warn'); $('session-student').focus(); return; }
-  if (!date) { toast('Add the date of the session', 'warn'); $('session-date').focus(); return; }
-  const v = id => $(id).value.trim();
-  const classId = (state.enrolments.find(e => e.student_id === studentId) || {}).class_id;
-  const { data, error } = await db.from('sessions').insert({
-    student_id: studentId, class_id: classId, session_date: date,
-    mem_surah: v('mem-surah'), mem_verses: v('mem-verses'), mem_quality: state.ratings.mem, mem_notes: v('mem-notes'),
-    rev_content: v('rev-content'), rev_mistakes: v('rev-mistakes'), rev_quality: state.ratings.rev, rev_notes: v('rev-notes'),
-    rec_surah: v('rec-surah'), rec_tajweed: v('rec-tajweed'), rec_quality: state.ratings.rec, rec_notes: v('rec-notes'),
-    mood: state.selectedMood, mood_notes: v('feelings-notes'),
-    targets: v('targets'), reflection: v('reflection')
-  }).select().single();
-  if (error) { toast('That session could not be saved: ' + error.message, 'warn'); return; }
-  state.sessions.push(fromRow(data));
-  clearSessionForm();
-  renderDashboard(); renderHistory();
-  toast(`Session saved for ${getStudent(studentId).name}`);
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-async function addStudent() {
-  const name = $('new-student-name').value.trim();
-  if (!name) { toast('Add the student’s name first', 'warn'); $('new-student-name').focus(); return; }
-  const { error } = await db.rpc('add_student', {
-    p_class_id: $('new-student-class').value,
-    p_name: name,
-    p_age: $('new-student-age').value ? Number($('new-student-age').value) : null,
-    p_start_date: $('new-student-start').value || null,
-    p_level: $('new-student-level').value.trim(),
-    p_targets: $('new-student-targets').value.trim(),
-    p_notes: $('new-student-notes').value.trim()
-  });
-  if (error) { toast(error.message, 'warn'); return; }
-  await loadAll();
-  closeModal('modal-add-student');
-  renderAll();
-  toast(`${name} added`);
-}
+
 function deleteStudent(id) {
   const st = getStudent(id); if (!st) return;
   const isAdmin = state.role === 'admin';
@@ -1598,6 +1591,1118 @@ function deleteStudent(id) {
     toast(`${st.name} removed`);
   });
 }
+
+// ── Parents ──
+
+function guardiansCard(st) {
+  if (!state.guardiansOn) return '';
+  const list = state.guardians.filter(g => g.student_id === st.id);
+  return `<section class="card" style="margin-top:20px">
+    <div class="card-head"><h2 class="card-title">Parents</h2><span class="card-note">${list.length ? plural(list.length, 'parent') : 'None added yet'}</span></div>
+    <p class="parents-lead">Parents sign in with their email to follow ${esc(st.name)}'s progress. They see the same details as the session reports, and nothing about other students.</p>
+    ${list.length ? `<div class="list">${list.map(g => `
+      <div class="row static">
+        <span class="row-main"><span class="row-title">${esc(g.email)}</span><span class="row-sub g-status ${g.user_id ? 'on' : ''}">${g.user_id ? 'Has signed in' : 'Hasn’t signed in yet'}</span></span>
+        <span class="g-actions">
+          <button class="btn btn-ghost btn-sm" onclick="copyParentMessage('${g.id}')" title="Copy a message to send this parent">${ic('file')}<span class="label">Copy message</span></button>
+          <button class="btn btn-quiet btn-sm btn-icon" onclick="removeGuardian('${g.id}')" aria-label="Remove ${esc(g.email)}" title="Remove parent">${ic('trash')}</button>
+        </span>
+      </div>`).join('')}</div>` : ''}
+    <div class="guardian-add">
+      <input type="email" id="guardian-email" class="input" placeholder="Parent's email address" autocomplete="off" onkeydown="if (event.key === 'Enter') addGuardian('${st.id}')">
+      <button class="btn btn-primary" onclick="addGuardian('${st.id}')">${ic('plus')}Add parent</button>
+    </div>
+  </section>`;
+}
+
+async function addGuardian(studentId) {
+  const email = $('guardian-email').value.trim();
+  if (!email) { toast('Enter the parent’s email address', 'warn'); $('guardian-email').focus(); return; }
+  const { data, error } = await db.from('guardians')
+    .insert({ student_id: studentId, email })
+    .select('id, student_id, email, user_id').single();
+  if (error) { toast(error.code === '23505' ? 'That parent is already added' : error.message, 'warn'); return; }
+  state.guardians.push(data);
+  viewStudent(studentId, true);
+  toast('Parent added. Copy the message to send them');
+}
+
+function removeGuardian(id) {
+  const g = state.guardians.find(x => x.id === id); if (!g) return;
+  const st = getStudent(g.student_id);
+  confirmDialog({
+    title: 'Remove this parent?',
+    message: `${g.email} will no longer be able to see ${st ? st.name : 'this student'}'s progress.`,
+    confirmLabel: 'Remove parent'
+  }, async () => {
+    const { error } = await db.from('guardians').delete().eq('id', id);
+    if (error) { toast(error.message, 'warn'); return; }
+    state.guardians = state.guardians.filter(x => x.id !== id);
+    viewStudent(g.student_id, true);
+    toast('Parent removed');
+  });
+}
+
+function copyParentMessage(id) {
+  const g = state.guardians.find(x => x.id === id); if (!g) return;
+  const st = getStudent(g.student_id);
+  const url = location.origin + location.pathname;
+  const msg = `Assalamu alaykum. You can now follow ${st.name}'s Qur'an progress online. Go to ${url}, choose I'm a parent and enter ${g.email}. We'll email you a sign-in link each time, so there's no password to remember.`;
+  const done = () => toast('Message copied. Paste it into WhatsApp or a text');
+  if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(msg).then(done, () => window.prompt('Copy this message:', msg));
+  else window.prompt('Copy this message:', msg);
+}
+
+// ════════════════════════════════════════════════════════════════════════
+//  Version 2: welcome page, teacher access, classes, register, behaviour,
+//  safeguarding details and class reports
+// ════════════════════════════════════════════════════════════════════════
+
+// A second connection used only to email sign-in links to other people
+// (newly approved teachers), so the admin's own sign-in is never touched.
+const mailer = supabase.createClient(SUPABASE_URL, SUPABASE_KEY, {
+  auth: { persistSession: false, autoRefreshToken: false, detectSessionInUrl: false, storageKey: 'biqq-mailer', flowType: 'implicit' }
+});
+const appUrl = () => location.origin + location.pathname;
+const firstName = () => ((state.me && state.me.display_name) || '').trim().split(/\s+/)[0] || '';
+
+// ── Session model ──
+function normalizeSession(s) {
+  const q = v => Math.max(0, Math.min(5, parseInt(v, 10) || 0));
+  const out = {
+    id: s.id || uid(), studentId: s.studentId, classId: s.classId || null, teacherId: s.teacherId || null, date: s.date || '',
+    memorization: Object.assign({ surah: '', verses: '', quality: 0, notes: '' }, s.memorization || {}),
+    revision: Object.assign({ content: '', mistakes: '', quality: 0, notes: '' }, s.revision || {}),
+    recitation: Object.assign({ surah: '', tajweed: '', quality: 0, notes: '' }, s.recitation || {}),
+    behaviour: Object.assign({ rating: '', notes: '' }, s.behaviour || {}),
+    targets: s.targets || '', reflection: s.reflection || ''
+  };
+  out.memorization.quality = q(out.memorization.quality);
+  out.revision.quality = q(out.revision.quality);
+  out.recitation.quality = q(out.recitation.quality);
+  return out;
+}
+function fromRow(r) {
+  return normalizeSession({
+    id: r.id, studentId: r.student_id, classId: r.class_id || null, teacherId: r.teacher_id || null, date: r.session_date,
+    memorization: { surah: r.mem_surah, verses: r.mem_verses, quality: r.mem_quality, notes: r.mem_notes },
+    revision: { content: r.rev_content, mistakes: r.rev_mistakes, quality: r.rev_quality, notes: r.rev_notes },
+    recitation: { surah: r.rec_surah, tajweed: r.rec_tajweed, quality: r.rec_quality, notes: r.rec_notes },
+    behaviour: { rating: r.behaviour || '', notes: r.behaviour_notes || '' },
+    targets: r.targets, reflection: r.reflection
+  });
+}
+
+// ── Student model ──
+const SG_FIELDS = ['date_of_birth', 'address', 'postcode', 'contact_name', 'contact_relationship', 'contact_phone', 'contact_email',
+  'emergency_name', 'emergency_relationship', 'emergency_phone', 'medical_conditions', 'allergies', 'medication',
+  'additional_needs', 'collection_notes', 'photo_consent'];
+function studentFromRow(s) {
+  const st = { id: s.id, name: s.name, age: s.age ?? '', startDate: s.start_date ?? '', dob: s.date_of_birth || '',
+               level: s.level || '', targets: s.targets || '', notes: s.notes || '', sg: null };
+  if ('contact_name' in s) { st.sg = {}; SG_FIELDS.forEach(f => { st.sg[f] = s[f] ?? (f === 'photo_consent' ? null : ''); }); }
+  return st;
+}
+function ageOf(st) {
+  const d = parseDate(st.dob);
+  if (!d) return st.age || '';
+  const now = new Date();
+  let a = now.getFullYear() - d.getFullYear();
+  if (now.getMonth() < d.getMonth() || (now.getMonth() === d.getMonth() && now.getDate() < d.getDate())) a--;
+  return a;
+}
+const hasMedical = st => !!(st.sg && (st.sg.medical_conditions || st.sg.allergies || st.sg.medication));
+
+// ── Classes and teachers ──
+const classById = id => state.classes.find(c => c.id === id);
+const classIdsOf = studentId => state.enrolments.filter(e => e.student_id === studentId).map(e => e.class_id).filter(id => classById(id));
+const studentsInClass = classId => state.enrolments.filter(e => e.class_id === classId)
+  .map(e => getStudent(e.student_id)).filter(Boolean).sort((a, b) => a.name.localeCompare(b.name));
+function memberName(userId) {
+  const m = userId && state.members.find(x => x.user_id === userId);
+  return m ? (m.display_name || m.email || '') : '';
+}
+const teachersOfClass = classId => state.classTeachers.filter(ct => ct.class_id === classId).map(ct => memberName(ct.user_id)).filter(Boolean);
+function sessionWhere(s) {
+  const parts = [];
+  const c = s.classId && classById(s.classId);
+  if (c) parts.push(c.name);
+  const who = s.teacherId && state.me && s.teacherId === state.me.user_id ? 'you' : memberName(s.teacherId);
+  if (who) parts.push(`logged by ${who}`);
+  return parts.join(', ');
+}
+function classChips(studentId) {
+  if (state.role === 'parent') return '';
+  const ids = classIdsOf(studentId);
+  if (!ids.length) return state.role === 'admin' ? '<span class="chip warn">No class yet</span>' : '';
+  return ids.map(id => {
+    const t = state.role === 'admin' ? teachersOfClass(id) : [];
+    return `<span class="chip">${ic('users')}${esc(classById(id).name)}${t.length ? `<span class="chip-sub">with ${esc(t.join(', '))}</span>` : ''}</span>`;
+  }).join('');
+}
+const medChip = st => hasMedical(st) ? `<span class="chip med" title="See Safeguarding on their profile">${ic('shield')}Medical info</span>` : '';
+
+// ── Behaviour ──
+function behaviourTag(r) { const b = BEHAVIOURS[r]; return b ? `<span class="mood-tag" style="--tone:${b.tone}"><i></i>${b.label}</span>` : ''; }
+function renderMoods() {
+  $('mood-grid').innerHTML = Object.entries(BEHAVIOURS).map(([k, b]) =>
+    `<button type="button" class="mood" style="--tone:${b.tone}" data-mood="${k}" aria-pressed="false" onclick="selectMood(this,'${k}')"><i></i>${b.label}</button>`).join('');
+}
+function selectMood(btn, rating) {
+  const same = state.selectedBehaviour === rating;
+  document.querySelectorAll('.mood').forEach(b => { b.classList.remove('selected'); b.setAttribute('aria-pressed', 'false'); });
+  state.selectedBehaviour = same ? '' : rating;
+  if (!same) { btn.classList.add('selected'); btn.setAttribute('aria-pressed', 'true'); }
+}
+function clearSessionForm() {
+  ['mem-surah', 'mem-verses', 'mem-notes', 'rev-content', 'rev-mistakes', 'rev-notes', 'rec-surah', 'rec-tajweed', 'rec-notes', 'behaviour-notes', 'targets', 'reflection'].forEach(id => $(id).value = '');
+  state.ratings = { mem: 0, rev: 0, rec: 0 };
+  ['mem', 'rev', 'rec'].forEach(f => paintRating(f, 0));
+  state.selectedBehaviour = '';
+  document.querySelectorAll('.mood').forEach(b => { b.classList.remove('selected'); b.setAttribute('aria-pressed', 'false'); });
+}
+
+// ── Navigation ──
+function showPage(id) {
+  state.currentPage = id;
+  document.querySelectorAll('.page').forEach(p => p.classList.toggle('active', p.id === 'page-' + id));
+  const navKey = id === 'student-profile' ? 'students' : id;
+  document.querySelectorAll('[data-nav]').forEach(b => {
+    const on = b.dataset.nav === navKey;
+    b.classList.toggle('active', on);
+    if (on) b.setAttribute('aria-current', 'page'); else b.removeAttribute('aria-current');
+  });
+  if (id === 'dashboard') renderDashboard();
+  if (id === 'students') { renderStudentSelects(); renderStudentList(); }
+  if (id === 'log-session') renderStudentSelects();
+  if (id === 'history') { renderStudentSelects(); renderHistory(); }
+  if (id === 'register') { renderRegisterControls(); loadRegister(); }
+  if (id === 'staff') renderStaff();
+  window.scrollTo(0, 0);
+}
+function renderAll() {
+  renderDashboard(); renderStudentSelects(); renderStudentList(); renderHistory();
+  if (state.role === 'admin') renderStaff();
+  if (state.currentPage === 'student-profile' && state.currentStudentId) viewStudent(state.currentStudentId, true);
+}
+
+// ── Dashboard ──
+function renderDashboard() {
+  const now = new Date();
+  $('hero-greg').textContent = now.toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+  const h = hijri(now);
+  $('hero-hijri').textContent = h;
+  $('hero-sep').style.display = h ? '' : 'none';
+  const name = firstName();
+  document.querySelector('.hero-title').textContent = name ? `As-salāmu ‘alaykum, ${name}` : 'As-salāmu ‘alaykum';
+
+  const weekStart = parseDate(localISO()); weekStart.setDate(weekStart.getDate() - 6);
+  const from = localISO(weekStart), to = localISO();
+  const weekCount = state.sessions.filter(s => s.date && s.date >= from && s.date <= to).length;
+  const nS = state.students.length, nC = state.classes.length;
+  const week = weekCount ? `with ${plural(weekCount, 'session')} logged in the last week.` : 'and nothing has been logged in the last week yet.';
+  $('hero-sub').textContent = !nS
+    ? 'Add your first student and their progress will start to build up here.'
+    : state.role === 'admin'
+      ? `There are ${plural(nS, 'student')} across ${plural(nC, 'class', 'classes')}, ${week}`
+      : `You're teaching ${plural(nS, 'student')}, ${week}`;
+
+  // Things waiting for the admin
+  const notes = [];
+  if (state.role === 'admin') {
+    const waiting = state.requests.length;
+    if (waiting) notes.push(`<div class="notice"><span class="notice-text">${ic('badge')}${waiting === 1 ? '1 teacher is' : `${waiting} teachers are`} waiting for approval</span><button class="btn btn-primary btn-sm" onclick="showPage('staff')">Review</button></div>`);
+    const loose = state.students.filter(st => !classIdsOf(st.id).length).length;
+    if (loose) notes.push(`<div class="notice"><span class="notice-text">${ic('users')}${loose === 1 ? '1 student isn’t' : `${loose} students aren’t`} in a class yet</span><button class="btn btn-ghost btn-sm" onclick="showStudentsInClass('__none')">See who</button></div>`);
+  }
+  $('admin-notice').innerHTML = notes.join('');
+
+  $('stat-students').textContent = nS;
+  $('stat-sessions').textContent = state.sessions.length;
+  const avg = mean(state.sessions.map(sessionAvg).filter(Boolean));
+  $('stat-avg').innerHTML = avg ? `${avg.toFixed(1)}<small>/5</small>` : '<span class="na">Nothing rated yet</span>';
+  $('stat-thisweek').textContent = weekCount;
+
+  const recent = [...state.sessions].sort(byDateDesc).slice(0, 5);
+  $('recent-sessions-list').innerHTML = recent.length ? recent.map(s => {
+    const st = getStudent(s.studentId);
+    const where = state.role === 'admin' ? sessionWhere(s) : '';
+    return `<div class="row" role="button" tabindex="0" onclick="viewSessionDetail('${s.id}')">
+      ${dateChip(s.date)}
+      <span class="row-main"><span class="row-title">${esc(st ? st.name : 'Unknown student')}</span><span class="row-sub">${esc(sessionSummary(s))}</span>${where ? `<span class="row-who">${esc(where)}</span>` : ''}</span>
+      ${triad(s)}${ic('chev', 'chev')}
+    </div>`;
+  }).join('') : emptyState('No sessions yet', 'Log a lesson and it will show up here.', nS ? btnLog() : '');
+
+  $('dashboard-students').innerHTML = nS ? state.students.map(st => {
+    const ss = studentStats(st.id);
+    const cls = classIdsOf(st.id).map(id => classById(id).name).join(', ');
+    return `<div class="row" role="button" tabindex="0" onclick="viewStudent('${st.id}')">
+      ${avatar(st.name)}
+      <span class="row-main"><span class="row-title">${esc(st.name)}</span><span class="row-sub">${cls ? `${esc(cls)}, ` : ''}${plural(ss.count, 'session')}${ss.avg ? `, averaging ${ss.avg.toFixed(1)}` : ''}</span></span>
+      <span class="row-aside">${ss.last ? relDate(ss.last.date) : 'No sessions'}</span>${ic('chev', 'chev')}
+    </div>`;
+  }).join('') : emptyState('No students yet', 'Add a student to start tracking their progress.', btnAdd());
+}
+
+// ── Students ──
+function showStudentsInClass(value) {
+  showPage('students');
+  $('student-class-filter').value = value;
+  renderStudentList();
+}
+function renderStudentList() {
+  const el = $('student-list');
+  if (!state.students.length) {
+    el.style.display = 'block';
+    el.innerHTML = `<div class="card">${emptyState('No students yet', 'Add your first student to start tracking their memorisation, revision and recitation.', btnAdd())}</div>`;
+    return;
+  }
+  const filter = $('student-class-filter').value;
+  let list = state.students;
+  if (filter === '__none') list = list.filter(st => !classIdsOf(st.id).length);
+  else if (filter) list = list.filter(st => classIdsOf(st.id).includes(filter));
+  el.style.display = '';
+  el.innerHTML = list.map(st => {
+    const ss = studentStats(st.id);
+    const age = ageOf(st);
+    const meta = [st.startDate ? `Started ${formatDate(st.startDate)}` : 'No start date', age !== '' ? `age ${esc(age)}` : ''].filter(Boolean).join(', ');
+    const chips = classChips(st.id) + medChip(st);
+    return `<article class="student-card" onclick="viewStudent('${st.id}')">
+      <div class="sc-top">
+        ${avatar(st.name, 'lg')}
+        <div class="sc-id"><h3>${esc(st.name)}</h3><p>${meta}</p></div>
+        <button class="btn btn-quiet btn-icon btn-sm staff-only" onclick="event.stopPropagation();deleteStudent('${st.id}')" aria-label="Remove ${esc(st.name)}" title="Remove student">${ic('trash')}</button>
+      </div>
+      ${chips ? `<div class="chips">${chips}</div>` : ''}
+      <p class="sc-level">${st.level ? esc(st.level) : '<span class="empty">No starting level recorded</span>'}</p>
+      <div class="sc-stats">
+        <div><span class="v">${ss.count}</span><span class="l">Sessions</span></div>
+        <div><span class="v">${ss.avg ? ss.avg.toFixed(1) : '<span class="na">None</span>'}</span><span class="l">Average</span></div>
+        <div><span class="v word">${ss.last ? relDate(ss.last.date) : '<span class="na">None</span>'}</span><span class="l">Last seen</span></div>
+      </div>
+      <div class="sc-actions">
+        <button class="btn btn-ghost btn-sm" onclick="event.stopPropagation();viewStudent('${st.id}')">View profile</button>
+        <button class="btn btn-primary btn-sm staff-only" onclick="event.stopPropagation();logSessionFor('${st.id}')">${ic('plus')}Log session</button>
+      </div>
+    </article>`;
+  }).join('') + (list.length ? '' : `<div class="card" style="grid-column:1/-1">${emptyState('Nobody here', filter === '__none' ? 'Every student is in a class.' : 'No students are in this class yet.')}</div>`)
+    + `<button class="add-card staff-only" onclick="openStudentForm()"><span class="plus">${ic('plus')}</span>Add a student</button>`;
+}
+function renderStudentSelects() {
+  const opts = state.students.map(s => `<option value="${s.id}">${esc(s.name)}</option>`).join('');
+  const sel = $('session-student'); const cur = sel.value;
+  sel.innerHTML = '<option value="">Select a student</option>' + opts;
+  if (cur && getStudent(cur)) sel.value = cur;
+  const hsel = $('history-filter'); const hcur = hsel.value;
+  hsel.innerHTML = `<option value="">${state.role === 'parent' ? 'All your children' : 'All students'}</option>` + opts;
+  if (hcur && getStudent(hcur)) hsel.value = hcur;
+  // class filters
+  const classOpts = state.classes.map(c => `<option value="${c.id}">${esc(c.name)}</option>`).join('');
+  const hasLoose = state.role === 'admin' && state.students.some(st => !classIdsOf(st.id).length);
+  [['student-class-filter', true], ['history-class', false]].forEach(([id, withNone]) => {
+    const s = $(id); const v = s.value;
+    s.innerHTML = '<option value="">All classes</option>' + classOpts + (withNone && hasLoose ? '<option value="__none">Not in a class yet</option>' : '');
+    if ([...s.options].some(o => o.value === v)) s.value = v;
+  });
+  const showFilters = state.role !== 'parent' && (state.classes.length > 1 || hasLoose);
+  $('student-class-wrap').hidden = !showFilters;
+  $('history-class-wrap').hidden = !(state.role !== 'parent' && state.classes.length > 1);
+  $('no-students-note').hidden = state.students.length > 0;
+  updateSaveBar();
+}
+
+// ── Student profile ──
+function viewStudent(id, silent = false) {
+  const st = getStudent(id); if (!st) return;
+  state.currentStudentId = id;
+  const ss = studentStats(id);
+  const fromSession = ss.sessions.find(s => s.targets);
+  const targets = fromSession ? fromSession.targets : (st.targets || '');
+  const targetsNote = fromSession ? `Set ${relDate(fromSession.date, true)}` : (st.targets ? 'Set when they joined' : '');
+  const isParent = state.role === 'parent';
+  const age = ageOf(st);
+  const classes = classIdsOf(id).map(cid => {
+    const t = state.role === 'admin' ? teachersOfClass(cid) : [];
+    return `<span>${ic('users')}${esc(classById(cid).name)}${t.length ? `, with ${esc(t.join(', '))}` : ''}</span>`;
+  }).join('');
+
+  $('profile-content').innerHTML = `
+    ${isParent && state.students.length === 1 ? '' : `<button class="back-link" onclick="showPage('students')">${ic('arrow-left')}${isParent ? 'Your children' : 'All students'}</button>`}
+    <section class="profile-hero">
+      ${avatar(st.name, 'xl')}
+      <div class="ph-main">
+        <div class="ph-kicker">Student profile</div>
+        <h1 class="ph-name">${esc(st.name)}</h1>
+        <div class="ph-meta">
+          ${classes || (state.role === 'admin' ? `<span>${ic('users')}Not in a class yet</span>` : '')}
+          ${st.startDate ? `<span>${ic('calendar')}Started ${formatDate(st.startDate)}</span>` : ''}
+          ${age !== '' ? `<span>${ic('user')}Age ${esc(age)}</span>` : ''}
+          <span>${ic('book')}${plural(ss.count, 'session')}</span>
+        </div>
+      </div>
+      <div class="ph-actions staff-only">
+        <button class="btn btn-accent" onclick="logSessionFor('${id}')">${ic('plus')}Log a session</button>
+        <button class="btn btn-dark" onclick="openClassReport('${id}')">${ic('chart')}Make class report</button>
+        <button class="btn btn-dark admin-only" onclick="openStudentClasses('${id}')">${ic('users')}Change class</button>
+      </div>
+    </section>
+
+    <section class="ledger three">
+      <div class="ledger-item"><span class="ledger-label">Sessions</span><span class="ledger-value">${ss.count}</span><span class="ledger-note">Logged so far</span></div>
+      <div class="ledger-item"><span class="ledger-label">Average rating</span><span class="ledger-value">${ss.avg ? ss.avg.toFixed(1) + '<small>/5</small>' : '<span class="na">Nothing rated yet</span>'}</span><span class="ledger-note">Across all three areas</span></div>
+      <div class="ledger-item"><span class="ledger-label">Last session</span><span class="ledger-value text">${ss.last ? relDate(ss.last.date) : '<span class="na">None yet</span>'}</span><span class="ledger-note">${ss.last ? formatDate(ss.last.date, { weekday: 'long', day: 'numeric', month: 'long' }) : (isParent ? 'None recorded yet' : 'Log one to get started')}</span></div>
+    </section>
+
+    <div class="grid-2">
+      <section class="card">
+        <div class="card-head"><h2 class="card-title">Progress</h2><span class="card-note">Average rating in each area</span></div>
+        <div class="prog">
+          ${progRow(SECTIONS.mem.label, SECTIONS.mem.ar, 'book', ss.mem)}
+          ${progRow(SECTIONS.rev.label, SECTIONS.rev.ar, 'repeat', ss.rev)}
+          ${progRow(SECTIONS.rec.label, SECTIONS.rec.ar, 'mic', ss.rec, true)}
+        </div>
+      </section>
+      <section class="card">
+        <div class="card-head"><h2 class="card-title">Current targets</h2>${targetsNote ? `<span class="card-note">${targetsNote}</span>` : ''}</div>
+        ${targets ? `<div class="targets" dir="auto">${esc(targets)}</div>` : `<p class="note-text empty" style="margin-top:12px">${isParent ? 'No targets set yet.' : 'No targets set yet. Add some when you log their next session.'}</p>`}
+        ${st.level ? `<div class="note-label">Where they started</div><p class="note-text" dir="auto">${esc(st.level)}</p>` : ''}
+        ${!isParent && st.notes ? `<div class="note-label">Background</div><p class="note-text" dir="auto">${esc(st.notes)}</p>` : ''}
+      </section>
+    </div>
+
+    ${isParent ? '' : safeguardingCard(st)}
+    ${isParent ? '' : guardiansCard(st)}
+
+    <section class="card" style="margin-top:20px">
+      <div class="card-head"><h2 class="card-title">Sessions</h2><span class="card-note">Newest first</span></div>
+      <div class="list">
+        ${ss.sessions.length ? ss.sessions.map(s => {
+          const where = isParent ? '' : sessionWhere(s);
+          return `
+          <div class="row" role="button" tabindex="0" onclick="viewSessionDetail('${s.id}')">
+            ${dateChip(s.date)}
+            <span class="row-main"><span class="row-title">${esc(sessionSummary(s))}</span><span class="row-sub">${formatDate(s.date, { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}</span>${where ? `<span class="row-who">${esc(where)}</span>` : ''}</span>
+            ${behaviourTag(s.behaviour.rating)}
+            ${triad(s)}
+            <button class="btn btn-ghost btn-sm btn-icon" onclick="event.stopPropagation();exportSession('${s.id}')" aria-label="Export PDF" title="Export PDF">${ic('file')}</button>
+          </div>`;
+        }).join('') : emptyState('No sessions yet', isParent ? 'Their lessons will appear here as their teacher records them.' : 'Log their first lesson to start building a record.', `<button class="btn btn-accent staff-only" onclick="logSessionFor('${id}')">${ic('plus')}Log a session</button>`)}
+      </div>
+    </section>`;
+
+  if (!silent) {
+    document.querySelectorAll('.page').forEach(p => p.classList.toggle('active', p.id === 'page-student-profile'));
+    state.currentPage = 'student-profile';
+    document.querySelectorAll('[data-nav]').forEach(b => b.classList.toggle('active', b.dataset.nav === 'students'));
+    window.scrollTo(0, 0);
+  }
+  animateBars();
+}
+
+function safeguardingCard(st) {
+  if (!st.sg) return '';
+  const g = st.sg;
+  const tel = p => p ? `<a href="tel:${esc(p.replace(/[^\d+]/g, ''))}">${esc(p)}</a>` : '';
+  const mail = e => e ? `<a href="mailto:${esc(e)}">${esc(e)}</a>` : '';
+  const row = (label, html) => `<div><dt>${label}</dt><dd dir="auto">${html || '<span class="empty">Not recorded</span>'}</dd></div>`;
+  const who = (n, r) => esc([n, r && `(${r})`].filter(Boolean).join(' '));
+  const consent = g.photo_consent === true ? 'Yes' : g.photo_consent === false ? 'No' : 'Not asked yet';
+  const health = [['Medical conditions', g.medical_conditions], ['Allergies', g.allergies], ['Medication', g.medication]].filter(([, v]) => v);
+  const missing = !g.contact_name || !g.contact_phone;
+  return `<section class="card sg-card" style="margin-top:20px">
+    <div class="card-head"><h2 class="card-title">${ic('shield')}Safeguarding</h2><button class="link-btn" onclick="openStudentForm('${st.id}')">Edit details${ic('chev')}</button></div>
+    <p class="parents-lead">Only the institute's admin and ${esc(st.name.split(' ')[0])}'s own teachers can see this.</p>
+    ${missing ? `<div class="sg-warn">${ic('alert')}<span>No main contact recorded yet. Add one so staff can reach a parent quickly.</span></div>` : ''}
+    ${health.length ? `<div class="sg-health">${health.map(([l, v]) => `<div><strong>${l}</strong><span dir="auto">${esc(v)}</span></div>`).join('')}</div>` : ''}
+    <div class="sg-grid">
+      <div class="sg-group"><h3>Main contact</h3><dl>
+        ${row('Name', who(g.contact_name, g.contact_relationship))}${row('Phone', tel(g.contact_phone))}${row('Email', mail(g.contact_email))}
+      </dl></div>
+      <div class="sg-group"><h3>Emergency contact</h3><dl>
+        ${row('Name', who(g.emergency_name, g.emergency_relationship))}${row('Phone', tel(g.emergency_phone))}
+      </dl></div>
+      <div class="sg-group"><h3>Home</h3><dl>
+        ${row('Address', esc([g.address, g.postcode].filter(Boolean).join(', ')))}${row('Date of birth', st.dob ? formatDate(st.dob) : '')}
+      </dl></div>
+      <div class="sg-group"><h3>Needs and consent</h3><dl>
+        ${row('Additional needs', esc(g.additional_needs))}${row('Who may collect', esc(g.collection_notes))}${row('Photos and video', consent)}
+      </dl></div>
+    </div>
+  </section>`;
+}
+
+// ── Add or edit a student ──
+function openAddStudentModal() { openStudentForm(); }
+function openStudentForm(id) {
+  const st = id ? getStudent(id) : null;
+  state.editingStudentId = st ? st.id : null;
+  const g = (st && st.sg) || {};
+  $('add-title').textContent = st ? `Edit ${st.name}` : 'Add a student';
+  $('add-sub').textContent = st ? 'Keep these details up to date, especially contacts and health.' : 'Fields marked * are needed. The rest can be added later.';
+  $('sf-save').innerHTML = st ? `${ic('check')}Save changes` : `${ic('plus')}Add student`;
+  $('sf-class-field').hidden = !!st;
+  $('sf-class').innerHTML = state.classes.map(c => `<option value="${c.id}">${esc(c.name)}</option>`).join('');
+  const set = (fid, v) => { $(fid).value = v ?? ''; };
+  set('sf-name', st && st.name); set('sf-dob', st && st.dob); set('sf-start', st ? st.startDate : localISO());
+  set('sf-level', st && st.level); set('sf-targets', st && st.targets); set('sf-notes', st && st.notes);
+  set('sf-contact-name', g.contact_name); set('sf-contact-rel', g.contact_relationship); set('sf-contact-phone', g.contact_phone); set('sf-contact-email', g.contact_email);
+  set('sf-address', g.address); set('sf-postcode', g.postcode);
+  set('sf-em-name', g.emergency_name); set('sf-em-rel', g.emergency_relationship); set('sf-em-phone', g.emergency_phone);
+  set('sf-medical', g.medical_conditions); set('sf-allergies', g.allergies); set('sf-medication', g.medication); set('sf-needs', g.additional_needs);
+  set('sf-collect', g.collection_notes);
+  $('sf-photo').value = g.photo_consent === true ? 'yes' : g.photo_consent === false ? 'no' : '';
+  const already = st && state.guardians.some(x => x.student_id === st.id && x.email === (g.contact_email || '').toLowerCase());
+  $('sf-parent-access').checked = !already;
+  $('sf-access-field').hidden = !state.guardiansOn || !!already;
+  openModal('modal-add-student');
+  setTimeout(() => $('sf-name').focus(), 60);
+}
+function studentFormValues() {
+  const v = id => $(id).value.trim();
+  const photo = $('sf-photo').value;
+  return {
+    name: v('sf-name'), date_of_birth: v('sf-dob') || null, start_date: v('sf-start') || null,
+    level: v('sf-level'), targets: v('sf-targets'), notes: v('sf-notes'),
+    contact_name: v('sf-contact-name'), contact_relationship: v('sf-contact-rel'), contact_phone: v('sf-contact-phone'), contact_email: v('sf-contact-email').toLowerCase(),
+    address: v('sf-address'), postcode: v('sf-postcode').toUpperCase(),
+    emergency_name: v('sf-em-name'), emergency_relationship: v('sf-em-rel'), emergency_phone: v('sf-em-phone'),
+    medical_conditions: v('sf-medical'), allergies: v('sf-allergies'), medication: v('sf-medication'), additional_needs: v('sf-needs'),
+    collection_notes: v('sf-collect'), photo_consent: photo === 'yes' ? true : photo === 'no' ? false : null
+  };
+}
+async function saveStudentForm() {
+  const f = studentFormValues();
+  const need = [['sf-name', f.name, 'the student’s name'], ['sf-contact-name', f.contact_name, 'a main contact'], ['sf-contact-phone', f.contact_phone, 'a phone number for the main contact']];
+  const gap = need.find(([, value]) => !value);
+  if (gap) { toast(`Add ${gap[2]} first`, 'warn'); $(gap[0]).focus(); return; }
+  if (f.contact_email && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(f.contact_email)) { toast('The main contact’s email doesn’t look right', 'warn'); $('sf-contact-email').focus(); return; }
+  const access = !$('sf-access-field').hidden && $('sf-parent-access').checked && !!f.contact_email;
+  const id = state.editingStudentId;
+  if (!id) {
+    const classId = $('sf-class').value;
+    if (!classId) { toast('Choose a class for them first', 'warn'); return; }
+    const { error } = await db.rpc('add_student', { p_class_id: classId, p_student: Object.assign({}, f, { give_parent_access: access }) });
+    if (error) { toast(error.message, 'warn'); return; }
+  } else {
+    const { error } = await db.from('students').update(f).eq('id', id);
+    if (error) { toast(error.message, 'warn'); return; }
+    if (access) {
+      const g = await db.from('guardians').insert({ student_id: id, email: f.contact_email });
+      if (g.error && g.error.code !== '23505') toast('Details saved, but parent access wasn’t added: ' + g.error.message, 'warn');
+    }
+  }
+  await loadAll();
+  closeModal('modal-add-student');
+  renderAll();
+  if (id) viewStudent(id, true);
+  toast(id ? 'Details saved' : `${f.name} added`);
+}
+
+// ── Choosing classes (a student's classes, or a teacher's) ──
+let pickSave = null;
+function openPicker(title, sub, options, checked, onSave) {
+  $('pick-title').textContent = title;
+  $('pick-sub').textContent = sub;
+  $('pick-list').innerHTML = options.length
+    ? options.map(o => `<label class="pick"><input type="checkbox" value="${o.id}" ${checked.includes(o.id) ? 'checked' : ''}>${esc(o.name)}</label>`).join('')
+    : '<p class="note-text empty" style="margin:0">There are no classes yet. Add one under Staff and classes.</p>';
+  pickSave = onSave;
+  openModal('modal-pick');
+}
+async function savePicker() {
+  const chosen = [...document.querySelectorAll('#pick-list input:checked')].map(i => i.value);
+  const fn = pickSave; pickSave = null;
+  if (fn) await fn(chosen);
+  closeModal('modal-pick');
+}
+function openStudentClasses(id) {
+  const st = getStudent(id); if (!st) return;
+  const now = classIdsOf(id);
+  openPicker(`Classes for ${st.name}`, 'Tick every class they attend. Their full history goes with them.', state.classes, now, async chosen => {
+    const add = chosen.filter(c => !now.includes(c)), drop = now.filter(c => !chosen.includes(c));
+    for (const c of add) { const r = await db.from('enrolments').insert({ student_id: id, class_id: c }); if (r.error) return toast(r.error.message, 'warn'); }
+    for (const c of drop) { const r = await db.from('enrolments').delete().eq('student_id', id).eq('class_id', c); if (r.error) return toast(r.error.message, 'warn'); }
+    await loadAll(); renderAll(); viewStudent(id, true);
+    toast('Classes updated');
+  });
+}
+function openTeacherClasses(userId) {
+  const m = state.members.find(x => x.user_id === userId); if (!m) return;
+  const now = state.classTeachers.filter(ct => ct.user_id === userId).map(ct => ct.class_id);
+  openPicker(`Classes for ${m.display_name || m.email}`, 'They will see these classes and their students only.', state.classes, now, async chosen => {
+    const add = chosen.filter(c => !now.includes(c)), drop = now.filter(c => !chosen.includes(c));
+    for (const c of add) { const r = await db.from('class_teachers').insert({ class_id: c, user_id: userId }); if (r.error) return toast(r.error.message, 'warn'); }
+    for (const c of drop) { const r = await db.from('class_teachers').delete().eq('class_id', c).eq('user_id', userId); if (r.error) return toast(r.error.message, 'warn'); }
+    await loadAll(); renderAll();
+    toast('Classes updated');
+  });
+}
+
+// ── Staff and classes (admin) ──
+function renderStaff() {
+  if (state.role !== 'admin') return;
+  const classOptions = id => state.classes.map(c => `<label class="pick"><input type="checkbox" value="${c.id}">${esc(c.name)}</label>`).join('');
+  $('req-note').textContent = state.requests.length ? plural(state.requests.length, 'request') : '';
+  $('req-list').innerHTML = state.requests.length ? state.requests.map(r => `
+    <div class="staff-row" data-req="${r.id}">
+      ${avatar(r.first_name + ' ' + r.last_name)}
+      <div class="staff-main">
+        <span class="row-title">${esc(r.first_name)} ${esc(r.last_name)}</span>
+        <span class="row-sub">${esc(r.email)}, asked ${relDate(String(r.created_at).slice(0, 10), true)}</span>
+        ${state.classes.length ? `<div class="pick-label">Their classes</div><div class="pick-list">${classOptions(r.id)}</div>` : ''}
+      </div>
+      <div class="staff-actions">
+        <button class="btn btn-primary btn-sm" onclick="approveRequest('${r.id}')">${ic('check')}Approve</button>
+        <button class="btn btn-quiet btn-sm" onclick="declineRequest('${r.id}')">Decline</button>
+      </div>
+    </div>`).join('')
+    : '<p class="note-text empty" style="margin:6px 0 18px">No requests waiting. When a teacher asks for access on the welcome page, they appear here.</p>';
+
+  const members = [...state.members].sort((a, b) => (a.role === 'admin' ? -1 : 1) - (b.role === 'admin' ? -1 : 1) || (a.display_name || '').localeCompare(b.display_name || ''));
+  const invitedEmails = [...new Set(state.invites.map(i => i.email.toLowerCase()))].filter(e => !members.some(m => (m.email || '').toLowerCase() === e));
+  $('teacher-list').innerHTML = members.map(m => {
+    const cls = state.classTeachers.filter(ct => ct.user_id === m.user_id).map(ct => classById(ct.class_id)).filter(Boolean);
+    return `<div class="staff-row">
+      ${avatar(m.display_name || m.email || '?')}
+      <div class="staff-main">
+        <span class="row-title">${esc(m.display_name || m.email)}${m.role === 'admin' ? ' <span class="chip">Admin</span>' : ''}${state.me && m.user_id === state.me.user_id ? ' <span class="row-sub" style="display:inline">(you)</span>' : ''}</span>
+        <span class="row-sub">${esc(m.email || '')}</span>
+        <div class="chips" style="margin-top:8px">${cls.length ? cls.map(c => `<span class="chip">${ic('users')}${esc(c.name)}</span>`).join('') : m.role === 'admin' ? '<span class="chip">Sees every class</span>' : '<span class="chip warn">No classes</span>'}</div>
+      </div>
+      <div class="staff-actions"><button class="btn btn-ghost btn-sm" onclick="openTeacherClasses('${m.user_id}')">Change classes</button></div>
+    </div>`;
+  }).join('') + invitedEmails.map(email => {
+    const inv = state.invites.filter(i => i.email.toLowerCase() === email);
+    const cls = inv.map(i => i.class_id && classById(i.class_id)).filter(Boolean);
+    return `<div class="staff-row">
+      ${avatar(inv[0].display_name || email)}
+      <div class="staff-main">
+        <span class="row-title">${esc(inv[0].display_name || email)}</span>
+        <span class="row-sub">${esc(email)}, approved but hasn’t signed in yet</span>
+        <div class="chips" style="margin-top:8px">${cls.map(c => `<span class="chip">${ic('users')}${esc(c.name)}</span>`).join('')}</div>
+      </div>
+      <div class="staff-actions"><button class="btn btn-ghost btn-sm" onclick="resendTeacherLink('${esc(email)}')">${ic('mail')}Resend email</button></div>
+    </div>`;
+  }).join('');
+
+  $('class-list').innerHTML = state.classes.length ? state.classes.map(c => {
+    const t = teachersOfClass(c.id), n = studentsInClass(c.id).length;
+    return `<div class="row" role="button" tabindex="0" onclick="showStudentsInClass('${c.id}')">
+      <span class="fc-icon">${ic('users')}</span>
+      <span class="row-main"><span class="row-title">${esc(c.name)}</span><span class="row-sub">${t.length ? `With ${esc(t.join(', '))}` : 'No teacher yet'}, ${plural(n, 'student')}</span></span>
+      ${ic('chev', 'chev')}
+    </div>`;
+  }).join('') : '<p class="note-text empty" style="margin:6px 0 10px">No classes yet. Add the first one below.</p>';
+}
+async function sendTeacherLink(email) {
+  const { error } = await mailer.auth.signInWithOtp({ email, options: { shouldCreateUser: true, emailRedirectTo: appUrl() } });
+  return error ? error.message : '';
+}
+async function approveRequest(id) {
+  const r = state.requests.find(x => x.id === id); if (!r) return;
+  const classIds = [...document.querySelectorAll(`[data-req="${id}"] input:checked`)].map(i => i.value);
+  if (state.classes.length && !classIds.length) { toast(`Tick at least one class for ${r.first_name}`, 'warn'); return; }
+  const { data: email, error } = await db.rpc('approve_teacher_request', { p_request_id: id, p_class_ids: classIds });
+  if (error) { toast(error.message, 'warn'); return; }
+  const problem = await sendTeacherLink(email);
+  await loadAll(); renderAll();
+  if (problem) toast(`${r.first_name} is approved, but the email didn’t send (${problem}). Use Resend email under Teachers.`, 'warn');
+  else toast(`${r.first_name} is approved and has been emailed a link to set a password`);
+}
+function declineRequest(id) {
+  const r = state.requests.find(x => x.id === id); if (!r) return;
+  confirmDialog({ title: `Decline ${r.first_name}'s request?`, message: 'They won’t be told automatically. They can ask again from the welcome page.', confirmLabel: 'Decline request' }, async () => {
+    const { error } = await db.rpc('decline_teacher_request', { p_request_id: id });
+    if (error) { toast(error.message, 'warn'); return; }
+    await loadAll(); renderAll();
+    toast('Request declined');
+  });
+}
+async function resendTeacherLink(email) {
+  const problem = await sendTeacherLink(email);
+  toast(problem ? `The email didn’t send: ${problem}` : 'Sign-in link sent again', problem ? 'warn' : 'ok');
+}
+async function createClass() {
+  const name = $('new-class-name').value.trim();
+  if (!name) { toast('Give the class a name', 'warn'); $('new-class-name').focus(); return; }
+  const { error } = await db.from('classes').insert({ org_id: state.orgId, name });
+  if (error) { toast(error.message, 'warn'); return; }
+  $('new-class-name').value = '';
+  await loadAll(); renderAll();
+  toast(`${name} added`);
+}
+
+// ── Register ──
+function renderRegisterControls() {
+  const sel = $('reg-class'); const cur = sel.value || state.register.classId;
+  sel.innerHTML = state.classes.length ? state.classes.map(c => `<option value="${c.id}">${esc(c.name)}</option>`).join('') : '<option value="">No classes yet</option>';
+  if (cur && state.classes.some(c => c.id === cur)) sel.value = cur;
+  if (!$('reg-date').value) $('reg-date').value = localISO();
+}
+async function loadRegister() {
+  const classId = $('reg-class').value, date = $('reg-date').value || localISO();
+  state.register = { classId, date, marks: {}, saved: {} };
+  if (classId) {
+    const { data, error } = await db.from('attendance').select('student_id, mark').eq('class_id', classId).eq('register_date', date);
+    if (error) toast('Could not load the register: ' + error.message, 'warn');
+    (data || []).forEach(r => { state.register.marks[r.student_id] = r.mark; state.register.saved[r.student_id] = r.mark; });
+  }
+  renderRegister();
+}
+function renderRegister() {
+  const { classId, date, marks, saved } = state.register;
+  const kids = classId ? studentsInClass(classId) : [];
+  const c = classById(classId);
+  $('reg-title').textContent = c ? `${c.name}, ${formatDate(date, { weekday: 'long', day: 'numeric', month: 'long' })}` : 'Register';
+  $('reg-list').innerHTML = kids.length ? kids.map(st => `
+    <div class="reg-row">
+      ${avatar(st.name)}
+      <span class="row-main"><span class="row-title">${esc(st.name)}</span>${hasMedical(st) ? `<span class="row-sub">${medChip(st)}</span>` : ''}</span>
+      <span class="marks" role="group" aria-label="Attendance for ${esc(st.name)}">
+        ${Object.entries(MARKS).map(([k, m]) => `<button type="button" class="mark ${marks[st.id] === k ? 'on' : ''}" style="--tone:${m.tone}" aria-pressed="${marks[st.id] === k}" onclick="setMark('${st.id}','${k}')"><span class="full">${m.label}</span><span class="short" aria-hidden="true">${m.short}</span></button>`).join('')}
+      </span>
+    </div>`).join('')
+    : emptyState(classId ? 'No students in this class' : 'Choose a class', classId ? 'Add students to this class and they will appear here.' : 'Pick a class above to take its register.');
+  const count = k => kids.filter(st => marks[st.id] === k).length;
+  const unmarked = kids.filter(st => !marks[st.id]).length;
+  const changed = kids.some(st => marks[st.id] !== saved[st.id]);
+  $('reg-summary').innerHTML = kids.length
+    ? `<strong>${count('present')} present, ${count('late')} late, ${count('absent')} absent</strong>${unmarked ? `, ${unmarked} still to mark` : (changed ? ', not saved yet' : ', saved')}`
+    : 'Nothing to save yet';
+}
+function setMark(studentId, mark) {
+  state.register.marks[studentId] = state.register.marks[studentId] === mark ? undefined : mark;
+  renderRegister();
+}
+function markAll(mark) {
+  studentsInClass(state.register.classId).forEach(st => { if (!state.register.marks[st.id]) state.register.marks[st.id] = mark; });
+  renderRegister();
+}
+async function saveRegister() {
+  const { classId, date, marks } = state.register;
+  if (!classId) { toast('Choose a class first', 'warn'); return; }
+  const kids = studentsInClass(classId);
+  const unmarked = kids.filter(st => !marks[st.id]);
+  if (!kids.length) { toast('There’s nobody in this class yet', 'warn'); return; }
+  if (unmarked.length) { toast(`${plural(unmarked.length, 'student')} still need${unmarked.length === 1 ? 's' : ''} a mark`, 'warn'); return; }
+  const rows = kids.map(st => ({ class_id: classId, student_id: st.id, register_date: date, mark: marks[st.id] }));
+  const { error } = await db.from('attendance').upsert(rows, { onConflict: 'class_id,student_id,register_date' });
+  if (error) { toast('The register couldn’t be saved: ' + error.message, 'warn'); return; }
+  state.register.saved = Object.assign({}, marks);
+  renderRegister();
+  toast(`Register saved for ${classById(classId).name}`);
+}
+
+// ── Log a session ──
+async function saveSession() {
+  const studentId = $('session-student').value;
+  const date = $('session-date').value;
+  if (!studentId) { toast('Choose which student this session was with', 'warn'); $('session-student').focus(); return; }
+  if (!date) { toast('Add the date of the session', 'warn'); $('session-date').focus(); return; }
+  const v = id => $(id).value.trim();
+  const mine = state.me && state.role !== 'admin' ? state.classTeachers.filter(ct => ct.user_id === state.me.user_id).map(ct => ct.class_id) : null;
+  const classId = classIdsOf(studentId).find(c => !mine || mine.includes(c)) || null;
+  const { data, error } = await db.from('sessions').insert({
+    student_id: studentId, class_id: classId, session_date: date,
+    mem_surah: v('mem-surah'), mem_verses: v('mem-verses'), mem_quality: state.ratings.mem, mem_notes: v('mem-notes'),
+    rev_content: v('rev-content'), rev_mistakes: v('rev-mistakes'), rev_quality: state.ratings.rev, rev_notes: v('rev-notes'),
+    rec_surah: v('rec-surah'), rec_tajweed: v('rec-tajweed'), rec_quality: state.ratings.rec, rec_notes: v('rec-notes'),
+    behaviour: state.selectedBehaviour || '', behaviour_notes: v('behaviour-notes'),
+    targets: v('targets'), reflection: v('reflection')
+  }).select().single();
+  if (error) { toast('That session could not be saved: ' + error.message, 'warn'); return; }
+  state.sessions.push(fromRow(data));
+  clearSessionForm();
+  renderDashboard(); renderHistory();
+  toast(`Session saved for ${getStudent(studentId).name}`);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ── History ──
+function renderHistory() {
+  const filter = $('history-filter').value, cls = $('history-class').value;
+  let list = [...state.sessions].sort(byDateDesc);
+  if (filter) list = list.filter(s => s.studentId === filter);
+  if (cls) list = list.filter(s => s.classId === cls);
+  const el = $('history-list');
+  if (!list.length) {
+    el.innerHTML = `<div class="card">${emptyState('No sessions found', filter || cls ? 'Nothing has been logged here yet.' : 'Once you log a session, it will appear here.', state.students.length ? btnLog() : btnAdd())}</div>`;
+    return;
+  }
+  el.innerHTML = list.map(s => {
+    const st = getStudent(s.studentId); const name = st ? st.name : 'Unknown student';
+    const d = parseDate(s.date);
+    const where = state.role === 'parent' ? '' : sessionWhere(s);
+    return `<article class="h-card">
+      <div class="h-date"><span class="d">${d ? d.getDate() : '?'}</span><span class="m">${d ? d.toLocaleDateString('en-GB', { month: 'long' }) : ''}</span><span class="y">${d ? d.getFullYear() : ''}</span></div>
+      <div class="h-body">
+        <div class="h-top">
+          <div class="h-who">${avatar(name, 'sm')}<span class="h-name">${esc(name)}</span>${behaviourTag(s.behaviour.rating)}</div>
+          <div class="h-actions">
+            <button class="btn btn-ghost btn-sm" onclick="viewSessionDetail('${s.id}')">${ic('eye')}View</button>
+            <button class="btn btn-accent btn-sm" onclick="exportSession('${s.id}')">${ic('file')}Export PDF</button>
+          </div>
+        </div>
+        ${where ? `<p class="h-meta">${ic('users')}${esc(where)}</p>` : ''}
+        <div class="h-scores">
+          ${scoreBlock('mem', s.memorization.quality, s.memorization.surah)}
+          ${scoreBlock('rev', s.revision.quality, s.revision.content)}
+          ${scoreBlock('rec', s.recitation.quality, s.recitation.surah)}
+        </div>
+        ${s.behaviour.notes ? `<div class="h-targets">${ic('heart')}<div><strong>Behaviour notes</strong><p dir="auto">${esc(s.behaviour.notes)}</p></div></div>` : ''}
+        ${s.targets ? `<div class="h-targets">${ic('target')}<div><strong>Targets for next session</strong><p dir="auto">${esc(s.targets)}</p></div></div>` : ''}
+      </div>
+    </article>`;
+  }).join('');
+}
+
+// ── Session detail ──
+function viewSessionDetail(id) {
+  const s = state.sessions.find(x => x.id === id); if (!s) return;
+  state.currentSessionId = id;
+  const st = getStudent(s.studentId); const name = st ? st.name : 'Unknown student';
+  const where = state.role === 'parent' ? '' : sessionWhere(s);
+  $('detail-head').innerHTML = `<div class="dh">${avatar(name, 'lg')}<div><h3 class="modal-title">${esc(name)}</h3><p class="modal-sub">${formatDate(s.date, { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}${where ? `, ${esc(where)}` : ''}</p></div></div>`;
+  $('detail-body').innerHTML = `
+    ${detailBlock('mem', s.memorization.quality, [['Surah or passage', s.memorization.surah], ['Verses memorised', s.memorization.verses], ['Notes', s.memorization.notes]])}
+    ${detailBlock('rev', s.revision.quality, [['Content revised', s.revision.content], ['Mistakes', s.revision.mistakes], ['Notes', s.revision.notes]])}
+    ${detailBlock('rec', s.recitation.quality, [['Passage recited', s.recitation.surah], ['Tajweed', s.recitation.tajweed], ['Notes', s.recitation.notes]])}
+    ${(s.behaviour.rating || s.behaviour.notes) ? `<div class="d-block"><div class="d-head"><span class="d-title">${ic('heart')}Behaviour</span>${behaviourTag(s.behaviour.rating)}</div>${s.behaviour.notes ? `<p class="d-text" dir="auto">${esc(s.behaviour.notes)}</p>` : ''}</div>` : ''}
+    ${s.targets ? `<div class="d-block"><div class="d-head"><span class="d-title">${ic('target')}Targets for next session</span></div><div class="targets flush" dir="auto">${esc(s.targets)}</div></div>` : ''}
+    ${s.reflection ? `<div class="d-block"><div class="d-head"><span class="d-title">${ic('moon')}Reflection<span lang="ar">تأمل</span></span></div><p class="reflection" dir="auto">${esc(s.reflection)}</p></div>` : ''}`;
+  openModal('modal-session-detail');
+}
+
+// ── Reports ──
+function reportHead(title, ar, dateText) {
+  return `<header class="rp-head">
+      <svg class="logo rp-lockup" role="img" aria-label="British Institute of Qur'an and Qira'at"><use href="#biqq-lockup"/></svg>
+      <div class="rp-head-right"><div class="rp-doc">${title}</div><div class="rp-ar" lang="ar" dir="rtl">${ar}</div><div class="rp-date">${dateText}</div></div>
+    </header>
+    <div class="rp-rule"></div>`;
+}
+const reportFoot = `<footer class="rp-foot">
+      <div class="rp-verse" lang="ar" dir="rtl">وَرَتِّلِ الْقُرْآنَ تَرْتِيلًا</div>
+      <div class="rp-verse-en">And recite the Qur'an with measured recitation. Al-Muzzammil 73:4</div>
+    </footer>`;
+function openReport(label, title) {
+  $('rb-label').textContent = label;
+  document.title = title;   // becomes the suggested PDF file name
+  document.body.classList.add('report-open', 'locked');
+  $('pdf-report').classList.add('open');
+  $('pdf-report').scrollTop = 0;
+}
+function exportSession(id) {
+  const s = state.sessions.find(x => x.id === id); if (!s) return;
+  const st = getStudent(s.studentId); const name = st ? st.name : 'Unknown student';
+  const d = parseDate(s.date); const hj = d ? hijri(d) : '';
+  const beh = BEHAVIOURS[s.behaviour.rating];
+  const c = s.classId && classById(s.classId);
+  $('report-content').innerHTML = `
+    ${reportHead('Session report', 'تقرير الجلسة', formatDate(s.date))}
+    <section>
+      <div class="rp-kicker">Prepared for</div>
+      <h1 class="rp-name">${esc(name)}</h1>
+      <div class="rp-meta">
+        <div><span>Date</span><strong>${formatDate(s.date, { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}</strong></div>
+        ${hj ? `<div><span>Hijri</span><strong>${esc(hj)}</strong></div>` : ''}
+        ${c ? `<div><span>Class</span><strong>${esc(c.name)}</strong></div>` : ''}
+        ${beh ? `<div><span>Behaviour</span><strong>${beh.label}</strong></div>` : ''}
+      </div>
+      ${st && st.level ? `<div class="rp-level"><span>Current level</span><p dir="auto">${esc(st.level)}</p></div>` : ''}
+    </section>
+    ${reportBlock('mem', s.memorization.quality, [['Surah or passage', s.memorization.surah], ['Verses memorised', s.memorization.verses], ['Notes', s.memorization.notes]])}
+    ${reportBlock('rev', s.revision.quality, [['Content revised', s.revision.content], ['Mistakes', s.revision.mistakes], ['Notes', s.revision.notes]])}
+    ${reportBlock('rec', s.recitation.quality, [['Passage recited', s.recitation.surah], ['Tajweed', s.recitation.tajweed], ['Notes', s.recitation.notes]])}
+    ${s.behaviour.notes ? `<section class="rp-note"><h3>Behaviour notes</h3><p dir="auto">${esc(s.behaviour.notes)}</p></section>` : ''}
+    ${s.targets ? `<section class="rp-note rp-targets"><h3>Targets for next session</h3><p dir="auto">${esc(s.targets)}</p></section>` : ''}
+    ${s.reflection ? `<section class="rp-note rp-reflection"><h3>Reflection</h3><p dir="auto">${esc(s.reflection)}</p></section>` : ''}
+    ${reportFoot}`;
+  openReport('Session report preview', `Session report, ${name}, ${formatDate(s.date)}`);
+}
+
+// Class report: for parents' meetings
+function termRange(now = new Date()) {
+  const y = now.getFullYear(), m = now.getMonth();
+  if (m >= 8) return { from: `${y}-09-01`, to: `${y}-12-31`, name: `Autumn term ${y}` };
+  if (m <= 2) return { from: `${y}-01-01`, to: `${y}-03-31`, name: `Spring term ${y}` };
+  return { from: `${y}-04-01`, to: `${y}-08-31`, name: `Summer term ${y}` };
+}
+function reportRange() {
+  const p = $('cr-period').value, today = localISO();
+  const back = days => { const d = new Date(); d.setDate(d.getDate() - days); return localISO(d); };
+  const st = getStudent(state.reportStudentId);
+  if (p === 'term') { const t = termRange(); return { from: t.from, to: t.to < today ? t.to : today, name: t.name }; }
+  if (p === '4w') return { from: back(27), to: today, name: 'Last 4 weeks' };
+  if (p === '3m') return { from: back(91), to: today, name: 'Last 3 months' };
+  if (p === 'all') return { from: (st && st.startDate) || '2000-01-01', to: today, name: 'Since they started' };
+  return { from: $('cr-from').value, to: $('cr-to').value, name: 'Chosen dates' };
+}
+function crPeriodChanged() {
+  const custom = $('cr-period').value === 'custom';
+  $('cr-from-f').hidden = !custom; $('cr-to-f').hidden = !custom;
+  if (custom && !$('cr-from').value) { const t = termRange(); $('cr-from').value = t.from; $('cr-to').value = localISO(); }
+}
+function openClassReport(id) {
+  const st = getStudent(id); if (!st) return;
+  state.reportStudentId = id;
+  $('cr-sub').textContent = `For ${st.name}. It includes attendance, progress, their last session and a summary of their behaviour.`;
+  $('cr-period').value = 'term';
+  $('cr-comments').value = '';
+  crPeriodChanged();
+  openModal('modal-class-report');
+}
+async function makeClassReport() {
+  const st = getStudent(state.reportStudentId); if (!st) return;
+  const r = reportRange();
+  if (!r.from || !r.to || r.from > r.to) { toast('Choose a start date before the end date', 'warn'); return; }
+  const att = await db.from('attendance').select('register_date, mark').eq('student_id', st.id).gte('register_date', r.from).lte('register_date', r.to);
+  if (att.error) toast('Attendance couldn’t be loaded: ' + att.error.message, 'warn');
+  const marks = att.data || [];
+  const inRange = state.sessions.filter(s => s.studentId === st.id && s.date >= r.from && s.date <= r.to).sort(byDateDesc);
+  const allSessions = state.sessions.filter(s => s.studentId === st.id).sort(byDateDesc);
+  const last = inRange[0] || allSessions[0] || null;
+  const comments = $('cr-comments').value.trim();
+  const range = `${formatDate(r.from, { day: 'numeric', month: 'long' })} to ${formatDate(r.to)}`;
+  const classes = classIdsOf(st.id).map(id => classById(id));
+  const teachers = [...new Set(classes.flatMap(c => state.role === 'admin' ? teachersOfClass(c.id) : (state.me ? [state.me.display_name] : [])))];
+
+  // Attendance
+  const n = k => marks.filter(m => m.mark === k).length;
+  const total = marks.length, present = n('present'), late = n('late'), absent = n('absent');
+  const pct = total ? Math.round((present + late) / total * 100) : null;
+  const seg = (k, v) => v ? `<i style="width:${v / total * 100}%;background:${MARKS[k].tone}"></i>` : '';
+  const attendance = total ? `
+    <div class="rp-att"><span class="rp-big">${pct}%</span> attendance, present for ${present + late} of ${total} registered classes
+      <div class="rp-att-bar">${seg('present', present)}${seg('late', late)}${seg('absent', absent)}</div>
+      <div class="rp-att-figs">${Object.entries(MARKS).map(([k, m]) => `<span><i style="background:${m.tone}"></i>${m.label} <b>${n(k)}</b></span>`).join('')}</div>
+    </div>` : '<p class="rp-none">No register was taken for this student in this period.</p>';
+
+  // Progress
+  const avgOf = key => mean(inRange.map(s => s[key].quality));
+  const progress = inRange.length ? `<div class="rp-prog">
+      ${[['memorization', 'mem', false], ['revision', 'rev', false], ['recitation', 'rec', true]].map(([key, k, alt]) => {
+        const v = avgOf(key);
+        return `<div><div class="prog-top"><span class="prog-name">${ic(SECTIONS[k].icon)}${SECTIONS[k].label}<span lang="ar">${SECTIONS[k].ar}</span></span><span class="prog-val">${v ? v.toFixed(1) + '<small>/5</small>' : '<span class="na">Not rated</span>'}</span></div>
+          <div class="bar ${alt ? 'alt' : ''}"><i style="width:${v ? v / 5 * 100 : 0}%"></i></div></div>`;
+      }).join('')}
+      <p class="rp-small">Average ratings across ${plural(inRange.length, 'session')} in this period.</p>
+    </div>` : '<p class="rp-none">No sessions were logged in this period.</p>';
+
+  // Behaviour
+  const counts = Object.keys(BEHAVIOURS).map(k => [k, inRange.filter(s => s.behaviour.rating === k).length]).filter(([, c]) => c);
+  const noted = inRange.filter(s => s.behaviour.notes).slice(0, 3);
+  const behaviour = counts.length || noted.length ? `
+    <div class="rp-beh">${counts.map(([k, c]) => `<span class="mood-tag" style="--tone:${BEHAVIOURS[k].tone}"><i></i>${BEHAVIOURS[k].label} ${c}</span>`).join('')}</div>
+    ${noted.length ? `<ul class="rp-notes-list">${noted.map(s => `<li><span>${formatDate(s.date, { day: 'numeric', month: 'short' })}</span><p dir="auto">${esc(s.behaviour.notes)}</p></li>`).join('')}</ul>` : ''}`
+    : '<p class="rp-none">No behaviour was recorded in this period.</p>';
+
+  // Last session
+  const lastBlock = last ? `<dl class="rp-fields">
+      <div><dt>Date</dt><dd>${formatDate(last.date, { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}</dd></div>
+      ${last.memorization.surah || last.memorization.verses ? `<div><dt>Memorised</dt><dd dir="auto">${esc([last.memorization.surah, last.memorization.verses].filter(Boolean).join(', '))}</dd></div>` : ''}
+      ${last.revision.content ? `<div><dt>Revised</dt><dd dir="auto">${esc(last.revision.content)}</dd></div>` : ''}
+      ${last.recitation.surah ? `<div><dt>Recited</dt><dd dir="auto">${esc(last.recitation.surah)}</dd></div>` : ''}
+    </dl>` : '<p class="rp-none">No sessions logged yet.</p>';
+  const targetsNow = (allSessions.find(s => s.targets) || {}).targets || st.targets || '';
+
+  $('report-content').innerHTML = `
+    ${reportHead('Class report', 'التقرير الفصلي', `Made ${formatDate(localISO())}`)}
+    <section>
+      <div class="rp-kicker">Prepared for</div>
+      <h1 class="rp-name">${esc(st.name)}</h1>
+      <div class="rp-meta">
+        <div><span>Period</span><strong>${esc(r.name)}, ${range}</strong></div>
+        ${classes.length ? `<div><span>Class</span><strong>${esc(classes.map(c => c.name).join(', '))}</strong></div>` : ''}
+        ${teachers.length ? `<div><span>Teacher</span><strong>${esc(teachers.join(', '))}</strong></div>` : ''}
+        ${ageOf(st) !== '' ? `<div><span>Age</span><strong>${esc(ageOf(st))}</strong></div>` : ''}
+      </div>
+    </section>
+    <div class="rp-grid">
+      <section class="rp-block"><div class="rp-block-head"><div class="rp-block-title">${ic('register')}Attendance</div></div>${attendance}</section>
+      <section class="rp-block"><div class="rp-block-head"><div class="rp-block-title">${ic('chart')}Overall progress</div></div>${progress}</section>
+      <section class="rp-block"><div class="rp-block-head"><div class="rp-block-title">${ic('book')}Their last session</div></div>${lastBlock}</section>
+      <section class="rp-block"><div class="rp-block-head"><div class="rp-block-title">${ic('heart')}Behaviour</div></div>${behaviour}</section>
+    </div>
+    ${targetsNow ? `<section class="rp-note rp-targets"><h3>Current targets</h3><p dir="auto">${esc(targetsNow)}</p></section>` : ''}
+    ${comments ? `<section class="rp-note rp-reflection"><h3>Teacher's comments</h3><p dir="auto">${esc(comments)}</p></section>` : ''}
+    ${reportFoot}`;
+  closeModal('modal-class-report');
+  openReport('Class report preview', `Class report, ${st.name}, ${r.name}`);
+}
+
+// ── Welcome, sign-in and passwords ──
+function showWelcome(pane) {
+  $('welcome').hidden = false;
+  document.querySelectorAll('#welcome [data-pane]').forEach(p => { p.hidden = p.dataset.pane !== pane; });
+  const first = document.querySelector(`#welcome [data-pane="${pane}"] input`);
+  if (first) setTimeout(() => first.focus(), 60);
+}
+function hideWelcome() { $('welcome').hidden = true; }
+async function sendParentLink() {
+  const email = $('parent-email').value.trim();
+  if (!email) { toast('Enter your email address', 'warn'); return; }
+  $('parent-status').textContent = 'Sending…';
+  const { error } = await db.auth.signInWithOtp({ email, options: { emailRedirectTo: appUrl() } });
+  $('parent-status').textContent = error ? '' : 'Check your email and tap the link to sign in. You can close this page.';
+  if (error) toast(error.message, 'warn');
+}
+async function teacherSignIn() {
+  const email = $('teacher-email').value.trim(), password = $('teacher-password').value;
+  if (!email || !password) { toast('Enter your email and password', 'warn'); return; }
+  state.passwordJustUsed = true;
+  const { error } = await db.auth.signInWithPassword({ email, password });
+  if (error) {
+    state.passwordJustUsed = false;
+    toast(/invalid/i.test(error.message) ? 'That email and password don’t match. Try again, or reset your password.' : error.message, 'warn');
+  }
+}
+async function requestAccess() {
+  const first = $('req-first').value.trim(), last = $('req-last').value.trim(), email = $('req-email').value.trim();
+  if (!first || !last || !email) { toast('Fill in your name and email', 'warn'); return; }
+  const { error } = await db.rpc('request_teacher_access', { p_institute: INSTITUTE, p_first_name: first, p_last_name: last, p_email: email });
+  if (error) { toast(error.message, 'warn'); return; }
+  $('requested-title').textContent = `Thank you, ${first}`;
+  showWelcome('requested');
+}
+async function sendReset() {
+  const email = $('forgot-email').value.trim();
+  if (!email) { toast('Enter your email address', 'warn'); return; }
+  const { error } = await db.auth.resetPasswordForEmail(email, { redirectTo: appUrl() });
+  if (error) { toast(error.message, 'warn'); return; }
+  $('forgot-status').textContent = 'If that email belongs to a teacher here, a reset link is on its way.';
+}
+async function savePassword() {
+  const p1 = $('pw-new').value, p2 = $('pw-again').value;
+  if (p1.length < 8) { toast('Use at least 8 characters', 'warn'); return; }
+  if (p1 !== p2) { toast('The two passwords don’t match', 'warn'); return; }
+  const { error } = await db.auth.updateUser({ password: p1, data: { password_set: true } });
+  if (error) { toast(error.message, 'warn'); return; }
+  $('pw-new').value = ''; $('pw-again').value = '';
+  state.recovering = false;
+  state.passwordJustUsed = true;
+  toast('Password saved. Next time, sign in with your email and password');
+  start();
+}
+async function signOut() {
+  await db.auth.signOut();
+  location.reload();
+}
+// Sign-in events can arrive while start() is already running (a magic link
+// fires one as the page loads), so overlapping calls share a single run.
+let startRun = null, startedFor = null;
+function start() {
+  if (!startRun) startRun = startNow().finally(() => { startRun = null; });
+  return startRun;
+}
+async function startNow() {
+  const { data: { session } } = await db.auth.getSession();
+  startedFor = session ? session.user.id : null;
+  if (state.recovering && session) {
+    $('pw-title').textContent = 'Choose a new password';
+    showWelcome('password'); return;
+  }
+  if (!session) { showWelcome('choose'); return; }
+  hideWelcome();
+
+  await db.rpc('accept_invites');
+  const { data: me, error } = await db.from('members')
+    .select('org_id, user_id, role, display_name, email')
+    .eq('user_id', session.user.id);
+  if (error) return toast(error.message, 'warn');
+  if (!me.length) {
+    const kids = await db.rpc('my_children');
+    if (!kids.error && kids.data && kids.data.length) return startParent(kids.data);
+    $('not-invited').hidden = false;
+    return;
+  }
+
+  state.me = me[0];
+  state.orgId = me[0].org_id;
+  state.role = me[0].role;
+  document.body.classList.toggle('is-admin', state.role === 'admin');
+  const meta = session.user.user_metadata || {};
+  if (!meta.password_set) {
+    if (state.passwordJustUsed) db.auth.updateUser({ data: { password_set: true } });
+    else { $('pw-title').textContent = `Welcome, ${firstName() || 'teacher'}. Choose your password`; showWelcome('password'); return; }
+  }
+  await loadAll();
+  renderAll();
+  showPage('dashboard');
+}
+
+// The library also reports SIGNED_IN when someone returns to the tab, so the
+// page only restarts when a different person has signed in. That keeps a
+// half-written session log safe.
+db.auth.onAuthStateChange((event, session) => {
+  if (event === 'PASSWORD_RECOVERY') { state.recovering = true; setTimeout(start, 0); }
+  else if (event === 'SIGNED_IN' && session && session.user.id !== startedFor) setTimeout(start, 0);
+  else if (event === 'SIGNED_OUT' && startedFor) location.reload();
+});
+
+// ── Loading ──
+async function loadAll() {
+  const [cls, studs, enr, sess, mem, ct] = await Promise.all([
+    db.from('classes').select('id, name').eq('archived', false).order('name'),
+    db.from('students').select('*').order('name'),
+    db.from('enrolments').select('student_id, class_id'),
+    db.from('sessions').select('*').order('session_date', { ascending: false }),
+    db.from('members').select('user_id, role, display_name, email'),
+    db.from('class_teachers').select('class_id, user_id')
+  ]);
+  const failed = [cls, studs, enr, sess, mem, ct].find(r => r.error);
+  if (failed) { toast('Could not load your data: ' + failed.error.message, 'warn'); return; }
+
+  state.classes = cls.data;
+  state.enrolments = enr.data;
+  state.members = mem.data;
+  state.classTeachers = ct.data;
+  state.students = studs.data.map(studentFromRow);
+  state.sessions = sess.data.map(fromRow);
+
+  const g = await db.from('guardians').select('id, student_id, email, user_id').order('email');
+  state.guardiansOn = !g.error;
+  state.guardians = g.error ? [] : g.data;
+
+  if (state.role === 'admin') {
+    const [inv, req] = await Promise.all([
+      db.from('invites').select('id, email, display_name, class_id, role'),
+      db.from('teacher_requests').select('*').eq('status', 'pending').order('created_at')
+    ]);
+    state.invites = inv.error ? [] : inv.data;
+    state.requests = req.error ? [] : req.data;
+  }
+}
+
+// ── Parents ──
+async function startParent(kids) {
+  state.role = 'parent';
+  document.body.classList.add('parent-mode');
+  const { data, error } = await db.rpc('my_children_sessions');
+  if (error) { toast('Could not load your children’s progress: ' + error.message, 'warn'); return; }
+  state.students = kids.map(k => ({
+    id: k.id, name: k.name, age: k.age ?? '', startDate: k.start_date ?? '', dob: k.date_of_birth || '',
+    level: k.level || '', targets: k.targets || '', notes: '', sg: null
+  }));
+  state.sessions = data.map(fromRow);
+  state.classes = []; state.enrolments = []; state.guardians = []; state.members = []; state.classTeachers = [];
+
+  const one = kids.length === 1;
+  const navLabel = one ? 'Your child' : 'Your children';
+  document.querySelector('.nav-item[data-nav="students"] span').textContent = navLabel;
+  document.querySelector('.tab[data-nav="students"]').lastChild.textContent = one ? 'Child' : 'Children';
+  document.querySelector('#page-students .page-title').textContent = navLabel;
+  document.querySelector('#page-students .page-sub').textContent = 'Their progress, and every lesson their teacher has recorded.';
+  document.querySelector('#page-history .page-sub').textContent = one
+    ? 'Every lesson recorded for your child, newest first.'
+    : 'Every lesson recorded for your children, newest first.';
+
+  renderAll();
+  if (one) viewStudent(kids[0].id); else showPage('students');
+}
+
+// ── Start ──
 function init() {
   syncThemeControls();
   watchSystemTheme();
@@ -1645,7 +2750,7 @@ document.addEventListener('keydown', e => {
     return;
   }
   if ((e.key === 'Enter' || e.key === ' ') && e.target.matches('[role="button"]')) { e.preventDefault(); e.target.click(); }
-  if (e.key === 'Enter' && $('modal-add-student').classList.contains('open') && e.target.tagName === 'INPUT') { e.preventDefault(); addStudent(); }
+  if (e.key === 'Enter' && $('modal-add-student').classList.contains('open') && e.target.tagName === 'INPUT' && e.target.type !== 'checkbox') { e.preventDefault(); saveStudentForm(); }
 });
 
 // ── Start ──
