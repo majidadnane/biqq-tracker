@@ -636,6 +636,9 @@ body:not(.is-admin) .admin-only{display:none !important}
 .staff-main .row-title,.staff-main .row-sub{white-space:normal}
 .staff-actions{display:flex;gap:8px;flex-shrink:0;flex-wrap:wrap;justify-content:flex-end}
 #class-list .fc-icon{width:38px;height:38px}
+.row.row-edit{cursor:default;gap:10px;padding:11px 0}
+.row-edit .input{flex:1;min-width:0;height:40px;font-weight:600;color:var(--heading)}
+@media (max-width:480px){ .row-edit .fc-icon,#class-list .row .chev{display:none} #class-list .row{gap:10px} }
 .class-add{display:flex;flex-wrap:wrap;gap:10px;padding:8px 26px 24px}
 .class-add .input{flex:1 1 240px;height:42px}
 
@@ -2277,7 +2280,7 @@ function showPage(id) {
   if (id === 'log-session') renderStudentSelects();
   if (id === 'history') { renderStudentSelects(); renderHistory(); }
   if (id === 'register') { renderRegisterControls(); loadRegister(); }
-  if (id === 'staff') renderStaff();
+  if (id === 'staff') { state.renamingClass = null; renderStaff(); }
   window.scrollTo(0, 0);
 }
 // The week at a glance: this week against the one before, with the last eight weeks as columns
@@ -2822,10 +2825,18 @@ function renderStaff() {
   }).join('');
 
   $('class-list').innerHTML = state.classes.length ? state.classes.map(c => {
+    if (c.id === state.renamingClass) return `<div class="row row-edit">
+      <span class="fc-icon">${ic('users')}</span>
+      <input type="text" id="rename-class-input" class="input" value="${esc(c.name)}" maxlength="80" aria-label="New name for ${esc(c.name)}"
+        onkeydown="if (event.key === 'Enter') saveClassName('${c.id}'); else if (event.key === 'Escape') cancelRenameClass()">
+      <button class="btn btn-primary btn-sm" onclick="saveClassName('${c.id}')">Save</button>
+      <button class="btn btn-quiet btn-sm" onclick="cancelRenameClass()">Cancel</button>
+    </div>`;
     const t = teachersOfClass(c.id), n = studentsInClass(c.id).length;
     return `<div class="row" role="button" tabindex="0" onclick="showStudentsInClass('${c.id}')">
       <span class="fc-icon">${ic('users')}</span>
       <span class="row-main"><span class="row-title">${esc(c.name)}</span><span class="row-sub">${t.length ? `With ${esc(t.join(', '))}` : 'No teacher yet'}, ${plural(n, 'student')}</span></span>
+      <button class="btn btn-quiet btn-icon btn-sm" onclick="event.stopPropagation();startRenameClass('${c.id}')" aria-label="Rename ${esc(c.name)}" title="Rename class">${ic('pen')}</button>
       <button class="btn btn-quiet btn-icon btn-sm" onclick="event.stopPropagation();removeClass('${c.id}')" aria-label="Remove ${esc(c.name)}" title="Remove class">${ic('trash')}</button>
       ${ic('chev', 'chev')}
     </div>`;
@@ -2905,6 +2916,30 @@ async function removeClass(id) {
     await loadAll(); renderAll();
     toast(`${c.name} removed`);
   });
+}
+function startRenameClass(id) {
+  state.renamingClass = id;
+  renderStaff();
+  const input = $('rename-class-input');
+  if (input) { input.focus(); input.select(); }
+}
+function cancelRenameClass() {
+  state.renamingClass = null;
+  renderStaff();
+}
+async function saveClassName(id) {
+  const c = classById(id); if (!c) return;
+  const input = $('rename-class-input'), name = input.value.trim().replace(/\s+/g, ' ');
+  if (!name) { toast('Give the class a name', 'warn'); input.focus(); return; }
+  if (name === c.name) { cancelRenameClass(); return; }
+  if (state.classes.some(k => k.id !== id && k.name.trim().toLowerCase() === name.toLowerCase())) {
+    toast(`There’s already a class called ${name}`, 'warn'); input.focus(); return;
+  }
+  const { error } = await db.from('classes').update({ name }).eq('id', id);
+  if (error) { toast(error.message, 'warn'); return; }
+  state.renamingClass = null;
+  await loadAll(); renderAll();
+  toast(`${c.name} is now called ${name}`);
 }
 async function createClass() {
   const name = $('new-class-name').value.trim();
