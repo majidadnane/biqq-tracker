@@ -236,6 +236,7 @@ input,select,textarea{font:inherit;color:inherit}
 .mood-tag{--tone:#6f6a60;display:inline-flex;align-items:center;gap:7px;height:27px;padding:0 12px;border-radius:999px;font-size:13.5px;font-weight:600;white-space:nowrap;
   color:color-mix(in srgb,var(--tone) 82%,var(--text));background:color-mix(in srgb,var(--tone) 10%,var(--surface));border:1px solid color-mix(in srgb,var(--tone) 24%,transparent)}
 :root[data-theme="dark"] .mood-tag{color:color-mix(in srgb,var(--tone) 45%,#fff);background:color-mix(in srgb,var(--tone) 22%,var(--surface));border-color:color-mix(in srgb,var(--tone) 45%,transparent)}
+:root[data-theme="dark"] .report-sheet .mood-tag{color:color-mix(in srgb,var(--tone) 82%,var(--text));background:color-mix(in srgb,var(--tone) 10%,var(--surface));border-color:color-mix(in srgb,var(--tone) 24%,transparent)}
 .mood-tag i{width:6px;height:6px;border-radius:50%;background:var(--tone)}
 
 .rubs{display:inline-flex;gap:2px;vertical-align:middle}
@@ -597,6 +598,7 @@ body:not(.is-admin) .admin-only{display:none !important}
 .h-meta .ic{width:14px;height:14px;color:var(--icon)}
 
 /* safeguarding */
+.sg-card .card-head{align-items:center}
 .sg-card .card-title{display:flex;align-items:center;gap:10px}
 .sg-card .card-title .ic{width:20px;height:20px;color:var(--icon)}
 .sg-warn{display:flex;gap:10px;align-items:flex-start;margin:10px 26px 0;padding:12px 14px;border-radius:12px;background:var(--accent-wash);border:1px solid var(--accent-line);font-size:15px;color:var(--text)}
@@ -638,7 +640,7 @@ body:not(.is-admin) .admin-only{display:none !important}
 #class-list .fc-icon{width:38px;height:38px}
 .row.row-edit{cursor:default;gap:10px;padding:11px 0}
 .row-edit .input{flex:1;min-width:0;height:40px;font-weight:600;color:var(--heading)}
-@media (max-width:480px){ .row-edit .fc-icon,#class-list .row .chev{display:none} #class-list .row{gap:10px} }
+@media (max-width:480px){ .row-edit .row-art,#class-list .row .chev{display:none} #class-list .row{gap:10px} }
 .class-add{display:flex;flex-wrap:wrap;gap:10px;padding:8px 26px 24px}
 .class-add .input{flex:1 1 240px;height:42px}
 
@@ -1050,6 +1052,33 @@ body{font-size:15.5px}
   .regi-head{flex-wrap:wrap}
   .regi-head .staff-actions{width:100%;justify-content:flex-start;padding-left:56px}
 }
+/* Drawn icons, in the welcome page's line */
+.dw{display:block;flex-shrink:0;overflow:visible}
+.dw .arch{fill:var(--icon-wash);stroke:none}
+.dw path:not(.arch){fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:0}
+.dw .frame{stroke:var(--primary)}
+.dw .frame.faint{stroke:var(--line-2)}
+.dw .ink{stroke:var(--accent);stroke-width:1.65}
+:root[data-theme="dark"] .dw .frame{stroke:var(--accent-soft)}
+:root[data-theme="dark"] .dw .frame.faint{stroke:var(--line-2)}
+:root[data-theme="dark"] .dw .ink{stroke:#c9a47e}
+.dw.sm{width:30px;height:30px}
+.dw.sm path:not(.arch){stroke-width:2.1}
+.dw.sm .ink{stroke-width:2.3}
+.dw.sm .fine{display:none}
+.dw.play path:not(.arch){stroke-dashoffset:1;animation:wdraw .8s var(--ease) forwards;animation-delay:calc(var(--d,0ms) + var(--i,0) * 90ms + 120ms)}
+.dw.redraw .ink{animation:wdraw .7s var(--ease) both;animation-delay:calc((var(--i,0) - var(--k,0)) * 100ms)}
+.fc-icon.dwt{width:48px;height:48px;background:none;box-shadow:none;border-radius:0;margin:-6px 0}
+.fc-icon.dwt .dw{width:48px;height:48px}
+.row-art{display:block;width:42px;height:42px;flex-shrink:0}
+.row-art .dw{width:42px;height:42px}
+.d-title,.rp-block-title{gap:8px}
+.d-title .dw,.rp-block-title .dw{margin:-6px 0 -6px -3px}
+.sg-card .card-title .dw{width:34px;height:34px;margin:-8px -2px -8px -4px}
+:root[data-theme="dark"] .report-sheet .dw .frame{stroke:var(--primary)}
+:root[data-theme="dark"] .report-sheet .dw .ink{stroke:var(--accent)}
+@media (max-width:640px){ .fc-icon.dwt,.fc-icon.dwt .dw{width:42px;height:42px} }
+@media (prefers-reduced-motion:reduce){ .dw path{animation:none !important;stroke-dashoffset:0 !important} }
 /* Welcome choices: two small drawings in the logo's line, a mus'haf on its rehal for parents and a
    qalam nib for teachers. They draw themselves in when the page opens; on hover the lines are read
    or written again. */
@@ -1313,7 +1342,7 @@ body{font-size:15.5px}
           <section class="form-card">
             <div class="fc-head">
               <div class="fc-title-wrap">
-                <span class="fc-icon"><svg class="ic"><use href="#i-calendar"/></svg></span>
+                <span class="fc-icon dwt" data-drawn="calendar"></span>
                 <div><h2 class="fc-title">Who and when</h2></div>
               </div>
             </div>
@@ -1336,7 +1365,7 @@ body{font-size:15.5px}
           <section class="form-card">
             <div class="fc-head">
               <div class="fc-title-wrap">
-                <span class="fc-icon"><svg class="ic"><use href="#i-book"/></svg></span>
+                <span class="fc-icon dwt" data-drawn="book"></span>
                 <div><h2 class="fc-title">Memorisation<span lang="ar">حفظ</span></h2><p class="fc-sub">New verses committed to memory today</p></div>
               </div>
               <div class="rating" id="star-mem" data-field="mem" role="group" aria-label="Memorisation rating"></div>
@@ -1351,7 +1380,7 @@ body{font-size:15.5px}
           <section class="form-card">
             <div class="fc-head">
               <div class="fc-title-wrap">
-                <span class="fc-icon"><svg class="ic"><use href="#i-repeat"/></svg></span>
+                <span class="fc-icon dwt" data-drawn="repeat"></span>
                 <div><h2 class="fc-title">Revision<span lang="ar">مراجعة</span></h2><p class="fc-sub">What they went back over, and how it held up</p></div>
               </div>
               <div class="rating" id="star-rev" data-field="rev" role="group" aria-label="Revision rating"></div>
@@ -1366,7 +1395,7 @@ body{font-size:15.5px}
           <section class="form-card">
             <div class="fc-head">
               <div class="fc-title-wrap">
-                <span class="fc-icon alt"><svg class="ic"><use href="#i-mic"/></svg></span>
+                <span class="fc-icon dwt" data-drawn="mic"></span>
                 <div><h2 class="fc-title">Recitation<span lang="ar">تلاوة</span></h2><p class="fc-sub">Reading aloud, with attention to tajweed</p></div>
               </div>
               <div class="rating" id="star-rec" data-field="rec" role="group" aria-label="Recitation rating"></div>
@@ -1381,7 +1410,7 @@ body{font-size:15.5px}
           <section class="form-card">
             <div class="fc-head">
               <div class="fc-title-wrap">
-                <span class="fc-icon"><svg class="ic"><use href="#i-heart"/></svg></span>
+                <span class="fc-icon dwt" data-drawn="heart"></span>
                 <div><h2 class="fc-title">Behaviour, and what's next</h2><p class="fc-sub">Parents see the rating and the notes</p></div>
               </div>
             </div>
@@ -1395,7 +1424,7 @@ body{font-size:15.5px}
           <section class="form-card">
             <div class="fc-head">
               <div class="fc-title-wrap">
-                <span class="fc-icon alt"><svg class="ic"><use href="#i-moon"/></svg></span>
+                <span class="fc-icon dwt" data-drawn="moon"></span>
                 <div><h2 class="fc-title">Reflection<span lang="ar">تأمل</span></h2><p class="fc-sub">Shown on the student's report</p></div>
               </div>
             </div>
@@ -1992,6 +2021,7 @@ function initRatings() {
         const v = +star.dataset.v;
         state.ratings[field] = state.ratings[field] === v ? 0 : v;   // tap the same mark again to clear it
         paintRating(field, state.ratings[field]);
+        if (state.ratings[field]) redrawInk(box.closest('.form-card').querySelector('.dw'));
       });
       star.addEventListener('mouseenter', () => paintRating(field, +star.dataset.v, true));
       star.addEventListener('focus', () => paintRating(field, +star.dataset.v, true));
@@ -2026,7 +2056,7 @@ function detailBlock(key, q, fields) {
   const sec = SECTIONS[key];
   return `<div class="d-block">
     <div class="d-head">
-      <span class="d-title">${ic(sec.icon)}${sec.label}<span lang="ar">${sec.ar}</span></span>
+      <span class="d-title">${drawn(sec.icon, 'sm')}${sec.label}<span lang="ar">${sec.ar}</span></span>
       <span class="d-rating">${q ? rubs(q) + RATING_WORDS[q] : '<span class="na">Not rated</span>'}</span>
     </div>
     <dl class="kv">${fields.map(([label, v]) => `<div><dt>${label}</dt><dd dir="auto">${val(v)}</dd></div>`).join('')}</dl>
@@ -2043,7 +2073,7 @@ function reportBlock(key, q, fields) {
   const filled = fields.filter(([, v]) => v);   // parents only see what was actually recorded
   return `<section class="rp-block">
     <div class="rp-block-head">
-      <div class="rp-block-title">${ic(sec.icon)}${sec.label}<span lang="ar">${sec.ar}</span></div>
+      <div class="rp-block-title">${drawn(sec.icon, 'sm')}${sec.label}<span lang="ar">${sec.ar}</span></div>
       <div class="rp-rating">${q ? petals(q) + `<span>${RATING_WORDS[q]}</span>` : '<span class="na">Not rated</span>'}</div>
     </div>
     ${filled.length
@@ -2255,7 +2285,7 @@ function selectMood(btn, rating) {
   const same = state.selectedBehaviour === rating;
   document.querySelectorAll('.mood').forEach(b => { b.classList.remove('selected'); b.setAttribute('aria-pressed', 'false'); });
   state.selectedBehaviour = same ? '' : rating;
-  if (!same) { btn.classList.add('selected'); btn.setAttribute('aria-pressed', 'true'); }
+  if (!same) { btn.classList.add('selected'); btn.setAttribute('aria-pressed', 'true'); redrawInk(btn.closest('.form-card').querySelector('.dw')); }
 }
 function clearSessionForm() {
   ['mem-surah', 'mem-verses', 'mem-notes', 'rev-content', 'rev-mistakes', 'rev-notes', 'rec-surah', 'rec-tajweed', 'rec-notes', 'behaviour-notes', 'targets', 'reflection'].forEach(id => $(id).value = '');
@@ -2281,6 +2311,7 @@ function showPage(id) {
   if (id === 'history') { renderStudentSelects(); renderHistory(); }
   if (id === 'register') { renderRegisterControls(); loadRegister(); }
   if (id === 'staff') { state.renamingClass = null; renderStaff(); }
+  if (id === 'log-session') playDrawn($('page-log-session'));
   window.scrollTo(0, 0);
 }
 // The week at a glance: this week against the one before, with the last eight weeks as columns
@@ -2643,7 +2674,7 @@ function safeguardingCard(st) {
   const health = [['Medical conditions', g.medical_conditions], ['Allergies', g.allergies], ['Medication', g.medication]].filter(([, v]) => v);
   const missing = !g.contact_name || !g.contact_phone;
   return `<section class="card sg-card" style="margin-top:20px">
-    <div class="card-head"><h2 class="card-title">${ic('shield')}Safeguarding</h2><button class="link-btn" onclick="openStudentForm('${st.id}')">Edit details${ic('chev')}</button></div>
+    <div class="card-head"><h2 class="card-title">${drawn('shield', 'sm')}Safeguarding</h2><button class="link-btn" onclick="openStudentForm('${st.id}')">Edit details${ic('chev')}</button></div>
     <p class="parents-lead">Only the institute's admin and ${esc(st.name.split(' ')[0])}'s own teachers can see this.</p>
     ${missing ? `<div class="sg-warn">${ic('alert')}<span>No main contact recorded yet. Add one so staff can reach a parent quickly.</span></div>` : ''}
     ${health.length ? `<div class="sg-health">${health.map(([l, v]) => `<div><strong>${l}</strong><span dir="auto">${esc(v)}</span></div>`).join('')}</div>` : ''}
@@ -2826,7 +2857,7 @@ function renderStaff() {
 
   $('class-list').innerHTML = state.classes.length ? state.classes.map(c => {
     if (c.id === state.renamingClass) return `<div class="row row-edit">
-      <span class="fc-icon">${ic('users')}</span>
+      <span class="row-art">${drawn('users')}</span>
       <input type="text" id="rename-class-input" class="input" value="${esc(c.name)}" maxlength="80" aria-label="New name for ${esc(c.name)}"
         onkeydown="if (event.key === 'Enter') saveClassName('${c.id}'); else if (event.key === 'Escape') cancelRenameClass()">
       <button class="btn btn-primary btn-sm" onclick="saveClassName('${c.id}')">Save</button>
@@ -2834,7 +2865,7 @@ function renderStaff() {
     </div>`;
     const t = teachersOfClass(c.id), n = studentsInClass(c.id).length;
     return `<div class="row" role="button" tabindex="0" onclick="showStudentsInClass('${c.id}')">
-      <span class="fc-icon">${ic('users')}</span>
+      <span class="row-art">${drawn('users')}</span>
       <span class="row-main"><span class="row-title">${esc(c.name)}</span><span class="row-sub">${t.length ? `With ${esc(t.join(', '))}` : 'No teacher yet'}, ${plural(n, 'student')}</span></span>
       <button class="btn btn-quiet btn-icon btn-sm" onclick="event.stopPropagation();startRenameClass('${c.id}')" aria-label="Rename ${esc(c.name)}" title="Rename class">${ic('pen')}</button>
       <button class="btn btn-quiet btn-icon btn-sm" onclick="event.stopPropagation();removeClass('${c.id}')" aria-label="Remove ${esc(c.name)}" title="Remove class">${ic('trash')}</button>
@@ -3086,9 +3117,9 @@ function viewSessionDetail(id) {
     ${detailBlock('mem', s.memorization.quality, [['Surah or passage', s.memorization.surah], ['Verses memorised', s.memorization.verses], ['Notes', s.memorization.notes]])}
     ${detailBlock('rev', s.revision.quality, [['Content revised', s.revision.content], ['Mistakes', s.revision.mistakes], ['Notes', s.revision.notes]])}
     ${detailBlock('rec', s.recitation.quality, [['Passage recited', s.recitation.surah], ['Tajweed', s.recitation.tajweed], ['Notes', s.recitation.notes]])}
-    ${(s.behaviour.rating || s.behaviour.notes) ? `<div class="d-block"><div class="d-head"><span class="d-title">${ic('heart')}Behaviour</span>${behaviourTag(s.behaviour.rating)}</div>${s.behaviour.notes ? `<p class="d-text" dir="auto">${esc(s.behaviour.notes)}</p>` : ''}</div>` : ''}
-    ${s.targets ? `<div class="d-block"><div class="d-head"><span class="d-title">${ic('target')}Targets for next lesson</span></div><div class="targets flush" dir="auto">${esc(s.targets)}</div></div>` : ''}
-    ${s.reflection ? `<div class="d-block"><div class="d-head"><span class="d-title">${ic('moon')}Reflection<span lang="ar">تأمل</span></span></div><p class="reflection" dir="auto">${esc(s.reflection)}</p></div>` : ''}`;
+    ${(s.behaviour.rating || s.behaviour.notes) ? `<div class="d-block"><div class="d-head"><span class="d-title">${drawn('heart', 'sm')}Behaviour</span>${behaviourTag(s.behaviour.rating)}</div>${s.behaviour.notes ? `<p class="d-text" dir="auto">${esc(s.behaviour.notes)}</p>` : ''}</div>` : ''}
+    ${s.targets ? `<div class="d-block"><div class="d-head"><span class="d-title">${drawn('target', 'sm')}Targets for next lesson</span></div><div class="targets flush" dir="auto">${esc(s.targets)}</div></div>` : ''}
+    ${s.reflection ? `<div class="d-block"><div class="d-head"><span class="d-title">${drawn('moon', 'sm')}Reflection<span lang="ar">تأمل</span></span></div><p class="reflection" dir="auto">${esc(s.reflection)}</p></div>` : ''}`;
   openModal('modal-session-detail');
 }
 
@@ -3238,16 +3269,68 @@ async function makeClassReport() {
       </div>
     </section>
     <div class="rp-grid">
-      <section class="rp-block"><div class="rp-block-head"><div class="rp-block-title">${ic('register')}Attendance</div></div>${attendance}</section>
-      <section class="rp-block"><div class="rp-block-head"><div class="rp-block-title">${ic('chart')}Overall progress</div></div>${progress}</section>
-      <section class="rp-block"><div class="rp-block-head"><div class="rp-block-title">${ic('book')}Their last lesson</div></div>${lastBlock}</section>
-      <section class="rp-block"><div class="rp-block-head"><div class="rp-block-title">${ic('heart')}Behaviour</div></div>${behaviour}</section>
+      <section class="rp-block"><div class="rp-block-head"><div class="rp-block-title">${drawn('register', 'sm')}Attendance</div></div>${attendance}</section>
+      <section class="rp-block"><div class="rp-block-head"><div class="rp-block-title">${drawn('chart', 'sm')}Overall progress</div></div>${progress}</section>
+      <section class="rp-block"><div class="rp-block-head"><div class="rp-block-title">${drawn('book', 'sm')}Their last lesson</div></div>${lastBlock}</section>
+      <section class="rp-block"><div class="rp-block-head"><div class="rp-block-title">${drawn('heart', 'sm')}Behaviour</div></div>${behaviour}</section>
     </div>
     ${targetsNow ? `<section class="rp-note rp-targets"><h3>Current targets</h3><p dir="auto">${esc(targetsNow)}</p></section>` : ''}
     ${comments ? `<section class="rp-note rp-reflection"><h3>Teacher's comments</h3><p dir="auto">${esc(comments)}</p></section>` : ''}
     ${reportFoot}`;
   closeModal('modal-class-report');
   openReport('Class report preview', `Class report, ${st.name}, ${r.name}`);
+}
+
+// ── Drawn icons ──
+// The welcome page's drawing style, used for section headings: a soft arch behind, the shape in umber
+// and the detail in the lighter accent ink. Each line is drawn at pathLength 1 so it can draw itself in.
+// f frame, F faint frame, i ink, n fine ink (left out at small sizes)
+const DRAWN = {
+  calendar: { x: 27, p: ['f M13.5 17H34.5A2.5 2.5 0 0 1 37 19.5V36A2.5 2.5 0 0 1 34.5 38.5H13.5A2.5 2.5 0 0 1 11 36V19.5A2.5 2.5 0 0 1 13.5 17Z', 'f M11 23.5H37', 'f M18 13.5V20M30 13.5V20',
+    'i M25.75 27.1A4.5 4.5 0 1 0 25.75 34.9A5 5 0 0 1 25.75 27.1'] },
+  book: { x: 24, p: ['f M24 21.5C20 18.5 14 18 8.5 19.75V29C14 27.5 20 28 24 31C28 28 34 27.5 39.5 29V19.75C34 18 28 18.5 24 21.5Z', 'f M24 21.5V31', 'f M15 29.5L25 39.5M33 29.5L23 39.5M14 39.5H34',
+    'i M11.5 22.75C14.5 22 17 22 21 23.25', 'n M11.5 25.5C14.5 24.75 17 24.75 21 26', 'i M27 23.25C31 22 33.5 22 36.5 22.75', 'n M27 26C31 24.75 33.5 24.75 36.5 25.5'] },
+  repeat: { x: 25, p: ['f M32.4 17A13 13 0 1 1 14 18.6', 'f M9.7 19.8L14 18.6L13.6 23.1',
+    'i M18.5 23.5C22 22.6 26 22.6 29.5 23.5', 'i M18.5 27.5C22 26.6 26 26.6 29.5 27.5', 'n M18.5 31.5C21 30.8 23.5 30.8 25.5 31.5'] },
+  mic: { x: 22, p: ['f M22 9.5A5 5 0 0 1 27 14.5V22.5A5 5 0 0 1 17 22.5V14.5A5 5 0 0 1 22 9.5Z', 'f M13.5 22.5A8.5 8.5 0 0 0 30.5 22.5', 'f M22 31V37M16.5 37H27.5',
+    'i M34 16.5C35.8 18.9 35.8 23.1 34 25.5', 'i M37.5 13.5C40.7 17.7 40.7 24.3 37.5 28.5'] },
+  heart: { x: 24, p: ['f M24 38C17.5 33.2 10.5 27.6 10.5 21.2A7 7 0 0 1 24 18.6A7 7 0 0 1 37.5 21.2C37.5 27.6 30.5 33.2 24 38Z',
+    'i M14 21.6C14 19.1 15.9 17.3 18.2 17.3', 'n M35.5 9.5C35.7 11.3 36.2 11.8 38 12C36.2 12.2 35.7 12.7 35.5 14.5C35.3 12.7 34.8 12.2 33 12C34.8 11.8 35.3 11.3 35.5 9.5Z'] },
+  moon: { x: 21, p: ['f M28.9 15.2A12 12 0 1 0 31.8 31.9A9.5 9.5 0 0 1 28.9 15.2Z',
+    'i M35 12.5C35.3 15.4 36.1 16.2 39 16.5C36.1 16.8 35.3 17.6 35 20.5C34.7 17.6 33.9 16.8 31 16.5C33.9 16.2 34.7 15.4 35 12.5Z', 'n M38.5 24C38.7 25.8 39.2 26.3 41 26.5C39.2 26.7 38.7 27.2 38.5 29C38.3 27.2 37.8 26.7 36 26.5C37.8 26.3 38.3 25.8 38.5 24Z'] },
+  target: { x: 22, p: ['f M11 27A11 11 0 1 0 33 27A11 11 0 1 0 11 27Z', 'f M16.5 27A5.5 5.5 0 1 0 27.5 27A5.5 5.5 0 1 0 16.5 27Z',
+    'i M22.5 26.5L37 12', 'i M37 7.5V12H41.5'] },
+  shield: { x: 25, p: ['f M24 9.5L36 14V23.5C36 31.1 31 36.3 24 39C17 36.3 12 31.1 12 23.5V14Z', 'i M18.5 24.5L22.5 28.5L30 21'] },
+  users: { x: 24, p: ['F M8 40.5H40', 'f M19.8 17A4.2 4.2 0 1 0 28.2 17A4.2 4.2 0 1 0 19.8 17Z', 'f M15.5 36.5C15.5 30.9 19.3 27 24 27S32.5 30.9 32.5 36.5',
+    'i M9.3 21.5A3.2 3.2 0 1 0 15.7 21.5A3.2 3.2 0 1 0 9.3 21.5Z', 'i M6.5 36.5C6.5 32 8.9 29 12.4 28.6', 'i M32.3 21.5A3.2 3.2 0 1 0 38.7 21.5A3.2 3.2 0 1 0 32.3 21.5Z', 'i M41.5 36.5C41.5 32 39.1 29 35.6 28.6'] },
+  register: { x: 22, p: ['f M14.5 13.5H33.5A2 2 0 0 1 35.5 15.5V38A2 2 0 0 1 33.5 40H14.5A2 2 0 0 1 12.5 38V15.5A2 2 0 0 1 14.5 13.5Z', 'f M19.5 10.5H28.5V16H19.5Z', 'F M25 23.5H31.5M25 31.5H31.5',
+    'i M16.5 23L18.5 25L22 21.5', 'i M16.5 31L18.5 33L22 29.5'] },
+  chart: { x: 26, p: ['f M10.5 11V37.5H38.5', 'i M14.5 32L20.5 25.5L25.5 29.5L35 18', 'i M31.1 19.1L35 18L34.7 22'] }
+};
+const DRAWN_CLASS = { f: 'frame', F: 'frame faint', i: 'ink', n: 'ink fine' };
+function drawn(name, size = '') {
+  const d = DRAWN[name]; if (!d) return ic(name);
+  const firstInk = d.p.findIndex(l => l[0] === 'i' || l[0] === 'n');
+  return `<svg class="dw ${size}" viewBox="0 0 48 48" aria-hidden="true" style="--k:${firstInk}">` +
+    `<path class="arch" d="M${d.x - 13} 47V21A13 13 0 0 1 ${d.x + 13} 21V47Z"/>` +
+    d.p.map((l, i) => `<path class="${DRAWN_CLASS[l[0]]}" pathLength="1" style="--i:${i}" d="${l.slice(2)}"/>`).join('') + '</svg>';
+}
+function fillDrawn() {
+  document.querySelectorAll('[data-drawn]').forEach(el => { if (!el.firstChild) el.innerHTML = drawn(el.dataset.drawn, el.dataset.size || ''); });
+}
+// Draw the section icons in when Record a lesson opens, one card after another
+function playDrawn(scope) {
+  scope.querySelectorAll('.dw').forEach((svg, n) => {
+    svg.classList.remove('play', 'redraw'); void svg.getBoundingClientRect();
+    svg.style.setProperty('--d', n * 90 + 'ms');
+    svg.classList.add('play');
+  });
+}
+// Rating a section writes its accent lines again
+function redrawInk(svg) {
+  if (!svg) return;
+  svg.classList.remove('play', 'redraw'); void svg.getBoundingClientRect();
+  svg.classList.add('redraw');
 }
 
 // ── Welcome, sign-in and passwords ──
@@ -3551,6 +3634,7 @@ function init() {
   syncThemeControls();
   watchSystemTheme();
   buildHeroArt();
+  fillDrawn();
   addRegChild();
   $('session-date').value = localISO();
   renderMoods();
