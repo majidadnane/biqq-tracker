@@ -22,18 +22,18 @@
 /* ───────── Tokens: light (also used by the printed report in every theme) ───────── */
 :root, .report-sheet{
   color-scheme:light;
-  --paper:#f1eee9; --surface:#fcfbf8; --surface-2:#f5f1eb; --field:#ffffff;
-  --text:#2b2019; --text-2:#594a3e; --text-3:#6f6055; --heading:#3d2a1d;
-  --line:#e3dcd2; --line-2:#cfc5b8;
-  --primary:#6e5039; --primary-hover:#5a412e; --on-primary:#ffffff; --btn-primary:#6e5039; --btn-primary-hover:#5a412e;
-  --icon:#8a6a50; --icon-wash:#efe6dc;
-  --accent:#b48e66; --accent-text:#86603a; --accent-soft:#dcc19c; --accent-wash:#f6eee4; --accent-line:#e8d8c3;
-  --cartouche:#dcc19c; --track:#e8e2d9; --off:#e3dcd2; --off-line:#cdc3b6;
+  --paper:#f5f3ef; --surface:#ffffff; --surface-2:#f8f5f1; --field:#ffffff;
+  --text:#261b13; --text-2:#55473c; --text-3:#73655a; --heading:#22170f;
+  --line:#ebe5dd; --line-2:#d8cfc4;
+  --primary:#5e4331; --primary-hover:#4b3426; --on-primary:#ffffff; --btn-primary:#5e4331; --btn-primary-hover:#4b3426;
+  --icon:#8a6a50; --icon-wash:#f4ede4;
+  --accent:#b48e66; --accent-text:#86603a; --accent-soft:#dcc19c; --accent-wash:#f8f2ea; --accent-line:#ebdecc;
+  --cartouche:#dcc19c; --track:#eee8e0; --off:#e6dfd5; --off-line:#cdc3b6;
   --bar-a:#6e5039; --bar-b:#97775d; --bar-alt-a:#b48e66; --bar-alt-b:#dcc19c;
   --danger:#a23a2b; --danger-text:#a23a2b;
   --overlay:rgba(33,22,14,.48);
-  --shadow-1:0 1px 2px rgba(61,42,29,.06);
-  --shadow-2:0 2px 4px rgba(61,42,29,.04),0 14px 34px -18px rgba(61,42,29,.3);
+  --shadow-1:0 1px 2px rgba(40,26,16,.04);
+  --shadow-2:0 1px 2px rgba(40,26,16,.04),0 12px 30px -16px rgba(40,26,16,.22);
   --shadow-3:0 30px 70px -24px rgba(40,26,16,.45);
   --hero-a:#523a29; --hero-b:#2e2016; --hero-glow:rgba(150,116,88,.55); --hero-line:transparent;
   --side-a:#4b3527; --side-b:#33241a; --bar-bg:rgba(46,32,22,.96); --bar-line:transparent;
@@ -43,9 +43,9 @@
 /* ───────── Tokens: dark ───────── */
 :root[data-theme="dark"]{
   color-scheme:dark;
-  --paper:#15100c; --surface:#1e1712; --surface-2:#261d17; --field:#19130f;
-  --text:#eee4d9; --text-2:#c8b8a8; --text-3:#a5958a; --heading:#f5ede3;
-  --line:#33281f; --line-2:#4a3c30;
+  --paper:#110c09; --surface:#1a1410; --surface-2:#211a14; --field:#16110d;
+  --text:#f1e8de; --text-2:#cdbdad; --text-3:#a69686; --heading:#f7efe6;
+  --line:#2d231b; --line-2:#443629;
   --primary:#d4b089; --primary-hover:#e2c19d; --on-primary:#23170e; --btn-primary:#efe3d2; --btn-primary-hover:#f8f1e7;
   --icon:#c9a47e; --icon-wash:#30241b;
   --accent:#e4caa4; --accent-text:#dcb78e; --accent-soft:#dcc19c; --accent-wash:#2a2019; --accent-line:#4a392a;
@@ -752,12 +752,360 @@ body.parent-mode .staff-only{display:none !important}
   .guardian-add{padding:8px 18px 20px}
   .g-actions .label{display:none}
 }
+/* ═══════════════════════ Design refresh, version 3 ═══════════════════════
+   One dark moment (the dashboard welcome and the sidebar), everything else
+   light and quiet. Hairlines separate; frames and boxes-in-boxes are gone.
+   Numbers are set in tabular figures. Motion answers what people do, plus a
+   single lattice that draws itself on the dashboard the first time. */
+:root{--r-panel:16px;--r-inset:10px;--r-ctl:10px;--ease:cubic-bezier(.2,.7,.2,1);
+  --cta-bg:var(--primary);--cta-ink:#fff;--cta-hover:var(--primary-hover)}
+:root[data-theme="dark"]{--cta-bg:#efe3d2;--cta-ink:#23170e;--cta-hover:#f8f1e7}
+body{font-size:15.5px}
+
+/* Boot: a quiet mark while the first data arrives */
+.boot{position:fixed;inset:0;z-index:700;display:grid;place-items:center;background:var(--paper);transition:opacity .35s ease,visibility .35s}
+.boot.done{opacity:0;visibility:hidden;pointer-events:none}
+.boot-mark{width:58px;height:58px;color:var(--primary);animation:breathe 1.6s ease-in-out infinite}
+:root[data-theme="dark"] .boot-mark{color:var(--accent-soft)}
+@keyframes breathe{50%{opacity:.4;transform:scale(.95)}}
+
+/* Pages arrive with a small rise, in answer to a tap */
+.page.active{animation:rise .28s var(--ease) both}
+@keyframes rise{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.main{padding:40px 48px 100px}
+.container{max-width:1120px}
+
+/* Buttons */
+.btn{height:40px;padding:0 16px;border-radius:var(--r-ctl);font-size:14.5px;letter-spacing:.005em;transition:background .18s,border-color .18s,color .18s,box-shadow .18s,transform .12s}
+.btn:active:not(:disabled){transform:translateY(1px)}
+.btn-sm{height:34px;padding:0 12px;font-size:13.5px;border-radius:9px}
+.btn-sm.btn-icon{width:34px;padding:0}
+.btn-accent{background:var(--cta-bg);color:var(--cta-ink);border-color:transparent;font-weight:600;box-shadow:0 1px 2px rgba(40,26,16,.14)}
+.btn-accent:hover{background:var(--cta-hover)}
+.hero .btn-accent,.save-bar .btn-accent,.report-bar .btn-accent,.topbar .btn-accent{background:linear-gradient(180deg,#fbf6ee,#efe1cb);color:#2e2016;border-color:rgba(160,122,82,.3);box-shadow:inset 0 1px 0 rgba(255,255,255,.7)}
+.hero .btn-accent:hover,.save-bar .btn-accent:hover,.report-bar .btn-accent:hover,.topbar .btn-accent:hover{background:linear-gradient(180deg,#fffdf9,#f5eadb)}
+.btn-ghost{background:var(--surface);border-color:var(--line-2);color:var(--text)}
+.btn-ghost:hover{background:var(--surface-2);border-color:var(--text-3);color:var(--text)}
+.btn-quiet:hover{background:color-mix(in srgb,var(--danger) 9%,transparent)}
+.link-btn{font-size:14px;text-underline-offset:3px}
+.link-btn:hover{color:var(--primary);text-decoration:underline}
+.link-btn > .ic:last-child:not(:first-child){display:none}
+
+/* Page headers: no frame, just the title and its tools */
+.page-head{align-items:flex-end;padding:0;margin:0 0 28px;background:none;border:0;border-radius:0;box-shadow:none}
+.page-head::before,.page-head::after{display:none}
+.page-title{font-size:40px;line-height:1.04;letter-spacing:-.028em}
+.page-sub{margin-top:8px;font-size:16.5px;color:var(--text-3)}
+.filter{gap:8px;font-size:13.5px;color:var(--text-3)}
+.filter .input{width:200px;height:40px}
+.search{position:relative;display:flex;align-items:center}
+.search .ic{position:absolute;left:12px;width:16px;height:16px;color:var(--text-3);pointer-events:none}
+.search .input{width:220px;height:40px;padding-left:36px}
+.search .input::-webkit-search-cancel-button{cursor:pointer}
+
+/* Inputs */
+.input{height:44px;border-radius:var(--r-ctl);font-size:15.5px}
+.input:focus{border-color:var(--primary);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 28%,transparent)}
+.field > label,.field > .label{font-size:13.5px}
+
+/* Panels */
+.card,.form-card,.student-card,.h-card,.ledger{border-radius:var(--r-panel);box-shadow:none}
+.card-head{padding:20px 22px 6px}
+.card-title{font-size:19px;letter-spacing:-.012em}
+.card-note{font-size:13.5px}
+.list{padding:0 22px 8px}
+.empty-state{padding:36px 20px}
+.empty-mark{width:44px;height:44px;opacity:.55}
+.empty-state h3{font-size:19px}
+.empty-state p{font-size:15px}
+
+/* Rows */
+.row{gap:14px;padding:13px 0}
+.row-title{font-size:15.5px}
+.row-sub{font-size:14px}
+.row-who{font-size:12.5px;color:var(--accent-text)}
+.row .chev{width:15px;height:15px}
+.date-chip{width:44px;height:48px;border-radius:var(--r-inset);background:var(--surface-2);border:0}
+.date-chip .d{font-size:19px}
+.date-chip .m{font-size:11.5px;color:var(--text-3)}
+
+/* Avatars: a soft tint per person, so a list scans at a glance */
+.avatar{--av-bg:#efe4d4;--av-ink:#6e4f33;color:var(--av-ink);background:var(--av-bg);box-shadow:none;font-weight:600;letter-spacing:.01em}
+.avatar[data-tone="1"]{--av-bg:#e4e9dc;--av-ink:#4f5f3e}
+.avatar[data-tone="2"]{--av-bg:#f2e1d8;--av-ink:#8a4b33}
+.avatar[data-tone="3"]{--av-bg:#e2e7ea;--av-ink:#41535f}
+.avatar[data-tone="4"]{--av-bg:#ece1e8;--av-ink:#6b4862}
+:root[data-theme="dark"] .avatar{background:color-mix(in srgb,var(--av-ink) 34%,var(--surface));color:color-mix(in srgb,var(--av-bg) 88%,#fff)}
+.avatar.xl,.avatar.lg{box-shadow:none}
+.sidebar .avatar{background:rgba(220,193,156,.16);color:#f1dfc4}
+
+/* Ratings read as five short bars */
+.triad{gap:16px}
+.tri{gap:7px}
+.tri .ic{width:14px;height:14px;color:var(--text-3)}
+.dots{gap:2px}
+.dots i{width:9px;height:5px;border-radius:2px;transform:none;background:var(--off)}
+.dots i.on,.dots.alt i.on{background:var(--primary)}
+.seg5{display:inline-flex;gap:3px;vertical-align:middle}
+.seg5 i{width:13px;height:6px;border-radius:3px;background:var(--off)}
+.seg5 i.on{background:var(--primary)}
+.d-rating{gap:10px;color:var(--text-2)}
+
+/* Rating input: five numbered steps */
+.rating{gap:6px}
+.rating .star{width:36px;height:36px;border-radius:9px;border:1px solid var(--line-2);background:var(--field);font-size:14.5px;font-weight:600;color:var(--text-3);transition:background .15s,border-color .15s,color .15s}
+.rating .star .ic{display:none}
+.rating .star:hover{transform:none;border-color:var(--primary);color:var(--text)}
+.rating .star.on{background:var(--primary);border-color:var(--primary);color:var(--on-primary)}
+.rating-cap{font-size:13.5px}
+.rating-word{font-size:14px}
+
+/* Dashboard welcome: the one dark moment */
+.hero{grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:32px;padding:40px 48px;margin-bottom:20px;border-radius:22px;border:0;box-shadow:0 26px 60px -34px rgba(40,26,16,.6)}
+.hero::before,.hero-frame{display:none}
+.hero-art{position:absolute;right:-70px;top:50%;width:540px;height:540px;margin-top:-270px;z-index:-1;pointer-events:none;color:var(--accent-soft);opacity:.22;
+  -webkit-mask-image:radial-gradient(closest-side,#000 30%,transparent);mask-image:radial-gradient(closest-side,#000 30%,transparent)}
+.hero-art circle{fill:none;stroke:currentColor;stroke-width:.7;stroke-dasharray:var(--len);stroke-dashoffset:var(--len)}
+.hero.drawn .hero-art circle{animation:draw 1.2s var(--ease) forwards;animation-delay:calc(var(--d) * 1.5s)}
+.hero.static .hero-art circle{stroke-dashoffset:0}
+@keyframes draw{to{stroke-dashoffset:0}}
+.hero-date{font-size:14.5px}
+.hero-title{margin-top:12px;font-size:52px;letter-spacing:-.032em}
+.hero-sub{font-size:17px;max-width:46ch}
+.hero-actions{margin-top:24px}
+.hero-verse{padding-left:0;border-left:0}
+.hero-verse blockquote{font-size:40px}
+.hero-verse figcaption{font-size:16.5px}
+
+/* Things waiting for the admin */
+#admin-notice:not(:empty){display:flex;flex-wrap:wrap;gap:10px;margin-bottom:20px}
+.notice{flex:1 1 320px;margin:0;padding:9px 9px 9px 16px;border-radius:12px;background:var(--surface);border:1px solid var(--line)}
+.notice-text{font-size:15px}
+.notice-text .ic{color:var(--accent-text)}
+
+/* The week at a glance */
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));margin-bottom:20px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-panel)}
+.kpi{position:relative;min-width:0;padding:20px 22px 18px}
+.kpi + .kpi{border-left:1px solid var(--line)}
+.kpi-label{display:block;font-size:13.5px;font-weight:600;color:var(--text-3)}
+.kpi-row{display:flex;align-items:flex-end;justify-content:space-between;gap:14px}
+.kpi-value{display:block;margin-top:8px;font-size:34px;font-weight:600;line-height:1;letter-spacing:-.02em;color:var(--heading);font-variant-numeric:tabular-nums lining-nums;white-space:nowrap}
+.kpi-value small{margin-left:2px;font-size:16px;font-weight:500;letter-spacing:0;color:var(--text-3)}
+.kpi-value .na{font-size:15px}
+.kpi-delta{display:flex;align-items:center;gap:5px;margin-top:10px;font-size:13px;color:var(--text-3)}
+.kpi-delta .ic{width:14px;height:14px;stroke-width:2}
+.kpi-delta.up .ic{color:#2e7d4f}
+.kpi-delta.down .ic{color:#b3362a}
+:root[data-theme="dark"] .kpi-delta.up .ic{color:#7cc49a}
+:root[data-theme="dark"] .kpi-delta.down .ic{color:#ef9586}
+.spark{flex:0 1 112px;display:flex;align-items:flex-end;gap:2px;height:40px}
+.spark i{position:relative;flex:1;max-width:12px;min-height:3px;border-radius:4px 4px 0 0;background:color-mix(in srgb,var(--primary) 22%,var(--surface));cursor:default}
+.spark i.now{background:var(--primary)}
+.spark i::before{content:"";position:absolute;inset:-14px -2px 0}
+.spark i:hover::after{content:attr(data-tip);position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);z-index:5;white-space:nowrap;padding:5px 9px;border-radius:7px;background:var(--heading);color:var(--surface);font-size:12px;font-weight:600;pointer-events:none}
+
+/* Profile: a light header, the actions beside it */
+.ledger{border:1px solid var(--line)}
+.ledger-item{padding:18px 22px}
+.ledger-label{font-size:13.5px;color:var(--text-3)}
+.ledger-value{font-size:32px}
+.ledger-value small{font-size:15px}
+.ledger-value.text{font-size:24px;line-height:1.33}
+.ledger-note{font-size:13px}
+.back-link{margin-bottom:14px;font-size:14px}
+.profile-hero{padding:28px 32px;margin-bottom:20px;border-radius:var(--r-panel);background:var(--surface);color:var(--text);border:1px solid var(--line);box-shadow:none}
+.profile-hero::before{display:none}
+.ph-name{margin-top:0;font-size:40px;letter-spacing:-.028em;color:var(--heading)}
+.ph-meta{gap:6px 18px;margin-top:10px}
+.ph-meta span{height:auto;padding:0;border:0;background:none;font-size:14.5px;color:var(--text-3)}
+.ph-meta .ic{color:var(--icon)}
+.ph-actions{gap:8px}
+.ph-actions .btn{min-width:196px}
+.profile-hero .btn-dark{background:var(--surface);border-color:var(--line-2);color:var(--text)}
+.profile-hero .btn-dark:hover{background:var(--surface-2);border-color:var(--text-3)}
+.prog{gap:18px;padding:12px 22px 22px}
+.prog-val{font-size:22px}
+.bar{height:6px}
+.targets{margin:10px 22px 20px;border-radius:12px}
+.note-label{margin:0 22px 4px;font-size:13.5px;color:var(--text-3)}
+.note-text{margin:0 22px 20px}
+.parents-lead{margin:0 22px 6px}
+.sg-grid{padding:6px 22px 22px}
+.sg-warn,.sg-health{margin-left:22px;margin-right:22px}
+
+/* Students: compact cards with progress at a glance */
+.student-grid{grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
+.student-card{gap:14px;padding:20px;transition:border-color .2s,box-shadow .2s}
+.student-card:hover{border-color:var(--line-2);box-shadow:0 1px 2px rgba(40,26,16,.04),0 12px 28px -18px rgba(40,26,16,.3)}
+.sc-top{gap:13px}
+.sc-id h3{font-size:18px;letter-spacing:-.01em}
+.sc-id p{font-size:13.5px}
+.student-card .chips{margin-top:0}
+.sc-meters{display:grid;gap:9px}
+.scm{display:grid;grid-template-columns:104px minmax(0,1fr) 30px;align-items:center;gap:10px;font-size:13.5px;color:var(--text-2)}
+.scm .bar{grid-column:2;grid-row:1}
+.scm-v{grid-column:3;text-align:right;font-weight:600;color:var(--heading);font-variant-numeric:tabular-nums}
+.scm-v .na{font-size:13px}
+.sc-foot{display:flex;align-items:center;justify-content:space-between;gap:10px;padding-top:12px;border-top:1px solid var(--line)}
+.sc-meta{font-size:13.5px;color:var(--text-3)}
+.add-card{min-height:220px;border-radius:var(--r-panel);border-width:1px}
+
+/* Forms */
+.form-stack{gap:16px}
+.form-card{padding:24px 26px 26px}
+.fc-head{margin-bottom:18px}
+.fc-icon{width:36px;height:36px;border-radius:10px}
+.fc-icon .ic{width:18px;height:18px}
+.fc-title{font-size:19px;letter-spacing:-.012em}
+.fc-title [lang="ar"]{font-size:15px}
+.fc-sub{font-size:14px}
+.mood{height:38px;padding:0 14px;font-size:14.5px}
+.save-bar{border-radius:16px;padding:9px 9px 9px 20px}
+
+/* History: one panel per lesson, hairlines inside */
+.h-card{grid-template-columns:84px minmax(0,1fr)}
+.h-date{background:none;padding:22px 8px}
+.h-date .d{font-size:32px}
+.h-date .m{font-size:13px;color:var(--text-2)}
+.h-date .y{font-size:12px}
+.h-body{padding:18px 22px 20px}
+.h-name{font-size:18px}
+.h-scores{gap:0;margin-top:14px;border:1px solid var(--line);border-radius:12px}
+.sb{padding:12px 14px;border:0;border-radius:0;background:none}
+.sb + .sb{border-left:1px solid var(--line)}
+.sb-label{font-size:13.5px}
+.sb-detail{font-size:14px}
+.h-targets{margin-top:14px;padding-top:14px;border-top:1px solid var(--line);font-size:14.5px}
+
+/* Register: marks as one segmented control */
+.marks{gap:0;border:1px solid var(--line-2);border-radius:var(--r-ctl);overflow:hidden;background:var(--field)}
+.mark{height:36px;padding:0 14px;border:0;border-radius:0;font-size:14px}
+.mark + .mark{border-left:1px solid var(--line-2)}
+.mark:hover{background:var(--surface-2)}
+.mark.on{background:var(--tone);color:#fff}
+
+/* Windows and toasts */
+.modal{border-radius:18px}
+.modal-title{font-size:24px;letter-spacing:-.02em}
+.modal-head{padding:24px 26px 4px}
+.modal-body{padding:18px 26px 4px}
+.modal-foot{padding:18px 26px 22px}
+#toast{border-radius:12px;padding:10px 18px 10px 11px;font-size:14.5px}
+
+/* Sidebar: who's signed in, at the foot */
+.nav-item{padding:10px 12px;border-radius:10px;font-size:15px}
+.me-chip{display:flex;align-items:center;gap:10px;margin-top:12px;padding:9px 8px 9px 10px;border-radius:12px;background:rgba(255,255,255,.04);border:1px solid rgba(220,193,156,.12);text-align:left}
+.me-text{flex:1;min-width:0;display:flex;flex-direction:column}
+.me-name{font-size:14px;font-weight:600;color:#f6e9d6;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.me-role{font-size:12.5px;color:rgba(239,228,214,.55)}
+.me-out{flex-shrink:0;width:32px;height:32px;display:grid;place-items:center;border-radius:8px;color:rgba(239,228,214,.7)}
+.me-out:hover{background:rgba(255,255,255,.07);color:#fff}
+.me-out .ic{width:17px;height:17px}
+
+/* Welcome */
+.w-title{font-size:44px;letter-spacing:-.03em}
+.w-choice{border-radius:var(--r-panel);box-shadow:none}
+.w-choice:hover{border-color:var(--line-2);box-shadow:0 12px 28px -18px rgba(40,26,16,.3)}
+.w-card{border-radius:18px;box-shadow:0 1px 2px rgba(40,26,16,.04),0 24px 48px -30px rgba(40,26,16,.3)}
+.w-card h2{font-size:24px}
+.w-form .btn{height:44px}
+
+/* Welcome choices: two small drawings in the logo's line, a mus'haf on its rehal for parents and a
+   qalam nib for teachers. They draw themselves in when the page opens; on hover the lines are read
+   or written again. */
+.w-art{width:112px;height:84px;margin:-6px 0 10px -8px;overflow:visible}
+.w-art .arch{fill:var(--accent-wash);stroke:none;animation:archin .6s var(--ease) both;transition:fill .3s}
+.w-choice:hover .w-art .arch{fill:color-mix(in srgb,var(--accent) 16%,var(--surface))}
+@keyframes archin{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.w-art path:not(.arch),.w-art circle{fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:1;
+  animation:wdraw .9s var(--ease) forwards;animation-delay:calc(var(--i,0) * 110ms + 150ms)}
+.w-art .frame{stroke:var(--primary)}
+.w-art .frame.faint{stroke:var(--line-2)}
+.w-art .ink{stroke:var(--accent);stroke-width:1.9}
+:root[data-theme="dark"] .w-art .frame{stroke:var(--accent-soft)}
+:root[data-theme="dark"] .w-art .ink{stroke:#c9a47e}
+.w-art.drawn path:not(.arch),.w-art.drawn circle{animation:none;stroke-dashoffset:0}
+.w-choice:hover .w-art.drawn .ink,.w-choice:focus-visible .w-art.drawn .ink{animation:wdraw .8s var(--ease) both;animation-delay:calc((var(--i,0) - 3) * 120ms)}
+.w-art .nib{transform:translate(59px,50px) rotate(38deg);transition:transform .5s var(--ease)}
+.w-choice:hover .w-art .nib{transform:translate(61px,49px) rotate(34deg)}
+@keyframes wdraw{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+@media (prefers-reduced-motion:reduce){.w-art path,.w-art circle{stroke-dashoffset:0 !important}}
+@media (max-width:1180px){
+  .main{padding:36px 36px 96px}
+  .hero{grid-template-columns:1fr}
+  .hero-verse{padding-top:20px;border-top:1px solid rgba(220,193,156,.2)}
+  .kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .kpi:nth-child(3){border-left:0}
+  .kpi:nth-child(n+3){border-top:1px solid var(--line)}
+}
+@media (max-width:900px){
+  .main{padding:22px 16px 112px}
+  .page-title{font-size:34px}
+}
+@media (max-width:640px){
+  .page-head{margin-bottom:20px}
+  .page-title{font-size:30px}
+  .page-sub{font-size:15.5px}
+  .search,.search .input{width:100%}
+  .hero{padding:26px 22px;border-radius:18px}
+  .hero-title{font-size:36px}
+  .hero-sub{font-size:15.5px}
+  .hero-verse{display:none}
+  .hero-art{width:380px;height:380px;margin-top:-190px;right:-120px;opacity:.2}
+  .hero-actions{flex-direction:row;flex-wrap:wrap;margin-top:20px}
+  .hero-actions .btn{flex:1 1 0;width:auto}
+  .hero-actions .btn:first-child{flex-basis:100%}
+  .kpi{padding:16px}
+  .kpi-value{font-size:28px}
+  .spark{height:30px;flex-basis:72px}
+  .profile-hero{padding:22px 18px}
+  .ph-name{font-size:32px}
+  .ph-actions .btn{min-width:0}
+  .ledger-item{padding:14px 12px}
+  .ledger-value{font-size:24px}
+  .ledger-value.text{font-size:17px;line-height:1.4}
+  .card-head,.list{padding-left:16px;padding-right:16px}
+  .prog,.sg-grid{padding-left:16px;padding-right:16px}
+  .targets{margin-left:16px;margin-right:16px}
+  .note-label,.note-text,.parents-lead{margin-left:16px;margin-right:16px}
+  .sg-warn,.sg-health{margin-left:16px;margin-right:16px}
+  .form-card{padding:20px 16px 22px}
+  .student-card{padding:18px}
+  .h-card{grid-template-columns:1fr}
+  .h-date{border-right:0;border-bottom:1px solid var(--line);padding:12px 16px}
+  .h-date .d{font-size:24px}
+  .h-body{padding:14px 16px 16px}
+  .h-scores{grid-template-columns:1fr}
+  .sb + .sb{border-left:0;border-top:1px solid var(--line)}
+  .mark{height:36px;padding:0 10px;font-size:13.5px}
+  .modal-head{padding:20px 18px 4px}
+  .modal-body{padding:14px 18px 4px}
+  .modal-foot{padding:14px 18px 20px}
+  .w-title{font-size:34px}
+}
+@media (max-width:900px){
+  .tb-actions{gap:6px}
+  .tb-theme{width:34px;height:34px}
+  .topbar .btn-sm{padding:0 11px}
+}
+@media (max-width:430px){
+  .tb-en{width:112px;height:24px}
+}
+@media (max-width:380px){
+  .mark{padding:0 8px;min-width:36px}
+}
+@media (prefers-reduced-motion:reduce){
+  .hero-art circle{stroke-dashoffset:0 !important}
+  .boot-mark{animation:none}
+}
+
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none !important;transition:none !important}
 }
 </style>
 </head>
 <body>
+<div class="boot" id="boot" aria-hidden="true"><svg class="logo boot-mark"><use href="#biqq-mark"/></svg></div>
 
 <svg class="sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
   <defs>
@@ -800,6 +1148,10 @@ body.parent-mode .staff-only{display:none !important}
   <symbol id="i-chart" viewBox="0 0 24 24"><path d="M4.5 20.5V11M10.5 20.5V4.5M16.5 20.5v-6.5M21 20.5H3"/></symbol>
   <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 6.5 8.5 6.5 8.5-6.5"/></symbol>
   <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4.5" y="10.5" width="15" height="10" rx="2"/><path d="M8 10.5V7a4 4 0 0 1 8 0v3.5"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.2-4.2"/></symbol>
+  <symbol id="i-logout" viewBox="0 0 24 24"><path d="M14.5 4.5h3a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2h-3"/><path d="M10 16.5 5.5 12 10 7.5"/><path d="M5.5 12h10"/></symbol>
+  <symbol id="i-up" viewBox="0 0 24 24"><path d="M12 18.5V5.5"/><path d="m6.5 11 5.5-5.5 5.5 5.5"/></symbol>
+  <symbol id="i-down" viewBox="0 0 24 24"><path d="M12 5.5v13"/><path d="m6.5 13 5.5 5.5 5.5-5.5"/></symbol>
   <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
   <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 8v5"/><path d="M12 16.5h.01"/><circle cx="12" cy="12" r="9"/></symbol>
 </svg>
@@ -816,8 +1168,8 @@ body.parent-mode .staff-only{display:none !important}
       <button class="nav-item staff-only" data-nav="dashboard" onclick="showPage('dashboard')"><svg class="ic"><use href="#i-home"/></svg><span>Dashboard</span></button>
       <button class="nav-item" data-nav="students" onclick="showPage('students')"><svg class="ic"><use href="#i-users"/></svg><span>Students</span></button>
       <button class="nav-item staff-only" data-nav="register" onclick="showPage('register')"><svg class="ic"><use href="#i-register"/></svg><span>Take the register</span></button>
-      <button class="nav-item staff-only" data-nav="log-session" onclick="showPage('log-session')"><svg class="ic"><use href="#i-pen"/></svg><span>Log a session</span></button>
-      <button class="nav-item" data-nav="history" onclick="showPage('history')"><svg class="ic"><use href="#i-library"/></svg><span>Session history</span></button>
+      <button class="nav-item staff-only" data-nav="log-session" onclick="showPage('log-session')"><svg class="ic"><use href="#i-pen"/></svg><span>Record a lesson</span></button>
+      <button class="nav-item" data-nav="history" onclick="showPage('history')"><svg class="ic"><use href="#i-library"/></svg><span>Lesson history</span></button>
       <button class="nav-item staff-only admin-only" data-nav="staff" onclick="showPage('staff')"><svg class="ic"><use href="#i-badge"/></svg><span>Staff and classes</span></button>
     </nav>
     <div class="side-foot">
@@ -825,7 +1177,11 @@ body.parent-mode .staff-only{display:none !important}
         <button type="button" data-theme-set="light" onclick="setTheme('light')"><svg class="ic"><use href="#i-sun"/></svg>Light</button>
         <button type="button" data-theme-set="dark" onclick="setTheme('dark')"><svg class="ic"><use href="#i-moon"/></svg>Dark</button>
       </div>
-      <button class="btn btn-dark btn-sm" style="margin-top:12px" onclick="signOut()">Sign out</button>
+      <div class="me-chip">
+        <span id="me-avatar"></span>
+        <span class="me-text"><span class="me-name" id="me-name"></span><span class="me-role" id="me-role"></span></span>
+        <button class="me-out" onclick="signOut()" aria-label="Sign out" title="Sign out"><svg class="ic"><use href="#i-logout"/></svg></button>
+      </div>
     </div>
   </aside>
 
@@ -836,7 +1192,8 @@ body.parent-mode .staff-only{display:none !important}
     </div>
     <div class="tb-actions">
       <button class="tb-theme" id="theme-toggle" onclick="setTheme(currentTheme() === 'dark' ? 'light' : 'dark')" aria-label="Switch theme"></button>
-      <button class="btn btn-accent btn-sm staff-only" onclick="showPage('log-session')"><svg class="ic"><use href="#i-plus"/></svg>Log</button>
+      <button class="btn btn-accent btn-sm staff-only" onclick="showPage('log-session')"><svg class="ic"><use href="#i-plus"/></svg>Record</button>
+      <button class="tb-theme" onclick="signOut()" aria-label="Sign out" title="Sign out"><svg class="ic"><use href="#i-logout"/></svg></button>
     </div>
   </header>
 
@@ -846,13 +1203,13 @@ body.parent-mode .staff-only{display:none !important}
       <!-- DASHBOARD -->
       <section class="page" id="page-dashboard">
         <div class="hero">
-          <div class="hero-frame" aria-hidden="true"></div>
+          <svg class="hero-art" id="hero-art" viewBox="0 0 392 392" aria-hidden="true"></svg>
           <div class="hero-text">
             <p class="hero-date"><span id="hero-greg"></span><span class="sep" id="hero-sep" aria-hidden="true"></span><span class="hijri" id="hero-hijri"></span></p>
             <h1 class="hero-title">As-salāmu ‘alaykum</h1>
             <p class="hero-sub" id="hero-sub"></p>
             <div class="hero-actions">
-              <button class="btn btn-accent" onclick="showPage('log-session')"><svg class="ic"><use href="#i-plus"/></svg>Log a session</button>
+              <button class="btn btn-accent" onclick="showPage('log-session')"><svg class="ic"><use href="#i-plus"/></svg>Record a lesson</button>
               <button class="btn btn-dark" onclick="showPage('register')"><svg class="ic"><use href="#i-register"/></svg>Take the register</button>
               <button class="btn btn-dark admin-only" onclick="showPage('staff')"><svg class="ic"><use href="#i-badge"/></svg>Staff and classes</button>
             </div>
@@ -864,16 +1221,11 @@ body.parent-mode .staff-only{display:none !important}
         </div>
 
         <div id="admin-notice"></div>
-        <section class="ledger" aria-label="Summary">
-          <div class="ledger-item"><span class="ledger-label">Students</span><span class="ledger-value" id="stat-students">0</span><span class="ledger-note">On your roster</span></div>
-          <div class="ledger-item"><span class="ledger-label">Sessions logged</span><span class="ledger-value" id="stat-sessions">0</span><span class="ledger-note">Since you started</span></div>
-          <div class="ledger-item"><span class="ledger-label">Average rating</span><span class="ledger-value" id="stat-avg">0</span><span class="ledger-note">Out of five, all areas</span></div>
-          <div class="ledger-item"><span class="ledger-label">This week</span><span class="ledger-value" id="stat-thisweek">0</span><span class="ledger-note">Sessions in the last seven days</span></div>
-        </section>
+        <section class="kpis" id="kpis" aria-label="The week at a glance"></section>
 
         <div class="dash-grid">
           <section class="card">
-            <div class="card-head"><h2 class="card-title">Recent sessions</h2><button class="link-btn" onclick="showPage('history')">See all<svg class="ic"><use href="#i-chev"/></svg></button></div>
+            <div class="card-head"><h2 class="card-title">Recent lessons</h2><button class="link-btn" onclick="showPage('history')">See all<svg class="ic"><use href="#i-chev"/></svg></button></div>
             <div class="list" id="recent-sessions-list"></div>
           </section>
           <section class="card">
@@ -891,6 +1243,7 @@ body.parent-mode .staff-only{display:none !important}
             <p class="page-sub">Everyone you teach, and how each of them is getting on.</p>
           </div>
           <div class="head-actions">
+            <label class="search staff-only"><svg class="ic"><use href="#i-search"/></svg><input type="search" id="student-search" class="input" placeholder="Find a student" aria-label="Find a student" oninput="renderStudentList()"></label>
             <label class="filter staff-only" id="student-class-wrap" hidden><span>Class</span><select id="student-class-filter" class="input" onchange="renderStudentList()"></select></label>
             <button class="btn btn-accent staff-only" onclick="openStudentForm()"><svg class="ic"><use href="#i-plus"/></svg>Add a student</button>
           </div>
@@ -907,8 +1260,8 @@ body.parent-mode .staff-only{display:none !important}
       <section class="page" id="page-log-session">
         <header class="page-head">
           <div>
-            <h1 class="page-title">Log a session</h1>
-            <p class="page-sub">Record how today's lesson went while it's still fresh.</p>
+            <h1 class="page-title">Record a lesson</h1>
+            <p class="page-sub">How did it go? Note it down while it's still fresh.</p>
           </div>
         </header>
 
@@ -991,7 +1344,7 @@ body.parent-mode .staff-only{display:none !important}
             <div class="form-grid">
               <div class="field full"><span class="label">How was their behaviour?</span><div class="moods" id="mood-grid"></div></div>
               <div class="field"><label for="behaviour-notes">Behaviour notes</label><textarea id="behaviour-notes" class="input" dir="auto" placeholder="What happened, and how it was handled"></textarea></div>
-              <div class="field"><label for="targets">Targets for next session</label><textarea id="targets" class="input" dir="auto" placeholder="What should they prepare before you next meet?"></textarea></div>
+              <div class="field"><label for="targets">Targets for next lesson</label><textarea id="targets" class="input" dir="auto" placeholder="What should they prepare before you next meet?"></textarea></div>
             </div>
           </section>
 
@@ -1012,7 +1365,7 @@ body.parent-mode .staff-only{display:none !important}
           <span class="msg" id="save-bar-text">Choose a student to begin</span>
           <div class="btns">
             <button class="btn btn-dark btn-sm" onclick="clearSessionForm()">Clear form</button>
-            <button class="btn btn-accent btn-sm" onclick="saveSession()"><svg class="ic"><use href="#i-check"/></svg>Save session</button>
+            <button class="btn btn-accent btn-sm" onclick="saveSession()"><svg class="ic"><use href="#i-check"/></svg>Save lesson</button>
           </div>
         </div>
       </section>
@@ -1069,7 +1422,7 @@ body.parent-mode .staff-only{display:none !important}
       <section class="page" id="page-history">
         <header class="page-head">
           <div>
-            <h1 class="page-title">Session history</h1>
+            <h1 class="page-title">Lesson history</h1>
             <p class="page-sub">Every lesson you've recorded, newest first.</p>
           </div>
           <div class="head-actions">
@@ -1087,7 +1440,7 @@ body.parent-mode .staff-only{display:none !important}
     <button class="tab staff-only" data-nav="dashboard" onclick="showPage('dashboard')"><svg class="ic"><use href="#i-home"/></svg>Home</button>
     <button class="tab" data-nav="students" onclick="showPage('students')"><svg class="ic"><use href="#i-users"/></svg>Students</button>
     <button class="tab staff-only" data-nav="register" onclick="showPage('register')"><svg class="ic"><use href="#i-register"/></svg>Register</button>
-    <button class="tab staff-only" data-nav="log-session" onclick="showPage('log-session')"><svg class="ic"><use href="#i-pen"/></svg>Log</button>
+    <button class="tab staff-only" data-nav="log-session" onclick="showPage('log-session')"><svg class="ic"><use href="#i-pen"/></svg>Record</button>
     <button class="tab" data-nav="history" onclick="showPage('history')"><svg class="ic"><use href="#i-library"/></svg>History</button>
   </nav>
 </div>
@@ -1223,7 +1576,7 @@ body.parent-mode .staff-only{display:none !important}
 <!-- REPORT -->
 <div id="pdf-report">
   <div class="report-bar">
-    <div class="rb-left"><svg class="ic"><use href="#i-file"/></svg><span id="rb-label">Session report preview</span></div>
+    <div class="rb-left"><svg class="ic"><use href="#i-file"/></svg><span id="rb-label">Lesson report preview</span></div>
     <div class="rb-actions">
       <button class="btn btn-dark btn-sm" onclick="closeReport()"><svg class="ic"><use href="#i-x"/></svg>Close</button>
       <button class="btn btn-accent btn-sm" onclick="window.print()"><svg class="ic"><use href="#i-printer"/></svg>Print or save as PDF</button>
@@ -1245,8 +1598,31 @@ body.parent-mode .staff-only{display:none !important}
       <h1 class="w-title">As-salāmu ‘alaykum</h1>
       <p class="w-sub">Welcome to the British Institute of Qur'an &amp; Qira'at. Are you here as a parent or as a teacher?</p>
       <div class="w-choices">
-        <button class="w-choice" onclick="showWelcome('parent')"><span class="fc-icon"><svg class="ic"><use href="#i-heart"/></svg></span><strong>I'm a parent</strong><span>Follow your child's progress and read their reports.</span></button>
-        <button class="w-choice" onclick="showWelcome('teacher')"><span class="fc-icon alt"><svg class="ic"><use href="#i-book"/></svg></span><strong>I'm a teacher</strong><span>Take the register, log sessions and make class reports.</span></button>
+        <button class="w-choice" onclick="showWelcome('parent')">
+          <svg class="w-art" viewBox="0 0 96 72" aria-hidden="true">
+            <path class="arch" d="M22 72V36A26 26 0 0 1 74 36V72Z"/>
+            <path class="frame" pathLength="1" style="--i:0" d="M48 31C40 25 28 24 17 27.5V46C28 43 40 44 48 50C56 44 68 43 79 46V27.5C68 24 56 25 48 31Z"/>
+            <path class="frame" pathLength="1" style="--i:1" d="M48 31V50"/>
+            <path class="frame" pathLength="1" style="--i:2" d="M30 47 50 67M66 47 46 67M28 67H68"/>
+            <path class="ink" pathLength="1" style="--i:3" d="M23 33.5C29 32 34 32 42 34.5"/>
+            <path class="ink" pathLength="1" style="--i:4" d="M23 39C29 37.5 34 37.5 42 40"/>
+            <path class="ink" pathLength="1" style="--i:5" d="M54 34.5C62 32 67 32 73 33.5"/>
+            <path class="ink" pathLength="1" style="--i:6" d="M54 40C62 37.5 67 37.5 73 39"/>
+          </svg>
+          <strong>I'm a parent</strong><span>Follow your child's progress and read their reports.</span></button>
+        <button class="w-choice" onclick="showWelcome('teacher')">
+          <svg class="w-art" viewBox="0 0 96 72" aria-hidden="true">
+            <path class="arch" d="M30 72V36A26 26 0 0 1 82 36V72Z"/>
+            <path class="frame faint" pathLength="1" style="--i:0" d="M8 63H88"/>
+            <path class="ink" pathLength="1" style="--i:1" d="M10 58C15 52 19 60 24 56S31 48 36 53S43 57 47 52S54 49 57.5 51"/>
+            <g class="nib" transform="translate(59 50) rotate(38)">
+              <path class="frame" pathLength="1" style="--i:2" d="M-9-38H9V-22C9-14 3-6 0 0C-3-6-9-14-9-22Z"/>
+              <path class="frame" pathLength="1" style="--i:3" d="M0-2V-16"/>
+              <circle class="frame" pathLength="1" style="--i:4" cx="0" cy="-19" r="2.4"/>
+              <path class="frame" pathLength="1" style="--i:5" d="M-9-38V-44H9V-38"/>
+            </g>
+          </svg>
+          <strong>I'm a teacher</strong><span>Take the register, record lessons and make class reports.</span></button>
       </div>
     </div>
 
@@ -1363,7 +1739,7 @@ const HIJRI_MONTHS = ['Muharram', 'Safar', 'Rabi‘ al-Awwal', 'Rabi‘ al-Thani
 // ── State ──
 const state = { students: [], sessions: [], classes: [], enrolments: [], guardians: [], guardiansOn: false, members: [], classTeachers: [], invites: [], requests: [],
   me: null, role: null, orgId: null, ratings: { mem: 0, rev: 0, rec: 0 }, selectedBehaviour: '', currentStudentId: null, currentSessionId: null, currentPage: 'dashboard',
-  register: { classId: '', date: '', marks: {}, saved: {} }, editingStudentId: null, reportStudentId: null, recovering: RECOVERY_LINK, passwordJustUsed: false };
+  register: { classId: '', date: '', marks: {}, saved: {} }, recentAttendance: [], userEmail: '', heroDrawn: false, editingStudentId: null, reportStudentId: null, recovering: RECOVERY_LINK, passwordJustUsed: false };
 
 // ── Small helpers ──
 const $ = id => document.getElementById(id);
@@ -1442,14 +1818,21 @@ function studentStats(id) {
     rec: mean(sessions.map(s => s.recitation.quality))
   };
 }
-const sessionSummary = s => s.memorization.surah || s.recitation.surah || s.revision.content || 'Session recorded';
+const sessionSummary = s => s.memorization.surah || s.recitation.surah || s.revision.content || 'Lesson recorded';
 
 // ── Render pieces ──
 function avatar(name, size = '') {
   const initials = (name || '?').trim().split(/\s+/).slice(0, 2).map(w => w.charAt(0)).join('').toUpperCase();
-  return `<span class="avatar ${size}" aria-hidden="true">${esc(initials)}</span>`;
+  let h = 0; for (const c of String(name || '')) h = (h * 31 + c.charCodeAt(0)) >>> 0;
+  return `<span class="avatar ${size}" data-tone="${h % 5}" aria-hidden="true">${esc(initials)}</span>`;
 }
+// On screen, a rating reads as five short bars; the printed report keeps the petals
 function rubs(n) {
+  let h = `<span class="seg5" role="img" aria-label="${n} out of 5">`;
+  for (let i = 1; i <= 5; i++) h += `<i class="${i <= n ? 'on' : ''}"></i>`;
+  return h + '</span>';
+}
+function petals(n) {
   let h = `<span class="rubs" role="img" aria-label="${n} out of 5">`;
   for (let i = 1; i <= 5; i++) h += `<svg class="ic ${i <= n ? 'on' : ''}" aria-hidden="true"><use href="#i-rub"></use></svg>`;
   return h + '</span>';
@@ -1469,7 +1852,7 @@ function dateChip(dateStr) {
   const d = parseDate(dateStr);
   return `<span class="date-chip"><span class="d">${d ? d.getDate() : '?'}</span><span class="m">${d ? d.toLocaleDateString('en-GB', { month: 'short' }) : ''}</span></span>`;
 }
-const btnLog = (label = 'Log a session') => `<button class="btn btn-accent staff-only" onclick="showPage('log-session')">${ic('plus')}${label}</button>`;
+const btnLog = (label = 'Record a lesson') => `<button class="btn btn-accent staff-only" onclick="showPage('log-session')">${ic('plus')}${label}</button>`;
 const btnAdd = (cls = 'btn-primary') => `<button class="btn ${cls} staff-only" onclick="openAddStudentModal()">${ic('plus')}Add a student</button>`;
 
 // ── Navigation ──
@@ -1496,7 +1879,7 @@ function animateBars() {
 // ── Log a session ──
 function updateSaveBar() {
   const st = getStudent($('session-student').value);
-  $('save-bar-text').innerHTML = st ? `Logging a session for <strong>${esc(st.name)}</strong>` : 'Choose a student to begin';
+  $('save-bar-text').innerHTML = st ? `Recording a lesson for <strong>${esc(st.name)}</strong>` : 'Choose a student to begin';
 }
 function logSessionFor(id) {
   showPage('log-session');
@@ -1507,7 +1890,7 @@ function initRatings() {
   ['mem', 'rev', 'rec'].forEach(field => {
     const box = $('star-' + field);
     box.innerHTML = `<span class="rating-cap">Rating</span>` +
-      [1, 2, 3, 4, 5].map(v => `<button type="button" class="star" data-v="${v}" aria-label="${v} out of 5, ${RATING_WORDS[v]}" aria-pressed="false">${ic('rub')}</button>`).join('') +
+      [1, 2, 3, 4, 5].map(v => `<button type="button" class="star" data-v="${v}" aria-label="${v} out of 5, ${RATING_WORDS[v]}" aria-pressed="false">${v}</button>`).join('') +
       `<span class="rating-word">Not rated</span>`;
     box.querySelectorAll('.star').forEach(star => {
       star.addEventListener('click', () => {
@@ -1566,11 +1949,11 @@ function reportBlock(key, q, fields) {
   return `<section class="rp-block">
     <div class="rp-block-head">
       <div class="rp-block-title">${ic(sec.icon)}${sec.label}<span lang="ar">${sec.ar}</span></div>
-      <div class="rp-rating">${q ? rubs(q) + `<span>${RATING_WORDS[q]}</span>` : '<span class="na">Not rated</span>'}</div>
+      <div class="rp-rating">${q ? petals(q) + `<span>${RATING_WORDS[q]}</span>` : '<span class="na">Not rated</span>'}</div>
     </div>
     ${filled.length
       ? `<dl class="rp-fields">${filled.map(([label, v]) => `<div><dt>${label}</dt><dd dir="auto">${esc(v)}</dd></div>`).join('')}</dl>`
-      : '<p class="rp-none">Not covered in this session.</p>'}
+      : '<p class="rp-none">Not covered in this lesson.</p>'}
   </section>`;
 }
 function closeReport() {
@@ -1599,11 +1982,11 @@ function deleteStudent(id) {
   confirmDialog({
     title: isAdmin ? `Remove ${st.name}?` : `Take ${st.name} off your class list?`,
     message: isAdmin
-      ? 'This deletes their profile and every session logged for them. It can’t be undone.'
+      ? 'This deletes their profile and every lesson recorded for them. It can’t be undone.'
       : 'Their record stays with the institute, and your admin can place them in another class.',
     confirmLabel: isAdmin ? 'Remove student' : 'Remove from my class',
     typeToConfirm: isAdmin ? st.name.trim().split(/\s+/)[0] : '',
-    finalMessage: `${st.name}'s profile, safeguarding details and every session logged for them will be deleted for good.`
+    finalMessage: `${st.name}'s profile, safeguarding details and every lesson recorded for them will be deleted for good.`
   }, async () => {
     const { error } = isAdmin
       ? await db.from('students').delete().eq('id', id)
@@ -1623,7 +2006,7 @@ function guardiansCard(st) {
   const list = state.guardians.filter(g => g.student_id === st.id);
   return `<section class="card" style="margin-top:20px">
     <div class="card-head"><h2 class="card-title">Parents</h2><span class="card-note">${list.length ? plural(list.length, 'parent') : 'None added yet'}</span></div>
-    <p class="parents-lead">Parents sign in with their email to follow ${esc(st.name)}'s progress. They see the same details as the session reports, and nothing about other students.</p>
+    <p class="parents-lead">Parents sign in with their email to follow ${esc(st.name)}'s progress. They see the same details as the lesson reports, and nothing about other students.</p>
     ${list.length ? `<div class="list">${list.map(g => `
       <div class="row static">
         <span class="row-main"><span class="row-title">${esc(g.email)}</span><span class="row-sub g-status ${g.user_id ? 'on' : ''}">${g.user_id ? 'Has signed in' : 'Hasn’t signed in yet'}</span></span>
@@ -1753,7 +2136,7 @@ function sessionWhere(s) {
   if (c) parts.push(c.name);
   const who = s.teacherId && state.me && s.teacherId === state.me.user_id ? 'you'
     : memberName(s.teacherId) || (state.role === 'admin' && s.teacherId ? 'a former teacher' : '');
-  if (who) parts.push(`logged by ${who}`);
+  if (who) parts.push(`recorded by ${who}`);
   return parts.join(', ');
 }
 function classChips(studentId) {
@@ -1797,7 +2180,7 @@ function showPage(id) {
     b.classList.toggle('active', on);
     if (on) b.setAttribute('aria-current', 'page'); else b.removeAttribute('aria-current');
   });
-  if (id === 'dashboard') renderDashboard();
+  if (id === 'dashboard') { renderDashboard(); drawHeroOnce(); }
   if (id === 'students') { renderStudentSelects(); renderStudentList(); }
   if (id === 'log-session') renderStudentSelects();
   if (id === 'history') { renderStudentSelects(); renderHistory(); }
@@ -1805,7 +2188,70 @@ function showPage(id) {
   if (id === 'staff') renderStaff();
   window.scrollTo(0, 0);
 }
+// The week at a glance: this week against the one before, with the last eight weeks as columns
+function isoDaysAgo(n) { const d = parseDate(localISO()); d.setDate(d.getDate() - n); return localISO(d); }
+function deltaTag(diff, text) {
+  if (!diff) return `<span class="kpi-delta">${text}</span>`;
+  return `<span class="kpi-delta ${diff > 0 ? 'up' : 'down'}">${ic(diff > 0 ? 'up' : 'down')}${text}</span>`;
+}
+function renderKpis() {
+  const between = (list, a, b, key) => list.filter(x => x[key] && x[key] >= a && x[key] <= b);
+  const now = [isoDaysAgo(6), localISO()], before = [isoDaysAgo(13), isoDaysAgo(7)];
+  const thisWeek = between(state.sessions, ...now, 'date').length, lastWeek = between(state.sessions, ...before, 'date').length;
+  const weeks = [];
+  for (let w = 7; w >= 0; w--) { const a = isoDaysAgo(w * 7 + 6), b = isoDaysAgo(w * 7); weeks.push({ b, n: between(state.sessions, a, b, 'date').length }); }
+  const top = Math.max(1, ...weeks.map(x => x.n));
+  const spark = `<div class="spark" role="img" aria-label="Lessons in each of the last eight weeks, oldest first: ${weeks.map(x => x.n).join(', ')}">${weeks.map((x, i) =>
+    `<i class="${i === 7 ? 'now' : ''}" style="height:${Math.max(7, Math.round(x.n / top * 100))}%" data-tip="${plural(x.n, 'lesson')}, week to ${formatDate(x.b, { day: 'numeric', month: 'short' })}"></i>`).join('')}</div>`;
+  const sDiff = thisWeek - lastWeek;
+  const sText = sDiff > 0 ? `${sDiff} more than last week` : sDiff < 0 ? `${-sDiff} fewer than last week` : 'Same as last week';
+
+  const rate = (a, b) => { const r = between(state.recentAttendance, a, b, 'register_date'); return r.length ? Math.round(r.filter(x => x.mark !== 'absent').length / r.length * 100) : null; };
+  const a0 = rate(...now), a1 = rate(...before);
+  const att = a0 === null
+    ? `<span class="kpi-value"><span class="na">No registers yet</span></span><span class="kpi-delta">Take one from Take the register</span>`
+    : `<span class="kpi-value">${a0}<small>%</small></span>${a1 === null ? '<span class="kpi-delta">Late counts as attended</span>' : deltaTag(a0 - a1, a0 === a1 ? 'Same as last week' : `${Math.abs(a0 - a1)} points ${a0 > a1 ? 'up on' : 'down on'} last week`)}`;
+
+  const avgIn = (a, b) => mean(between(state.sessions, a, b, 'date').map(sessionAvg).filter(Boolean));
+  const r0 = avgIn(isoDaysAgo(27), localISO()), r1 = avgIn(isoDaysAgo(55), isoDaysAgo(28));
+  const rd = r0 && r1 ? Math.round((r0 - r1) * 10) / 10 : 0;
+  const avg = r0
+    ? `<span class="kpi-value">${r0.toFixed(1)}<small>/5</small></span>${r1 ? deltaTag(rd, rd ? `${rd > 0 ? 'Up' : 'Down'} ${Math.abs(rd).toFixed(1)} on the four weeks before` : 'Same as the four weeks before') : '<span class="kpi-delta">Over the last four weeks</span>'}`
+    : `<span class="kpi-value"><span class="na">Nothing rated yet</span></span><span class="kpi-delta">Over the last four weeks</span>`;
+
+  const nS = state.students.length, nC = state.classes.length;
+  $('kpis').innerHTML = `
+    <div class="kpi"><span class="kpi-label">Lessons this week</span><div class="kpi-row"><span class="kpi-value">${thisWeek}</span>${spark}</div>${deltaTag(sDiff, sText)}</div>
+    <div class="kpi"><span class="kpi-label">Attendance this week</span>${att}</div>
+    <div class="kpi"><span class="kpi-label">Average rating</span>${avg}</div>
+    <div class="kpi"><span class="kpi-label">Students</span><span class="kpi-value">${nS}</span><span class="kpi-delta">${state.role === 'admin' ? 'Across' : 'In'} ${plural(nC, 'class', 'classes')}</span></div>`;
+}
+function buildHeroArt() {
+  const svg = $('hero-art'); if (!svg || svg.childElementCount) return;
+  const S = 28, N = 14; let h = '';
+  for (let y = 0; y <= N; y++) for (let x = 0; x <= N; x++) if ((x + y) % 2 === 0) {
+    const d = Math.hypot(N * S - x * S, y * S) / (N * S * Math.SQRT2);
+    h += `<circle cx="${x * S}" cy="${y * S}" r="${S}" style="--d:${d.toFixed(3)}"/>`;
+  }
+  svg.innerHTML = h;
+  svg.style.setProperty('--len', (2 * Math.PI * S).toFixed(1));
+}
+// The lattice draws itself once, the first time the dashboard is seen
+function drawHeroOnce() {
+  const hero = document.querySelector('.hero');
+  if (!hero || state.heroDrawn) return;
+  state.heroDrawn = true;
+  requestAnimationFrame(() => hero.classList.add('drawn'));
+  setTimeout(() => { hero.classList.remove('drawn'); hero.classList.add('static'); }, 3200);
+}
+function renderMe() {
+  const name = (state.me && state.me.display_name) || state.userEmail || '';
+  $('me-avatar').innerHTML = avatar(name || '?', 'sm');
+  $('me-name').textContent = name;
+  $('me-role').textContent = state.role === 'admin' ? 'Admin' : state.role === 'parent' ? 'Parent' : 'Teacher';
+}
 function renderAll() {
+  renderMe();
   renderDashboard(); renderStudentSelects(); renderStudentList(); renderHistory();
   if (state.role === 'admin') renderStaff();
   if (state.currentPage === 'student-profile' && state.currentStudentId) viewStudent(state.currentStudentId, true);
@@ -1825,7 +2271,7 @@ function renderDashboard() {
   const from = localISO(weekStart), to = localISO();
   const weekCount = state.sessions.filter(s => s.date && s.date >= from && s.date <= to).length;
   const nS = state.students.length, nC = state.classes.length;
-  const week = weekCount ? `with ${plural(weekCount, 'session')} logged in the last week.` : 'and nothing has been logged in the last week yet.';
+  const week = weekCount ? `with ${plural(weekCount, 'lesson')} recorded in the last week.` : 'and nothing has been recorded in the last week yet.';
   $('hero-sub').textContent = !nS
     ? 'Add your first student and their progress will start to build up here.'
     : state.role === 'admin'
@@ -1842,11 +2288,7 @@ function renderDashboard() {
   }
   $('admin-notice').innerHTML = notes.join('');
 
-  $('stat-students').textContent = nS;
-  $('stat-sessions').textContent = state.sessions.length;
-  const avg = mean(state.sessions.map(sessionAvg).filter(Boolean));
-  $('stat-avg').innerHTML = avg ? `${avg.toFixed(1)}<small>/5</small>` : '<span class="na">Nothing rated yet</span>';
-  $('stat-thisweek').textContent = weekCount;
+  renderKpis();
 
   const recent = [...state.sessions].sort(byDateDesc).slice(0, 5);
   $('recent-sessions-list').innerHTML = recent.length ? recent.map(s => {
@@ -1857,15 +2299,15 @@ function renderDashboard() {
       <span class="row-main"><span class="row-title">${esc(st ? st.name : 'Unknown student')}</span><span class="row-sub">${esc(sessionSummary(s))}</span>${where ? `<span class="row-who">${esc(where)}</span>` : ''}</span>
       ${triad(s)}${ic('chev', 'chev')}
     </div>`;
-  }).join('') : emptyState('No sessions yet', 'Log a lesson and it will show up here.', nS ? btnLog() : '');
+  }).join('') : emptyState('No lessons yet', 'Record a lesson and it will show up here.', nS ? btnLog() : '');
 
   $('dashboard-students').innerHTML = nS ? state.students.map(st => {
     const ss = studentStats(st.id);
     const cls = classIdsOf(st.id).map(id => classById(id).name).join(', ');
     return `<div class="row" role="button" tabindex="0" onclick="viewStudent('${st.id}')">
       ${avatar(st.name)}
-      <span class="row-main"><span class="row-title">${esc(st.name)}</span><span class="row-sub">${cls ? `${esc(cls)}, ` : ''}${plural(ss.count, 'session')}${ss.avg ? `, averaging ${ss.avg.toFixed(1)}` : ''}</span></span>
-      <span class="row-aside">${ss.last ? relDate(ss.last.date) : 'No sessions'}</span>${ic('chev', 'chev')}
+      <span class="row-main"><span class="row-title">${esc(st.name)}</span><span class="row-sub">${cls ? `${esc(cls)}, ` : ''}${plural(ss.count, 'lesson')}</span></span>
+      <span class="row-aside">${ss.last ? relDate(ss.last.date) : 'No lessons'}</span>${ic('chev', 'chev')}
     </div>`;
   }).join('') : emptyState('No students yet', 'Add a student to start tracking their progress.', btnAdd());
 }
@@ -1884,14 +2326,17 @@ function renderStudentList() {
     return;
   }
   const filter = $('student-class-filter').value;
+  const query = ($('student-search').value || '').trim().toLowerCase();
   let list = state.students;
+  if (query) list = list.filter(st => st.name.toLowerCase().includes(query));
   if (filter === '__none') list = list.filter(st => !classIdsOf(st.id).length);
   else if (filter) list = list.filter(st => classIdsOf(st.id).includes(filter));
   el.style.display = '';
   el.innerHTML = list.map(st => {
     const ss = studentStats(st.id);
     const age = ageOf(st);
-    const meta = [st.startDate ? `Started ${formatDate(st.startDate)}` : 'No start date', age !== '' ? `age ${esc(age)}` : ''].filter(Boolean).join(', ');
+    const meta = [age !== '' ? `Age ${esc(age)}` : '', st.startDate ? `started ${formatDate(st.startDate, { month: 'short', year: 'numeric' })}` : ''].filter(Boolean).join(', ').replace(/^s/, 'S') || 'No details yet';
+    const meter = (label, v, alt) => `<div class="scm"><span>${label}</span><span class="bar ${alt ? 'alt' : ''}"><i data-w="${v ? (v / 5 * 100).toFixed(1) : 0}"></i></span><span class="scm-v">${v ? v.toFixed(1) : '<span class="na">None</span>'}</span></div>`;
     const chips = classChips(st.id) + medChip(st);
     return `<article class="student-card" onclick="viewStudent('${st.id}')">
       <div class="sc-top">
@@ -1900,19 +2345,15 @@ function renderStudentList() {
         <button class="btn btn-quiet btn-icon btn-sm staff-only" onclick="event.stopPropagation();deleteStudent('${st.id}')" aria-label="Remove ${esc(st.name)}" title="Remove student">${ic('trash')}</button>
       </div>
       ${chips ? `<div class="chips">${chips}</div>` : ''}
-      <p class="sc-level">${st.level ? esc(st.level) : '<span class="empty">No starting level recorded</span>'}</p>
-      <div class="sc-stats">
-        <div><span class="v">${ss.count}</span><span class="l">Sessions</span></div>
-        <div><span class="v">${ss.avg ? ss.avg.toFixed(1) : '<span class="na">None</span>'}</span><span class="l">Average</span></div>
-        <div><span class="v word">${ss.last ? relDate(ss.last.date) : '<span class="na">None</span>'}</span><span class="l">Last seen</span></div>
-      </div>
-      <div class="sc-actions">
-        <button class="btn btn-ghost btn-sm" onclick="event.stopPropagation();viewStudent('${st.id}')">View profile</button>
-        <button class="btn btn-primary btn-sm staff-only" onclick="event.stopPropagation();logSessionFor('${st.id}')">${ic('plus')}Log session</button>
+      <div class="sc-meters">${meter(SECTIONS.mem.label, ss.mem)}${meter(SECTIONS.rev.label, ss.rev)}${meter(SECTIONS.rec.label, ss.rec, true)}</div>
+      <div class="sc-foot">
+        <span class="sc-meta">${ss.count ? `${plural(ss.count, 'lesson')}, most recent ${relDate(ss.last.date, true)}` : 'No lessons yet'}</span>
+        <button class="btn btn-ghost btn-sm staff-only" onclick="event.stopPropagation();logSessionFor('${st.id}')">${ic('plus')}Record lesson</button>
       </div>
     </article>`;
-  }).join('') + (list.length ? '' : `<div class="card" style="grid-column:1/-1">${emptyState('Nobody here', filter === '__none' ? 'Every student is in a class.' : 'No students are in this class yet.')}</div>`)
-    + `<button class="add-card staff-only" onclick="openStudentForm()"><span class="plus">${ic('plus')}</span>Add a student</button>`;
+  }).join('') + (list.length ? '' : `<div class="card" style="grid-column:1/-1">${emptyState('Nobody here', query ? 'No students match that search.' : filter === '__none' ? 'Every student is in a class.' : 'No students are in this class yet.')}</div>`)
+    + (query ? '' : `<button class="add-card staff-only" onclick="openStudentForm()"><span class="plus">${ic('plus')}</span>Add a student</button>`);
+  animateBars();
 }
 function renderStudentSelects() {
   const opts = state.students.map(s => `<option value="${s.id}">${esc(s.name)}</option>`).join('');
@@ -1957,26 +2398,24 @@ function viewStudent(id, silent = false) {
     <section class="profile-hero">
       ${avatar(st.name, 'xl')}
       <div class="ph-main">
-        <div class="ph-kicker">Student profile</div>
         <h1 class="ph-name">${esc(st.name)}</h1>
         <div class="ph-meta">
           ${classes || (state.role === 'admin' ? `<span>${ic('users')}Not in a class yet</span>` : '')}
           ${st.startDate ? `<span>${ic('calendar')}Started ${formatDate(st.startDate)}</span>` : ''}
           ${age !== '' ? `<span>${ic('user')}Age ${esc(age)}</span>` : ''}
-          <span>${ic('book')}${plural(ss.count, 'session')}</span>
         </div>
       </div>
       <div class="ph-actions staff-only">
-        <button class="btn btn-accent" onclick="logSessionFor('${id}')">${ic('plus')}Log a session</button>
+        <button class="btn btn-accent" onclick="logSessionFor('${id}')">${ic('plus')}Record a lesson</button>
         <button class="btn btn-dark" onclick="openClassReport('${id}')">${ic('chart')}Make class report</button>
         <button class="btn btn-dark admin-only" onclick="openStudentClasses('${id}')">${ic('users')}Change class</button>
       </div>
     </section>
 
     <section class="ledger three">
-      <div class="ledger-item"><span class="ledger-label">Sessions</span><span class="ledger-value">${ss.count}</span><span class="ledger-note">Logged so far</span></div>
+      <div class="ledger-item"><span class="ledger-label">Lessons</span><span class="ledger-value">${ss.count}</span><span class="ledger-note">Recorded so far</span></div>
       <div class="ledger-item"><span class="ledger-label">Average rating</span><span class="ledger-value">${ss.avg ? ss.avg.toFixed(1) + '<small>/5</small>' : '<span class="na">Nothing rated yet</span>'}</span><span class="ledger-note">Across all three areas</span></div>
-      <div class="ledger-item"><span class="ledger-label">Last session</span><span class="ledger-value text">${ss.last ? relDate(ss.last.date) : '<span class="na">None yet</span>'}</span><span class="ledger-note">${ss.last ? formatDate(ss.last.date, { weekday: 'long', day: 'numeric', month: 'long' }) : (isParent ? 'None recorded yet' : 'Log one to get started')}</span></div>
+      <div class="ledger-item"><span class="ledger-label">Last lesson</span><span class="ledger-value text">${ss.last ? relDate(ss.last.date) : '<span class="na">None yet</span>'}</span><span class="ledger-note">${ss.last ? formatDate(ss.last.date, { weekday: 'long', day: 'numeric', month: 'long' }) : (isParent ? 'None recorded yet' : 'Record one to get started')}</span></div>
     </section>
 
     <div class="grid-2">
@@ -1990,7 +2429,7 @@ function viewStudent(id, silent = false) {
       </section>
       <section class="card">
         <div class="card-head"><h2 class="card-title">Current targets</h2>${targetsNote ? `<span class="card-note">${targetsNote}</span>` : ''}</div>
-        ${targets ? `<div class="targets" dir="auto">${esc(targets)}</div>` : `<p class="note-text empty" style="margin-top:12px">${isParent ? 'No targets set yet.' : 'No targets set yet. Add some when you log their next session.'}</p>`}
+        ${targets ? `<div class="targets" dir="auto">${esc(targets)}</div>` : `<p class="note-text empty" style="margin-top:12px">${isParent ? 'No targets set yet.' : 'No targets set yet. Add some when you record their next lesson.'}</p>`}
         ${st.level ? `<div class="note-label">Where they started</div><p class="note-text" dir="auto">${esc(st.level)}</p>` : ''}
         ${!isParent && st.notes ? `<div class="note-label">Background</div><p class="note-text" dir="auto">${esc(st.notes)}</p>` : ''}
       </section>
@@ -2000,7 +2439,7 @@ function viewStudent(id, silent = false) {
     ${isParent ? '' : guardiansCard(st)}
 
     <section class="card" style="margin-top:20px">
-      <div class="card-head"><h2 class="card-title">Sessions</h2><span class="card-note">Newest first</span></div>
+      <div class="card-head"><h2 class="card-title">Lessons</h2><span class="card-note">Newest first</span></div>
       <div class="list">
         ${ss.sessions.length ? ss.sessions.map(s => {
           const where = isParent ? '' : sessionWhere(s);
@@ -2012,7 +2451,7 @@ function viewStudent(id, silent = false) {
             ${triad(s)}
             <button class="btn btn-ghost btn-sm btn-icon" onclick="event.stopPropagation();exportSession('${s.id}')" aria-label="Export PDF" title="Export PDF">${ic('file')}</button>
           </div>`;
-        }).join('') : emptyState('No sessions yet', isParent ? 'Their lessons will appear here as their teacher records them.' : 'Log their first lesson to start building a record.', `<button class="btn btn-accent staff-only" onclick="logSessionFor('${id}')">${ic('plus')}Log a session</button>`)}
+        }).join('') : emptyState('No lessons yet', isParent ? 'Their lessons will appear here as their teacher records them.' : 'Record their first lesson to start building a record.', `<button class="btn btn-accent staff-only" onclick="logSessionFor('${id}')">${ic('plus')}Record a lesson</button>`)}
       </div>
     </section>`;
 
@@ -2260,7 +2699,7 @@ function removeTeacher(userId) {
   const name = m.display_name || m.email;
   const cls = state.classTeachers.filter(ct => ct.user_id === userId).map(ct => classById(ct.class_id)).filter(Boolean);
   const lines = [`${name} loses access straight away${cls.length ? ` and is taken off ${cls.map(c => c.name).join(' and ')}` : ''}.`,
-    'Their students, and every session they logged, stay with the institute.',
+    'Their students, and every lesson they recorded, stay with the institute.',
     'If they ask for access again from the welcome page, you’ll see their request.'];
   confirmDialog({ title: `Remove ${name}?`, message: lines.join(' '), confirmLabel: 'Remove teacher',
     typeToConfirm: (m.display_name || m.email).trim().split(/\s+/)[0],
@@ -2291,7 +2730,7 @@ async function removeClass(id) {
   const { data } = await db.from('attendance').select('register_date').eq('class_id', id);
   const registers = new Set((data || []).map(r => r.register_date)).size;
   const lines = ['This can’t be undone.'];
-  if (kids) lines.push(`${kids === 1 ? 'Its 1 student stays' : `Its ${kids} students stay`} on the system with every session logged, and will show as not in a class until you place them.`);
+  if (kids) lines.push(`${kids === 1 ? 'Its 1 student stays' : `Its ${kids} students stay`} on the system with every lesson recorded, and will show as not in a class until you place them.`);
   if (registers) lines.push(`${plural(registers, 'register')} taken for this class will be deleted.`);
   if (teachers.length) lines.push(`${teachers.join(' and ')} will no longer see it.`);
   confirmDialog({ title: `Remove ${c.name}?`, message: lines.join(' '), confirmLabel: 'Remove class' }, async () => {
@@ -2377,8 +2816,8 @@ async function saveRegister() {
 async function saveSession() {
   const studentId = $('session-student').value;
   const date = $('session-date').value;
-  if (!studentId) { toast('Choose which student this session was with', 'warn'); $('session-student').focus(); return; }
-  if (!date) { toast('Add the date of the session', 'warn'); $('session-date').focus(); return; }
+  if (!studentId) { toast('Choose which student this lesson was with', 'warn'); $('session-student').focus(); return; }
+  if (!date) { toast('Add the date of the lesson', 'warn'); $('session-date').focus(); return; }
   const v = id => $(id).value.trim();
   const mine = state.me && state.role !== 'admin' ? state.classTeachers.filter(ct => ct.user_id === state.me.user_id).map(ct => ct.class_id) : null;
   const classId = classIdsOf(studentId).find(c => !mine || mine.includes(c)) || null;
@@ -2390,11 +2829,11 @@ async function saveSession() {
     behaviour: state.selectedBehaviour || '', behaviour_notes: v('behaviour-notes'),
     targets: v('targets'), reflection: v('reflection')
   }).select().single();
-  if (error) { toast('That session could not be saved: ' + error.message, 'warn'); return; }
+  if (error) { toast('That lesson couldn’t be saved: ' + error.message, 'warn'); return; }
   state.sessions.push(fromRow(data));
   clearSessionForm();
   renderDashboard(); renderHistory();
-  toast(`Session saved for ${getStudent(studentId).name}`);
+  toast(`Lesson saved for ${getStudent(studentId).name}`);
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
@@ -2406,7 +2845,7 @@ function renderHistory() {
   if (cls) list = list.filter(s => s.classId === cls);
   const el = $('history-list');
   if (!list.length) {
-    el.innerHTML = `<div class="card">${emptyState('No sessions found', filter || cls ? 'Nothing has been logged here yet.' : 'Once you log a session, it will appear here.', state.students.length ? btnLog() : btnAdd())}</div>`;
+    el.innerHTML = `<div class="card">${emptyState('No lessons found', filter || cls ? 'Nothing has been recorded here yet.' : 'Once you record a lesson, it will appear here.', state.students.length ? btnLog() : btnAdd())}</div>`;
     return;
   }
   el.innerHTML = list.map(s => {
@@ -2420,7 +2859,7 @@ function renderHistory() {
           <div class="h-who">${avatar(name, 'sm')}<span class="h-name">${esc(name)}</span>${behaviourTag(s.behaviour.rating)}</div>
           <div class="h-actions">
             <button class="btn btn-ghost btn-sm" onclick="viewSessionDetail('${s.id}')">${ic('eye')}View</button>
-            <button class="btn btn-accent btn-sm" onclick="exportSession('${s.id}')">${ic('file')}Export PDF</button>
+            <button class="btn btn-ghost btn-sm" onclick="exportSession('${s.id}')">${ic('file')}Export PDF</button>
           </div>
         </div>
         ${where ? `<p class="h-meta">${ic('users')}${esc(where)}</p>` : ''}
@@ -2430,7 +2869,7 @@ function renderHistory() {
           ${scoreBlock('rec', s.recitation.quality, s.recitation.surah)}
         </div>
         ${s.behaviour.notes ? `<div class="h-targets">${ic('heart')}<div><strong>Behaviour notes</strong><p dir="auto">${esc(s.behaviour.notes)}</p></div></div>` : ''}
-        ${s.targets ? `<div class="h-targets">${ic('target')}<div><strong>Targets for next session</strong><p dir="auto">${esc(s.targets)}</p></div></div>` : ''}
+        ${s.targets ? `<div class="h-targets">${ic('target')}<div><strong>Targets for next lesson</strong><p dir="auto">${esc(s.targets)}</p></div></div>` : ''}
       </div>
     </article>`;
   }).join('');
@@ -2448,7 +2887,7 @@ function viewSessionDetail(id) {
     ${detailBlock('rev', s.revision.quality, [['Content revised', s.revision.content], ['Mistakes', s.revision.mistakes], ['Notes', s.revision.notes]])}
     ${detailBlock('rec', s.recitation.quality, [['Passage recited', s.recitation.surah], ['Tajweed', s.recitation.tajweed], ['Notes', s.recitation.notes]])}
     ${(s.behaviour.rating || s.behaviour.notes) ? `<div class="d-block"><div class="d-head"><span class="d-title">${ic('heart')}Behaviour</span>${behaviourTag(s.behaviour.rating)}</div>${s.behaviour.notes ? `<p class="d-text" dir="auto">${esc(s.behaviour.notes)}</p>` : ''}</div>` : ''}
-    ${s.targets ? `<div class="d-block"><div class="d-head"><span class="d-title">${ic('target')}Targets for next session</span></div><div class="targets flush" dir="auto">${esc(s.targets)}</div></div>` : ''}
+    ${s.targets ? `<div class="d-block"><div class="d-head"><span class="d-title">${ic('target')}Targets for next lesson</span></div><div class="targets flush" dir="auto">${esc(s.targets)}</div></div>` : ''}
     ${s.reflection ? `<div class="d-block"><div class="d-head"><span class="d-title">${ic('moon')}Reflection<span lang="ar">تأمل</span></span></div><p class="reflection" dir="auto">${esc(s.reflection)}</p></div>` : ''}`;
   openModal('modal-session-detail');
 }
@@ -2479,7 +2918,7 @@ function exportSession(id) {
   const beh = BEHAVIOURS[s.behaviour.rating];
   const c = s.classId && classById(s.classId);
   $('report-content').innerHTML = `
-    ${reportHead('Session report', 'تقرير الجلسة', formatDate(s.date))}
+    ${reportHead('Lesson report', 'تقرير الدرس', formatDate(s.date))}
     <section>
       <div class="rp-kicker">Prepared for</div>
       <h1 class="rp-name">${esc(name)}</h1>
@@ -2495,10 +2934,10 @@ function exportSession(id) {
     ${reportBlock('rev', s.revision.quality, [['Content revised', s.revision.content], ['Mistakes', s.revision.mistakes], ['Notes', s.revision.notes]])}
     ${reportBlock('rec', s.recitation.quality, [['Passage recited', s.recitation.surah], ['Tajweed', s.recitation.tajweed], ['Notes', s.recitation.notes]])}
     ${s.behaviour.notes ? `<section class="rp-note"><h3>Behaviour notes</h3><p dir="auto">${esc(s.behaviour.notes)}</p></section>` : ''}
-    ${s.targets ? `<section class="rp-note rp-targets"><h3>Targets for next session</h3><p dir="auto">${esc(s.targets)}</p></section>` : ''}
+    ${s.targets ? `<section class="rp-note rp-targets"><h3>Targets for next lesson</h3><p dir="auto">${esc(s.targets)}</p></section>` : ''}
     ${s.reflection ? `<section class="rp-note rp-reflection"><h3>Reflection</h3><p dir="auto">${esc(s.reflection)}</p></section>` : ''}
     ${reportFoot}`;
-  openReport('Session report preview', `Session report, ${name}, ${formatDate(s.date)}`);
+  openReport('Lesson report preview', `Lesson report, ${name}, ${formatDate(s.date)}`);
 }
 
 // Class report: for parents' meetings
@@ -2526,7 +2965,7 @@ function crPeriodChanged() {
 function openClassReport(id) {
   const st = getStudent(id); if (!st) return;
   state.reportStudentId = id;
-  $('cr-sub').textContent = `For ${st.name}. It includes attendance, progress, their last session and a summary of their behaviour.`;
+  $('cr-sub').textContent = `For ${st.name}. It includes attendance, progress, their last lesson and a summary of their behaviour.`;
   $('cr-period').value = 'term';
   $('cr-comments').value = '';
   crPeriodChanged();
@@ -2566,8 +3005,8 @@ async function makeClassReport() {
         return `<div><div class="prog-top"><span class="prog-name">${ic(SECTIONS[k].icon)}${SECTIONS[k].label}<span lang="ar">${SECTIONS[k].ar}</span></span><span class="prog-val">${v ? v.toFixed(1) + '<small>/5</small>' : '<span class="na">Not rated</span>'}</span></div>
           <div class="bar ${alt ? 'alt' : ''}"><i style="width:${v ? v / 5 * 100 : 0}%"></i></div></div>`;
       }).join('')}
-      <p class="rp-small">Average ratings across ${plural(inRange.length, 'session')} in this period.</p>
-    </div>` : '<p class="rp-none">No sessions were logged in this period.</p>';
+      <p class="rp-small">Average ratings across ${plural(inRange.length, 'lesson')} in this period.</p>
+    </div>` : '<p class="rp-none">No lessons were recorded in this period.</p>';
 
   // Behaviour
   const counts = Object.keys(BEHAVIOURS).map(k => [k, inRange.filter(s => s.behaviour.rating === k).length]).filter(([, c]) => c);
@@ -2583,7 +3022,7 @@ async function makeClassReport() {
       ${last.memorization.surah || last.memorization.verses ? `<div><dt>Memorised</dt><dd dir="auto">${esc([last.memorization.surah, last.memorization.verses].filter(Boolean).join(', '))}</dd></div>` : ''}
       ${last.revision.content ? `<div><dt>Revised</dt><dd dir="auto">${esc(last.revision.content)}</dd></div>` : ''}
       ${last.recitation.surah ? `<div><dt>Recited</dt><dd dir="auto">${esc(last.recitation.surah)}</dd></div>` : ''}
-    </dl>` : '<p class="rp-none">No sessions logged yet.</p>';
+    </dl>` : '<p class="rp-none">No lessons recorded yet.</p>';
   const targetsNow = (allSessions.find(s => s.targets) || {}).targets || st.targets || '';
 
   $('report-content').innerHTML = `
@@ -2601,7 +3040,7 @@ async function makeClassReport() {
     <div class="rp-grid">
       <section class="rp-block"><div class="rp-block-head"><div class="rp-block-title">${ic('register')}Attendance</div></div>${attendance}</section>
       <section class="rp-block"><div class="rp-block-head"><div class="rp-block-title">${ic('chart')}Overall progress</div></div>${progress}</section>
-      <section class="rp-block"><div class="rp-block-head"><div class="rp-block-title">${ic('book')}Their last session</div></div>${lastBlock}</section>
+      <section class="rp-block"><div class="rp-block-head"><div class="rp-block-title">${ic('book')}Their last lesson</div></div>${lastBlock}</section>
       <section class="rp-block"><div class="rp-block-head"><div class="rp-block-title">${ic('heart')}Behaviour</div></div>${behaviour}</section>
     </div>
     ${targetsNow ? `<section class="rp-note rp-targets"><h3>Current targets</h3><p dir="auto">${esc(targetsNow)}</p></section>` : ''}
@@ -2615,10 +3054,16 @@ async function makeClassReport() {
 function showWelcome(pane) {
   $('welcome').hidden = false;
   document.querySelectorAll('#welcome [data-pane]').forEach(p => { p.hidden = p.dataset.pane !== pane; });
+  if (pane === 'choose') settleWelcomeArt();
   const first = document.querySelector(`#welcome [data-pane="${pane}"] input`);
   if (first) setTimeout(() => first.focus(), 60);
 }
 function hideWelcome() { $('welcome').hidden = true; }
+function settleWelcomeArt() {
+  document.querySelectorAll('.w-art').forEach(a => a.classList.remove('drawn'));
+  clearTimeout(settleWelcomeArt.t);
+  settleWelcomeArt.t = setTimeout(() => document.querySelectorAll('.w-art').forEach(a => a.classList.add('drawn')), 1900);
+}
 async function sendParentLink() {
   const email = $('parent-email').value.trim();
   if (!email) { toast('Enter your email address', 'warn'); return; }
@@ -2672,12 +3117,13 @@ async function signOut() {
 // fires one as the page loads), so overlapping calls share a single run.
 let startRun = null, startedFor = null;
 function start() {
-  if (!startRun) startRun = startNow().finally(() => { startRun = null; });
+  if (!startRun) startRun = startNow().finally(() => { startRun = null; $('boot').classList.add('done'); });
   return startRun;
 }
 async function startNow() {
   const { data: { session } } = await db.auth.getSession();
   startedFor = session ? session.user.id : null;
+  state.userEmail = session ? session.user.email : '';
   if (state.recovering && session) {
     $('pw-title').textContent = 'Choose a new password';
     showWelcome('password'); return;
@@ -2748,6 +3194,9 @@ async function loadAll() {
   state.students = studs.data.map(studentFromRow);
   state.sessions = sess.data.map(fromRow);
 
+  const att = await db.from('attendance').select('register_date, mark').gte('register_date', isoDaysAgo(55));
+  state.recentAttendance = att.error ? [] : att.data;
+
   const g = await db.from('guardians').select('id, student_id, email, user_id').order('email');
   state.guardiansOn = !g.error;
   state.guardians = g.error ? [] : g.data;
@@ -2793,6 +3242,7 @@ async function startParent(kids) {
 function init() {
   syncThemeControls();
   watchSystemTheme();
+  buildHeroArt();
   $('session-date').value = localISO();
   renderMoods();
   initRatings();
