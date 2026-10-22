@@ -92,7 +92,7 @@ input,select,textarea{font:inherit;color:inherit}
   background:radial-gradient(140% 50% at 0% 0%,var(--side-a) 0%,transparent 62%),var(--side-b)}
 .sidebar::before{content:"";position:absolute;inset:0;z-index:-1;background-image:var(--petals);background-size:56px;opacity:.1;
   -webkit-mask-image:linear-gradient(180deg,#000,rgba(0,0,0,.25) 50%,transparent 85%);mask-image:linear-gradient(180deg,#000,rgba(0,0,0,.25) 50%,transparent 85%)}
-.sidebar::after{content:"";position:absolute;top:0;bottom:0;right:6px;width:4px;border-left:1px solid rgba(220,193,156,.26);border-right:1px solid rgba(220,193,156,.12)}
+.sidebar::after{content:"";position:absolute;top:0;bottom:0;right:0;width:0;border-right:1px solid rgba(220,193,156,.16)}
 .lockup{display:flex;flex-direction:column;align-items:center;gap:12px;padding-bottom:24px;color:var(--accent-soft);border-bottom:1px solid rgba(220,193,156,.16)}
 .lk-mark{width:84px;height:83px}
 .lk-en{width:188px;height:39px;color:#f3e7d6}
@@ -103,9 +103,8 @@ input,select,textarea{font:inherit;color:inherit}
 .nav-item.active{color:#f6e9d6;background:rgba(220,193,156,.13);font-weight:600}
 .nav-item.active .ic{color:var(--accent-soft)}
 .nav-item.active::before{content:"";position:absolute;left:-20px;top:11px;bottom:11px;width:3px;border-radius:0 3px 3px 0;background:var(--accent-soft)}
-.side-foot{margin-top:auto;padding:18px 4px 0;border-top:1px solid rgba(220,193,156,.14);text-align:center}
-.basmala{font-family:var(--f-quran);font-size:19px;line-height:1.6;color:var(--accent-soft);opacity:.6}
-.theme-switch{display:flex;gap:3px;margin:12px auto 0;padding:3px;max-width:210px;border-radius:999px;background:rgba(0,0,0,.18);border:1px solid rgba(220,193,156,.16)}
+.side-foot{margin-top:auto;padding:24px 4px 0;text-align:center}
+.theme-switch{display:flex;gap:3px;margin:0 auto;padding:3px;max-width:210px;border-radius:999px;background:rgba(0,0,0,.18);border:1px solid rgba(220,193,156,.16)}
 .theme-switch button{flex:1;display:inline-flex;align-items:center;justify-content:center;gap:7px;height:32px;border-radius:999px;font-size:13.5px;font-weight:500;color:rgba(239,228,214,.62);transition:background .2s,color .2s}
 .theme-switch button .ic{width:15px;height:15px}
 .theme-switch button:hover{color:#fff}
@@ -672,6 +671,11 @@ body:not(.is-admin) .admin-only{display:none !important}
 .w-form{display:flex;flex-direction:column;gap:14px;margin-top:18px}
 .w-form .btn{width:100%;height:46px}
 .w-status{min-height:1.4em;font-size:15px;font-weight:600;color:var(--accent-text)}
+.w-alert{display:flex;flex-direction:column;gap:4px;width:100%;max-width:520px;margin:22px auto 8px;padding:14px 18px;border-radius:12px;background:color-mix(in srgb,#b3362a 9%,var(--surface));border:1px solid color-mix(in srgb,#b3362a 30%,transparent);color:var(--text-2);font-size:14.5px;line-height:1.45;text-align:left}
+.w-alert[hidden]{display:none}
+.w-alert strong{color:var(--heading);font-size:15.5px}
+.w-alert small{font-size:12.5px;color:var(--text-3)}
+.w-alert small:empty{display:none}
 .w-links{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:14px}
 .w-divider{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:18px;padding-top:16px;border-top:1px solid var(--line);font-size:15px;color:var(--text-2)}
 
@@ -815,7 +819,6 @@ body.parent-mode .staff-only{display:none !important}
       <button class="nav-item staff-only admin-only" data-nav="staff" onclick="showPage('staff')"><svg class="ic"><use href="#i-badge"/></svg><span>Staff and classes</span></button>
     </nav>
     <div class="side-foot">
-      <div class="basmala" lang="ar" dir="rtl">بسم الله الرحمن الرحيم</div>
       <div class="theme-switch" role="group" aria-label="Appearance">
         <button type="button" data-theme-set="light" onclick="setTheme('light')"><svg class="ic"><use href="#i-sun"/></svg>Light</button>
         <button type="button" data-theme-set="dark" onclick="setTheme('dark')"><svg class="ic"><use href="#i-moon"/></svg>Dark</button>
@@ -1225,6 +1228,11 @@ body.parent-mode .staff-only{display:none !important}
   <div class="welcome-inner">
     <svg class="logo w-lockup" role="img" aria-label="British Institute of Qur'an and Qira'at"><use href="#biqq-lockup"/></svg>
 
+    <div class="w-alert" id="w-alert" role="alert" hidden>
+      <strong>That link didn't work.</strong>
+      <span>It may have expired, or it was already used. Links work once, for an hour, and only the newest one you were sent. Ask for a new link below and tap it once.</span>
+      <small id="w-alert-detail"></small>
+    </div>
     <div class="w-pane" data-pane="choose">
       <h1 class="w-title">As-salāmu ‘alaykum</h1>
       <p class="w-sub">Welcome to the British Institute of Qur'an &amp; Qira'at. Are you here as a parent or as a teacher?</p>
@@ -1315,6 +1323,12 @@ const SUPABASE_URL = 'https://jasydhtioaddbsxxpxxk.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_BSq3lejgQFM7S0zNLmtj0g_7uAvznI4';
 const INSTITUTE = 'biqq';   // this institute's short name, set in the database update
 const RECOVERY_LINK = location.hash.includes('type=recovery');   // arrived from a password reset email
+// When an emailed link has expired or was already used, Supabase sends people
+// back with the reason in the address. Keep it so the welcome page can say so.
+const LINK_ERROR = (() => {
+  const p = new URLSearchParams(location.hash.slice(1)), q = new URLSearchParams(location.search);
+  return p.get('error_description') || q.get('error_description') || p.get('error') || q.get('error') || '';
+})();
 const db = supabase.createClient(SUPABASE_URL, SUPABASE_KEY, { auth: { flowType: 'implicit' } });
 
 const THEME_KEY = 'biqq-theme';
@@ -2191,6 +2205,7 @@ function renderStaff() {
     return `<div class="row" role="button" tabindex="0" onclick="showStudentsInClass('${c.id}')">
       <span class="fc-icon">${ic('users')}</span>
       <span class="row-main"><span class="row-title">${esc(c.name)}</span><span class="row-sub">${t.length ? `With ${esc(t.join(', '))}` : 'No teacher yet'}, ${plural(n, 'student')}</span></span>
+      <button class="btn btn-quiet btn-icon btn-sm" onclick="event.stopPropagation();removeClass('${c.id}')" aria-label="Remove ${esc(c.name)}" title="Remove class">${ic('trash')}</button>
       ${ic('chev', 'chev')}
     </div>`;
   }).join('') : '<p class="note-text empty" style="margin:6px 0 10px">No classes yet. Add the first one below.</p>';
@@ -2222,6 +2237,23 @@ function declineRequest(id) {
 async function resendTeacherLink(email) {
   const problem = await sendTeacherLink(email);
   toast(problem ? `The email didn’t send: ${problem}` : 'Sign-in link sent again', problem ? 'warn' : 'ok');
+}
+async function removeClass(id) {
+  const c = classById(id); if (!c) return;
+  const kids = studentsInClass(id).length, teachers = teachersOfClass(id);
+  const { data } = await db.from('attendance').select('register_date').eq('class_id', id);
+  const registers = new Set((data || []).map(r => r.register_date)).size;
+  const lines = ['This can’t be undone.'];
+  if (kids) lines.push(`${kids === 1 ? 'Its 1 student stays' : `Its ${kids} students stay`} on the system with every session logged, and will show as not in a class until you place them.`);
+  if (registers) lines.push(`${plural(registers, 'register')} taken for this class will be deleted.`);
+  if (teachers.length) lines.push(`${teachers.join(' and ')} will no longer see it.`);
+  confirmDialog({ title: `Remove ${c.name}?`, message: lines.join(' '), confirmLabel: 'Remove class' }, async () => {
+    const { error } = await db.from('classes').delete().eq('id', id);
+    if (error) { toast(error.message, 'warn'); return; }
+    if (state.register.classId === id) state.register = { classId: '', date: '', marks: {}, saved: {} };
+    await loadAll(); renderAll();
+    toast(`${c.name} removed`);
+  });
 }
 async function createClass() {
   const name = $('new-class-name').value.trim();
@@ -2603,7 +2635,15 @@ async function startNow() {
     $('pw-title').textContent = 'Choose a new password';
     showWelcome('password'); return;
   }
-  if (!session) { showWelcome('choose'); return; }
+  if (!session) {
+    if (LINK_ERROR && !state.linkErrorShown) {
+      state.linkErrorShown = true;
+      $('w-alert').hidden = false;
+      $('w-alert-detail').textContent = LINK_ERROR.replace(/\+/g, ' ');
+      history.replaceState(null, '', location.pathname);
+    }
+    showWelcome('choose'); return;
+  }
   hideWelcome();
 
   await db.rpc('accept_invites');
