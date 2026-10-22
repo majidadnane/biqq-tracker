@@ -641,6 +641,7 @@ body:not(.is-admin) .admin-only{display:none !important}
 .row.row-edit{cursor:default;gap:10px;padding:11px 0}
 .row-edit .input{flex:1;min-width:0;height:40px;font-weight:600;color:var(--heading)}
 @media (max-width:480px){ .row-edit .row-art,#class-list .row .chev{display:none} #class-list .row{gap:10px} }
+@media (max-width:400px){ .row-edit{flex-wrap:wrap} .row-edit .input{flex-basis:100%} }
 .class-add{display:flex;flex-wrap:wrap;gap:10px;padding:8px 26px 24px}
 .class-add .input{flex:1 1 240px;height:42px}
 
@@ -3527,14 +3528,18 @@ async function startNow() {
   hideWelcome();
 
   await db.rpc('accept_invites');
-  const { data: me, error } = await db.from('members')
-    .select('org_id, user_id, role, display_name, email')
+  // Someone can belong to more than one school on the platform, so only this school's membership counts here
+  const { data: all, error } = await db.from('members')
+    .select('org_id, user_id, role, display_name, email, organisations(slug)')
     .eq('user_id', session.user.id);
   if (error) return toast(error.message, 'warn');
+  const me = all.filter(m => m.organisations && m.organisations.slug === INSTITUTE);
   if (!me.length) {
     const kids = await db.rpc('my_children');
-    if (!kids.error && kids.data && kids.data.length) return startParent(kids.data);
-    const reg = await db.rpc('my_registration_status');
+    const here = kids.error || !kids.data ? [] : kids.data.filter(k => !k.institute_slug || k.institute_slug === INSTITUTE);
+    if (here.length) return startParent(here);
+    let reg = await db.rpc('my_registration_status', { p_institute: INSTITUTE });
+    if (reg.error) reg = await db.rpc('my_registration_status');
     if (!reg.error && reg.data === 'pending') { showWelcome('waiting'); return; }
     $('not-invited').hidden = false;
     return;
@@ -3566,12 +3571,12 @@ db.auth.onAuthStateChange((event, session) => {
 // ── Loading ──
 async function loadAll() {
   const [cls, studs, enr, sess, mem, ct] = await Promise.all([
-    db.from('classes').select('id, name').eq('archived', false).order('name'),
-    db.from('students').select('*').order('name'),
-    db.from('enrolments').select('student_id, class_id'),
-    db.from('sessions').select('*').order('session_date', { ascending: false }),
-    db.from('members').select('user_id, role, display_name, email'),
-    db.from('class_teachers').select('class_id, user_id')
+    db.from('classes').select('id, name').eq('org_id', state.orgId).eq('archived', false).order('name'),
+    db.from('students').select('*').eq('org_id', state.orgId).order('name'),
+    db.from('enrolments').select('student_id, class_id').eq('org_id', state.orgId),
+    db.from('sessions').select('*').eq('org_id', state.orgId).order('session_date', { ascending: false }),
+    db.from('members').select('user_id, role, display_name, email').eq('org_id', state.orgId),
+    db.from('class_teachers').select('class_id, user_id').eq('org_id', state.orgId)
   ]);
   const failed = [cls, studs, enr, sess, mem, ct].find(r => r.error);
   if (failed) { toast('Could not load your data: ' + failed.error.message, 'warn'); return; }
@@ -3583,21 +3588,21 @@ async function loadAll() {
   state.students = studs.data.map(studentFromRow);
   state.sessions = sess.data.map(fromRow);
 
-  const att = await db.from('attendance').select('register_date, mark').gte('register_date', isoDaysAgo(55));
+  const att = await db.from('attendance').select('register_date, mark').eq('org_id', state.orgId).gte('register_date', isoDaysAgo(55));
   state.recentAttendance = att.error ? [] : att.data;
 
-  const g = await db.from('guardians').select('id, student_id, email, user_id').order('email');
+  const g = await db.from('guardians').select('id, student_id, email, user_id').eq('org_id', state.orgId).order('email');
   state.guardiansOn = !g.error;
   state.guardians = g.error ? [] : g.data;
 
   if (state.role === 'admin') {
     const [inv, req] = await Promise.all([
-      db.from('invites').select('id, email, display_name, class_id, role'),
-      db.from('teacher_requests').select('*').eq('status', 'pending').order('created_at')
+      db.from('invites').select('id, email, display_name, class_id, role').eq('org_id', state.orgId),
+      db.from('teacher_requests').select('*').eq('org_id', state.orgId).eq('status', 'pending').order('created_at')
     ]);
     state.invites = inv.error ? [] : inv.data;
     state.requests = req.error ? [] : req.data;
-    const regs = await db.from('registrations').select('*').eq('status', 'pending').order('created_at');
+    const regs = await db.from('registrations').select('*').eq('org_id', state.orgId).eq('status', 'pending').order('created_at');
     state.registrations = regs.error ? [] : regs.data;
   }
 }
@@ -3612,7 +3617,8 @@ async function startParent(kids) {
     id: k.id, name: k.name, age: k.age ?? '', startDate: k.start_date ?? '', dob: k.date_of_birth || '',
     level: k.level || '', targets: k.targets || '', notes: '', sg: null
   }));
-  state.sessions = data.map(fromRow);
+  const ids = new Set(kids.map(k => k.id));
+  state.sessions = data.filter(x => ids.has(x.student_id)).map(fromRow);
   state.classes = []; state.enrolments = []; state.guardians = []; state.members = []; state.classTeachers = [];
 
   const one = kids.length === 1;
