@@ -25,7 +25,7 @@
   --paper:#f1eee9; --surface:#fcfbf8; --surface-2:#f5f1eb; --field:#ffffff;
   --text:#2b2019; --text-2:#594a3e; --text-3:#6f6055; --heading:#3d2a1d;
   --line:#e3dcd2; --line-2:#cfc5b8;
-  --primary:#6e5039; --primary-hover:#5a412e; --on-primary:#ffffff;
+  --primary:#6e5039; --primary-hover:#5a412e; --on-primary:#ffffff; --btn-primary:#6e5039; --btn-primary-hover:#5a412e;
   --icon:#8a6a50; --icon-wash:#efe6dc;
   --accent:#b48e66; --accent-text:#86603a; --accent-soft:#dcc19c; --accent-wash:#f6eee4; --accent-line:#e8d8c3;
   --cartouche:#dcc19c; --track:#e8e2d9; --off:#e3dcd2; --off-line:#cdc3b6;
@@ -46,7 +46,7 @@
   --paper:#15100c; --surface:#1e1712; --surface-2:#261d17; --field:#19130f;
   --text:#eee4d9; --text-2:#c8b8a8; --text-3:#a5958a; --heading:#f5ede3;
   --line:#33281f; --line-2:#4a3c30;
-  --primary:#d4b089; --primary-hover:#e2c19d; --on-primary:#23170e;
+  --primary:#d4b089; --primary-hover:#e2c19d; --on-primary:#23170e; --btn-primary:#efe3d2; --btn-primary-hover:#f8f1e7;
   --icon:#c9a47e; --icon-wash:#30241b;
   --accent:#e4caa4; --accent-text:#dcb78e; --accent-soft:#dcc19c; --accent-wash:#2a2019; --accent-line:#4a392a;
   --cartouche:#5b4734; --track:#33281f; --off:#3a2e25; --off-line:#4d3f33;
@@ -66,7 +66,7 @@
   --f-ui:'Source Sans 3','Cairo',system-ui,-apple-system,'Segoe UI',sans-serif;
   --f-ar:'Cairo','Source Sans 3',sans-serif;
   --f-quran:'Amiri','Cairo',serif;
-  --sand-1:#e6cfad; --sand-2:#c9a57c; --on-sand:#2e2016; --cream:#f6eee4;
+  --sand-1:#fbf6ee; --sand-2:#efe1cb; --on-sand:#2e2016; --cream:#f6eee4;
   --petals:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='56' viewBox='0 0 56 56'%3E%3Cg fill='none' stroke='%23dcc19c' stroke-width='.9'%3E%3Ccircle r='28'/%3E%3Ccircle cx='56' r='28'/%3E%3Ccircle cy='56' r='28'/%3E%3Ccircle cx='56' cy='56' r='28'/%3E%3Ccircle cx='28' cy='28' r='28'/%3E%3C/g%3E%3C/svg%3E");
   --flower-dark:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cg fill='%23362619' stroke='%23dcc19c' stroke-width='1.1'%3E%3Cpath d='M12 12A5.6 5.6 0 0 1 12 2.5A5.6 5.6 0 0 1 12 12Z' transform='rotate(0 12 12)'/%3E%3Cpath d='M12 12A5.6 5.6 0 0 1 12 2.5A5.6 5.6 0 0 1 12 12Z' transform='rotate(90 12 12)'/%3E%3Cpath d='M12 12A5.6 5.6 0 0 1 12 2.5A5.6 5.6 0 0 1 12 12Z' transform='rotate(180 12 12)'/%3E%3Cpath d='M12 12A5.6 5.6 0 0 1 12 2.5A5.6 5.6 0 0 1 12 12Z' transform='rotate(270 12 12)'/%3E%3Ccircle cx='12' cy='12' r='1.7' fill='%23b48e66' stroke='none'/%3E%3C/g%3E%3C/svg%3E");
 }
@@ -134,10 +134,10 @@ input,select,textarea{font:inherit;color:inherit}
 /* ───────── Buttons ───────── */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:42px;padding:0 19px;border-radius:999px;border:1px solid transparent;font-size:15px;font-weight:600;line-height:1;white-space:nowrap;transition:background .2s,border-color .2s,color .2s,box-shadow .2s}
 .btn .ic{width:17px;height:17px}
-.btn-primary{background:var(--primary);color:var(--on-primary)}
-.btn-primary:hover{background:var(--primary-hover)}
-.btn-accent{background:linear-gradient(180deg,var(--sand-1),var(--sand-2));color:var(--on-sand);font-weight:700;box-shadow:inset 0 1px 0 rgba(255,255,255,.4),0 1px 2px rgba(50,30,10,.18)}
-.btn-accent:hover{background:linear-gradient(180deg,#ecd8b9,#d0ad85)}
+.btn-primary{background:var(--btn-primary);color:var(--on-primary)}
+.btn-primary:hover{background:var(--btn-primary-hover)}
+.btn-accent{background:linear-gradient(180deg,var(--sand-1),var(--sand-2));color:var(--on-sand);font-weight:700;border-color:rgba(160,122,82,.3);box-shadow:inset 0 1px 0 rgba(255,255,255,.7),0 1px 2px rgba(50,30,10,.14)}
+.btn-accent:hover{background:linear-gradient(180deg,#fffdf9,#f5eadb)}
 .btn-ghost{background:var(--surface);border-color:var(--line-2);color:var(--text-2)}
 .btn-ghost:hover{border-color:var(--icon);color:var(--primary)}
 .btn-dark{background:transparent;border-color:rgba(246,238,228,.26);color:var(--cream)}
@@ -394,6 +394,8 @@ body.locked{overflow:hidden}
 .d-text{font-size:15.5px;color:var(--text-2);white-space:pre-line}
 .reflection{padding-left:16px;border-left:2px solid var(--accent-soft);font-size:18px;font-style:italic;line-height:1.5;color:var(--text);white-space:pre-line}
 .confirm-text{font-size:16px;color:var(--text-2);line-height:1.6}
+.confirm-type{margin-top:16px}
+.btn:disabled{opacity:.45;cursor:not-allowed;box-shadow:none}
 @keyframes pop{from{opacity:0;transform:translateY(10px) scale(.985)}to{opacity:1;transform:none}}
 @keyframes fade{from{opacity:0}to{opacity:1}}
 
@@ -1204,7 +1206,13 @@ body.parent-mode .staff-only{display:none !important}
 <div class="modal-overlay" id="modal-confirm">
   <div class="modal small" role="alertdialog" aria-modal="true" aria-labelledby="confirm-title">
     <div class="modal-head"><h3 class="modal-title" id="confirm-title"></h3></div>
-    <div class="modal-body"><p class="confirm-text" id="confirm-message"></p></div>
+    <div class="modal-body">
+      <p class="confirm-text" id="confirm-message"></p>
+      <div class="field confirm-type" id="confirm-type-field" hidden>
+        <label for="confirm-type" id="confirm-type-label"></label>
+        <input type="text" id="confirm-type" class="input" autocomplete="off" autocapitalize="off" spellcheck="false" oninput="checkConfirmWord()" onkeydown="if (event.key === 'Enter' && !$('confirm-ok').disabled) runConfirm()">
+      </div>
+    </div>
     <div class="modal-foot">
       <button class="btn btn-ghost" onclick="closeModal('modal-confirm')">Keep</button>
       <button class="btn btn-danger" id="confirm-ok" onclick="runConfirm()"></button>
@@ -1593,7 +1601,9 @@ function deleteStudent(id) {
     message: isAdmin
       ? 'This deletes their profile and every session logged for them. It can’t be undone.'
       : 'Their record stays with the institute, and your admin can place them in another class.',
-    confirmLabel: isAdmin ? 'Remove student' : 'Remove from my class'
+    confirmLabel: isAdmin ? 'Remove student' : 'Remove from my class',
+    typeToConfirm: isAdmin ? st.name.trim().split(/\s+/)[0] : '',
+    finalMessage: `${st.name}'s profile, safeguarding details and every session logged for them will be deleted for good.`
   }, async () => {
     const { error } = isAdmin
       ? await db.from('students').delete().eq('id', id)
@@ -1741,7 +1751,8 @@ function sessionWhere(s) {
   const parts = [];
   const c = s.classId && classById(s.classId);
   if (c) parts.push(c.name);
-  const who = s.teacherId && state.me && s.teacherId === state.me.user_id ? 'you' : memberName(s.teacherId);
+  const who = s.teacherId && state.me && s.teacherId === state.me.user_id ? 'you'
+    : memberName(s.teacherId) || (state.role === 'admin' && s.teacherId ? 'a former teacher' : '');
   if (who) parts.push(`logged by ${who}`);
   return parts.join(', ');
 }
@@ -2184,7 +2195,10 @@ function renderStaff() {
         <span class="row-sub">${esc(m.email || '')}</span>
         <div class="chips" style="margin-top:8px">${cls.length ? cls.map(c => `<span class="chip">${ic('users')}${esc(c.name)}</span>`).join('') : m.role === 'admin' ? '<span class="chip">Sees every class</span>' : '<span class="chip warn">No classes</span>'}</div>
       </div>
-      <div class="staff-actions"><button class="btn btn-ghost btn-sm" onclick="openTeacherClasses('${m.user_id}')">Change classes</button></div>
+      <div class="staff-actions">
+        <button class="btn btn-ghost btn-sm" onclick="openTeacherClasses('${m.user_id}')">Change classes</button>
+        ${state.me && m.user_id === state.me.user_id ? '' : `<button class="btn btn-quiet btn-icon btn-sm" onclick="removeTeacher('${m.user_id}')" aria-label="Remove ${esc(m.display_name || m.email)}" title="Remove">${ic('trash')}</button>`}
+      </div>
     </div>`;
   }).join('') + invitedEmails.map(email => {
     const inv = state.invites.filter(i => i.email.toLowerCase() === email);
@@ -2196,7 +2210,10 @@ function renderStaff() {
         <span class="row-sub">${esc(email)}, approved but hasn’t signed in yet</span>
         <div class="chips" style="margin-top:8px">${cls.map(c => `<span class="chip">${ic('users')}${esc(c.name)}</span>`).join('')}</div>
       </div>
-      <div class="staff-actions"><button class="btn btn-ghost btn-sm" onclick="resendTeacherLink('${esc(email)}')">${ic('mail')}Resend email</button></div>
+      <div class="staff-actions">
+        <button class="btn btn-ghost btn-sm" onclick="resendTeacherLink('${esc(email)}')">${ic('mail')}Resend email</button>
+        <button class="btn btn-quiet btn-icon btn-sm" onclick="withdrawInvite('${esc(email)}')" aria-label="Remove ${esc(inv[0].display_name || email)}" title="Remove">${ic('trash')}</button>
+      </div>
     </div>`;
   }).join('');
 
@@ -2237,6 +2254,36 @@ function declineRequest(id) {
 async function resendTeacherLink(email) {
   const problem = await sendTeacherLink(email);
   toast(problem ? `The email didn’t send: ${problem}` : 'Sign-in link sent again', problem ? 'warn' : 'ok');
+}
+function removeTeacher(userId) {
+  const m = state.members.find(x => x.user_id === userId); if (!m) return;
+  const name = m.display_name || m.email;
+  const cls = state.classTeachers.filter(ct => ct.user_id === userId).map(ct => classById(ct.class_id)).filter(Boolean);
+  const lines = [`${name} loses access straight away${cls.length ? ` and is taken off ${cls.map(c => c.name).join(' and ')}` : ''}.`,
+    'Their students, and every session they logged, stay with the institute.',
+    'If they ask for access again from the welcome page, you’ll see their request.'];
+  confirmDialog({ title: `Remove ${name}?`, message: lines.join(' '), confirmLabel: 'Remove teacher',
+    typeToConfirm: (m.display_name || m.email).trim().split(/\s+/)[0],
+    finalMessage: `${name} will lose access as soon as you confirm.` }, async () => {
+    const { error } = await db.from('members').delete().eq('org_id', state.orgId).eq('user_id', userId);
+    if (error) { toast(error.message, 'warn'); return; }
+    for (const i of state.invites.filter(i => m.email && i.email.toLowerCase() === m.email.toLowerCase())) await db.from('invites').delete().eq('id', i.id);
+    await loadAll(); renderAll();
+    toast(`${name} removed`);
+  });
+}
+function withdrawInvite(email) {
+  const inv = state.invites.filter(i => i.email.toLowerCase() === email); if (!inv.length) return;
+  const name = inv[0].display_name || email;
+  confirmDialog({ title: `Remove ${name}?`, message: `Their approval is withdrawn, so the link they were emailed won’t give them access. They can ask again from the welcome page.`, confirmLabel: 'Remove',
+    typeToConfirm: name.trim().split(/\s+/)[0], finalMessage: `${name}'s approval will be withdrawn as soon as you confirm.` }, async () => {
+    for (const i of inv) {
+      const { error } = await db.from('invites').delete().eq('id', i.id);
+      if (error) { toast(error.message, 'warn'); return; }
+    }
+    await loadAll(); renderAll();
+    toast(`${name} removed`);
+  });
 }
 async function removeClass(id) {
   const c = classById(id); if (!c) return;
@@ -2760,14 +2807,34 @@ function closeModal(id) {
   if (!document.querySelector('.modal-overlay.open') && !$('pdf-report').classList.contains('open')) document.body.classList.remove('locked');
 }
 let confirmAction = null;
-function confirmDialog({ title, message, confirmLabel = 'Remove' }, fn) {
+// With typeToConfirm, removing takes two steps: the first window explains what
+// happens, the second asks for the name to be typed before the button works.
+// The typing also stops a quick double click going through both windows.
+let confirmWord = '';
+const plainWord = v => String(v || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim().toLowerCase();
+function showConfirmStep({ title, message, label, icon = 'trash', word = '' }, fn) {
   $('confirm-title').textContent = title;
   $('confirm-message').textContent = message;
-  $('confirm-ok').innerHTML = ic('trash') + esc(confirmLabel);
+  $('confirm-ok').innerHTML = (icon ? ic(icon) : '') + esc(label);
+  confirmWord = word;
+  $('confirm-type-field').hidden = !word;
+  $('confirm-type').value = '';
+  $('confirm-ok').disabled = !!word;
+  if (word) $('confirm-type-label').textContent = `Type ${word} to confirm`;
   confirmAction = fn;
   openModal('modal-confirm');
+  if (word) setTimeout(() => $('confirm-type').focus(), 60);
 }
-function runConfirm() { const fn = confirmAction; confirmAction = null; closeModal('modal-confirm'); if (fn) fn(); }
+function checkConfirmWord() { $('confirm-ok').disabled = plainWord($('confirm-type').value) !== plainWord(confirmWord); }
+function confirmDialog({ title, message, confirmLabel = 'Remove', typeToConfirm = '', finalMessage = '' }, fn) {
+  if (!typeToConfirm) return showConfirmStep({ title, message, label: confirmLabel }, fn);
+  showConfirmStep({ title, message, label: 'Continue', icon: '' }, () =>
+    showConfirmStep({ title: 'Are you sure?', message: finalMessage || 'This can’t be undone.', label: confirmLabel, word: typeToConfirm }, fn));
+}
+function runConfirm() {
+  if ($('confirm-ok').disabled) return;
+  const fn = confirmAction; confirmAction = null; closeModal('modal-confirm'); if (fn) fn();
+}
 let toastTimer;
 function toast(msg, kind = 'ok') {
   const el = $('toast');
