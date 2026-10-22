@@ -1012,6 +1012,41 @@ body{font-size:15.5px}
 .w-card h2{font-size:24px}
 .w-form .btn{height:44px}
 
+/* Parent registration */
+.w-new{margin-top:22px;font-size:15.5px;color:var(--text-2);text-align:center}
+.w-new .link-btn{font-size:15.5px}
+.w-alt{margin-top:12px;font-size:14.5px;color:var(--text-3)}
+.w-card.w-wide{width:min(640px,100%)}
+.rg-grid{margin-top:18px}
+.rg-child{min-width:0;margin:22px 0 0;padding:18px 18px 20px;border:1px solid var(--line);border-radius:14px;background:var(--surface-2)}
+.rg-child-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px}
+.rg-child-head h3{font-size:17px;font-weight:600;color:var(--heading)}
+.rg-child .input{background:var(--field)}
+.rg-add{align-self:flex-start;margin-top:12px}
+.rg-consent{margin-top:20px}
+.w-steps{margin:14px 0 4px 20px;display:grid;gap:8px;font-size:15px;line-height:1.5;color:var(--text-2)}
+.w-steps strong{color:var(--heading)}
+.regs-card{margin-bottom:20px}
+.regi{padding:16px 0}
+.regi + .regi{border-top:1px solid var(--line)}
+.regi-head{display:flex;align-items:flex-start;gap:14px}
+.regi-kids{display:grid;gap:10px;margin:14px 0 0 56px}
+.regi-kid{display:flex;align-items:center;justify-content:space-between;gap:10px 16px;flex-wrap:wrap;padding:10px 12px;border-radius:12px;background:var(--surface-2)}
+.regi-kid strong{display:block;font-size:15px;color:var(--heading)}
+.regi-kid .row-sub{white-space:normal}
+.regi-kid .chips{margin-top:6px}
+.regi-kid .filter .input{width:210px}
+.regi-more{margin:10px 0 0 56px;font-size:14.5px;color:var(--text-2)}
+.regi-more summary{cursor:pointer;font-weight:600;color:var(--primary);width:max-content}
+.regi-more summary:hover{text-decoration:underline;text-underline-offset:3px}
+.regi-more .sg-grid{padding:6px 0 0}
+@media (max-width:640px){
+  .rg-child{padding:14px 14px 16px}
+  .regi-kids,.regi-more{margin-left:0}
+  .regi-kid .filter,.regi-kid .filter .input{width:100%}
+  .regi-head{flex-wrap:wrap}
+  .regi-head .staff-actions{width:100%;justify-content:flex-start;padding-left:56px}
+}
 /* Welcome choices: two small drawings in the logo's line, a mus'haf on its rehal for parents and a
    qalam nib for teachers. They draw themselves in when the page opens; on hover the lines are read
    or written again. */
@@ -1250,6 +1285,10 @@ body{font-size:15.5px}
             <button class="btn btn-accent staff-only" onclick="openStudentForm()"><svg class="ic"><use href="#i-plus"/></svg>Add a student</button>
           </div>
         </header>
+        <section class="card admin-only regs-card" id="registrations" hidden>
+          <div class="card-head"><h2 class="card-title">New registrations</h2><span class="card-note" id="regs-note"></span></div>
+          <div class="list" id="regs-list"></div>
+        </section>
         <div class="student-grid" id="student-list"></div>
       </section>
 
@@ -1626,17 +1665,23 @@ body{font-size:15.5px}
           </svg>
           <strong>I'm a teacher</strong><span>Take the register, record lessons and make class reports.</span></button>
       </div>
+      <p class="w-new">New to the institute? <button class="link-btn" onclick="showWelcome('register')">Register your child</button></p>
     </div>
 
     <div class="w-pane w-card" data-pane="parent" hidden>
       <h2>Parent sign in</h2>
-      <p class="w-help">Use the email the institute has for you. We'll send you a link, so there's no password to remember.</p>
       <div class="w-form">
-        <div class="field"><label for="parent-email">Email address</label><input type="email" id="parent-email" class="input" autocomplete="email" onkeydown="if (event.key === 'Enter') sendParentLink()"></div>
-        <button class="btn btn-primary" onclick="sendParentLink()"><svg class="ic"><use href="#i-mail"/></svg>Email me a sign-in link</button>
+        <div class="field"><label for="parent-email">Email address</label><input type="email" id="parent-email" class="input" autocomplete="email"></div>
+        <div class="field"><label for="parent-password">Password</label><input type="password" id="parent-password" class="input" autocomplete="current-password" onkeydown="if (event.key === 'Enter') parentSignIn()"></div>
+        <button class="btn btn-primary" onclick="parentSignIn()"><svg class="ic"><use href="#i-lock"/></svg>Sign in</button>
         <p class="w-status" id="parent-status" aria-live="polite"></p>
       </div>
-      <div class="w-links"><button class="link-btn" onclick="showWelcome('choose')"><svg class="ic" style="transform:scaleX(-1)"><use href="#i-chev"/></svg>Back</button></div>
+      <div class="w-links">
+        <button class="link-btn" onclick="showWelcome('choose')"><svg class="ic" style="transform:scaleX(-1)"><use href="#i-chev"/></svg>Back</button>
+        <button class="link-btn" onclick="showForgot('parent')">Forgot your password?</button>
+      </div>
+      <p class="w-alt">No password yet? <button class="link-btn" onclick="sendParentLink()">Email me a sign-in link</button></p>
+      <div class="w-divider"><span>First time here?</span><button class="btn btn-ghost btn-sm" onclick="showWelcome('register')">Register your child</button></div>
     </div>
 
     <div class="w-pane w-card" data-pane="teacher" hidden>
@@ -1648,7 +1693,7 @@ body{font-size:15.5px}
       </div>
       <div class="w-links">
         <button class="link-btn" onclick="showWelcome('choose')"><svg class="ic" style="transform:scaleX(-1)"><use href="#i-chev"/></svg>Back</button>
-        <button class="link-btn" onclick="showWelcome('forgot')">Forgot your password?</button>
+        <button class="link-btn" onclick="showForgot('teacher')">Forgot your password?</button>
       </div>
       <div class="w-divider"><span>New to the institute?</span><button class="btn btn-ghost btn-sm" onclick="showWelcome('request')">Ask for access</button></div>
     </div>
@@ -1671,6 +1716,51 @@ body{font-size:15.5px}
       <div class="w-links"><button class="link-btn" onclick="showWelcome('choose')"><svg class="ic" style="transform:scaleX(-1)"><use href="#i-chev"/></svg>Back to the start</button></div>
     </div>
 
+    <div class="w-pane w-card w-wide" data-pane="register" hidden>
+      <h2>Register your child</h2>
+      <p class="w-help">Fill this in once. The institute will check it and place your child in a class, and you'll then sign in with your email and the password you choose here.</p>
+      <div class="form-grid rg-grid">
+        <div class="form-section">About you</div>
+        <div class="field full"><label for="rg-name">Your full name <span class="req">*</span></label><input type="text" id="rg-name" class="input" autocomplete="name"></div>
+        <div class="field"><label for="rg-rel">Relationship to the child</label><input type="text" id="rg-rel" class="input" list="relationships" placeholder="e.g. Mother"></div>
+        <div class="field"><label for="rg-phone">Phone <span class="req">*</span></label><input type="tel" id="rg-phone" class="input" autocomplete="tel"></div>
+        <div class="field full"><label for="rg-email">Email address <span class="req">*</span></label><input type="email" id="rg-email" class="input" autocomplete="email"></div>
+        <div class="field"><label for="rg-pass">Choose a password <span class="req">*</span></label><input type="password" id="rg-pass" class="input" autocomplete="new-password" placeholder="At least 8 characters"></div>
+        <div class="field"><label for="rg-pass2">Type it again <span class="req">*</span></label><input type="password" id="rg-pass2" class="input" autocomplete="new-password"></div>
+
+        <div class="form-section">Home address</div>
+        <div class="field full"><label for="rg-address">Address</label><textarea id="rg-address" class="input short" autocomplete="street-address"></textarea></div>
+        <div class="field"><label for="rg-postcode">Postcode</label><input type="text" id="rg-postcode" class="input" autocomplete="postal-code"></div>
+
+        <div class="form-section">Emergency contact<span>Someone else we can call if we can't reach you.</span></div>
+        <div class="field"><label for="rg-em-name">Name</label><input type="text" id="rg-em-name" class="input"></div>
+        <div class="field"><label for="rg-em-rel">Relationship to the child</label><input type="text" id="rg-em-rel" class="input" list="relationships"></div>
+        <div class="field"><label for="rg-em-phone">Phone</label><input type="tel" id="rg-em-phone" class="input"></div>
+      </div>
+      <div id="rg-children"></div>
+      <button class="btn btn-ghost btn-sm rg-add" onclick="addRegChild()"><svg class="ic"><use href="#i-plus"/></svg>Add another child</button>
+      <label class="check rg-consent"><input type="checkbox" id="rg-consent"><span>I confirm these details are correct, and I'm happy for the institute to keep them to look after my child.</span></label>
+      <div class="w-form"><button class="btn btn-primary" id="rg-send" onclick="submitRegistration()">Send registration</button></div>
+      <div class="w-links"><button class="link-btn" onclick="showWelcome('parent')"><svg class="ic" style="transform:scaleX(-1)"><use href="#i-chev"/></svg>I already have an account</button></div>
+    </div>
+
+    <div class="w-pane w-card" data-pane="registered" hidden>
+      <h2 id="registered-title">Thank you</h2>
+      <p class="w-help">Your registration has gone to the institute. Here's what happens next:</p>
+      <ol class="w-steps">
+        <li id="registered-step1"></li>
+        <li id="registered-step2"></li>
+        <li>Sign in with your email and password to follow their progress.</li>
+      </ol>
+      <div class="w-links"><button class="link-btn" onclick="showWelcome('choose')"><svg class="ic" style="transform:scaleX(-1)"><use href="#i-chev"/></svg>Back to the start</button></div>
+    </div>
+
+    <div class="w-pane w-card" data-pane="waiting" hidden>
+      <h2>Almost there</h2>
+      <p class="w-help">Your registration is with the institute. Once they approve it and place your child in a class, you'll see their progress here.</p>
+      <div class="w-links"><button class="link-btn" onclick="signOut()">Sign out</button></div>
+    </div>
+
     <div class="w-pane w-card" data-pane="forgot" hidden>
       <h2>Reset your password</h2>
       <p class="w-help">Enter your email and we'll send you a link to choose a new password.</p>
@@ -1679,7 +1769,7 @@ body{font-size:15.5px}
         <button class="btn btn-primary" onclick="sendReset()"><svg class="ic"><use href="#i-mail"/></svg>Email me a reset link</button>
         <p class="w-status" id="forgot-status" aria-live="polite"></p>
       </div>
-      <div class="w-links"><button class="link-btn" onclick="showWelcome('teacher')"><svg class="ic" style="transform:scaleX(-1)"><use href="#i-chev"/></svg>Back to sign in</button></div>
+      <div class="w-links"><button class="link-btn" onclick="showWelcome(state.welcomeRole)"><svg class="ic" style="transform:scaleX(-1)"><use href="#i-chev"/></svg>Back to sign in</button></div>
     </div>
 
     <div class="w-pane w-card" data-pane="password" hidden>
@@ -1741,7 +1831,7 @@ const HIJRI_MONTHS = ['Muharram', 'Safar', 'Rabi‘ al-Awwal', 'Rabi‘ al-Thani
 // ── State ──
 const state = { students: [], sessions: [], classes: [], enrolments: [], guardians: [], guardiansOn: false, members: [], classTeachers: [], invites: [], requests: [],
   me: null, role: null, orgId: null, ratings: { mem: 0, rev: 0, rec: 0 }, selectedBehaviour: '', currentStudentId: null, currentSessionId: null, currentPage: 'dashboard',
-  register: { classId: '', date: '', marks: {}, saved: {} }, recentAttendance: [], userEmail: '', heroDrawn: false, editingStudentId: null, reportStudentId: null, recovering: RECOVERY_LINK, passwordJustUsed: false };
+  register: { classId: '', date: '', marks: {}, saved: {} }, recentAttendance: [], registrations: [], welcomeRole: 'teacher', userEmail: '', heroDrawn: false, editingStudentId: null, reportStudentId: null, recovering: RECOVERY_LINK, passwordJustUsed: false };
 
 // ── Small helpers ──
 const $ = id => document.getElementById(id);
@@ -2056,7 +2146,7 @@ function copyParentMessage(id) {
   const g = state.guardians.find(x => x.id === id); if (!g) return;
   const st = getStudent(g.student_id);
   const url = location.origin + location.pathname;
-  const msg = `Assalamu alaykum. You can now follow ${st.name}'s Qur'an progress online. Go to ${url}, choose I'm a parent and enter ${g.email}. We'll email you a sign-in link each time, so there's no password to remember.`;
+  const msg = `Assalamu alaykum. You can now follow ${st.name}'s Qur'an progress online. Go to ${url} and choose I'm a parent. If you registered online, sign in with ${g.email} and the password you chose. Otherwise, enter ${g.email} and tap Email me a sign-in link.`;
   const done = () => toast('Message copied. Paste it into WhatsApp or a text');
   if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(msg).then(done, () => window.prompt('Copy this message:', msg));
   else window.prompt('Copy this message:', msg);
@@ -2254,6 +2344,7 @@ function renderMe() {
 }
 function renderAll() {
   renderMe();
+  renderRegistrations();
   renderDashboard(); renderStudentSelects(); renderStudentList(); renderHistory();
   if (state.role === 'admin') renderStaff();
   if (state.currentPage === 'student-profile' && state.currentStudentId) viewStudent(state.currentStudentId, true);
@@ -2286,6 +2377,8 @@ function renderDashboard() {
     const waiting = state.requests.length;
     if (waiting) notes.push(`<div class="notice"><span class="notice-text">${ic('badge')}${waiting === 1 ? '1 teacher is' : `${waiting} teachers are`} waiting for approval</span><button class="btn btn-primary btn-sm" onclick="showPage('staff')">Review</button></div>`);
     const loose = state.students.filter(st => !classIdsOf(st.id).length).length;
+    const regs = state.registrations.length;
+    if (regs) notes.push(`<div class="notice"><span class="notice-text">${ic('home')}${regs === 1 ? '1 new family has' : `${regs} new families have`} registered</span><button class="btn btn-primary btn-sm" onclick="showRegistrations()">Review</button></div>`);
     if (loose) notes.push(`<div class="notice"><span class="notice-text">${ic('users')}${loose === 1 ? '1 student isn’t' : `${loose} students aren’t`} in a class yet</span><button class="btn btn-ghost btn-sm" onclick="showStudentsInClass('__none')">See who</button></div>`);
   }
   $('admin-notice').innerHTML = notes.join('');
@@ -2356,6 +2449,76 @@ function renderStudentList() {
   }).join('') + (list.length ? '' : `<div class="card" style="grid-column:1/-1">${emptyState('Nobody here', query ? 'No students match that search.' : filter === '__none' ? 'Every student is in a class.' : 'No students are in this class yet.')}</div>`)
     + (query ? '' : `<button class="add-card staff-only" onclick="openStudentForm()"><span class="plus">${ic('plus')}</span>Add a student</button>`);
   animateBars();
+}
+// ── New registrations (admin) ──
+function showRegistrations() {
+  showPage('students');
+  requestAnimationFrame(() => $('registrations').scrollIntoView({ behavior: 'smooth', block: 'start' }));
+}
+function renderRegistrations() {
+  const card = $('registrations');
+  const regs = state.role === 'admin' ? state.registrations : [];
+  card.hidden = !regs.length;
+  if (!regs.length) { $('regs-list').innerHTML = ''; return; }
+  $('regs-note').textContent = plural(regs.length, 'family', 'families') + ' waiting';
+  const classOpts = '<option value="">Choose a class</option>' + state.classes.map(c => `<option value="${c.id}">${esc(c.name)}</option>`).join('');
+  const row = (label, html) => `<div><dt>${label}</dt><dd dir="auto">${html || '<span class="empty">Not given</span>'}</dd></div>`;
+  const ageFrom = dob => ageOf({ dob });
+  $('regs-list').innerHTML = regs.map(r => {
+    const kids = Array.isArray(r.children) ? r.children : [];
+    const who = esc(r.parent_name) + (r.parent_relationship ? ` (${esc(r.parent_relationship)})` : '');
+    return `<article class="regi" data-reg="${r.id}">
+      <div class="regi-head">
+        ${avatar(r.parent_name)}
+        <div class="staff-main">
+          <span class="row-title">${who}</span>
+          <span class="row-sub">${esc(r.parent_email)}, ${esc(r.parent_phone)}, sent ${relDate(String(r.created_at).slice(0, 10), true)}</span>
+        </div>
+        <div class="staff-actions">
+          <button class="btn btn-primary btn-sm" onclick="approveRegistration('${r.id}')">${ic('check')}Approve</button>
+          <button class="btn btn-quiet btn-sm" onclick="declineRegistration('${r.id}')">Decline</button>
+        </div>
+      </div>
+      <div class="regi-kids">${kids.map((c, i) => {
+        const health = c.medical_conditions || c.allergies || c.medication;
+        return `<div class="regi-kid">
+          <div><strong>${esc(c.name)}</strong><span class="row-sub">${c.date_of_birth ? `Age ${ageFrom(c.date_of_birth)}, born ${formatDate(c.date_of_birth)}` : 'No date of birth'}</span>
+            ${health ? `<div class="chips"><span class="chip med">${ic('shield')}Medical info</span></div>` : ''}</div>
+          <label class="filter"><span>Class</span><select class="input" data-kid="${i}" aria-label="Class for ${esc(c.name)}">${classOpts}</select></label>
+        </div>`;
+      }).join('')}</div>
+      <details class="regi-more"><summary>All details</summary>
+        <div class="sg-grid">
+          <div class="sg-group"><h3>Home</h3><dl>${row('Address', esc([r.address, r.postcode].filter(Boolean).join(', ')))}</dl></div>
+          <div class="sg-group"><h3>Emergency contact</h3><dl>${row('Name', esc([r.emergency_name, r.emergency_relationship && `(${r.emergency_relationship})`].filter(Boolean).join(' ')))}${row('Phone', esc(r.emergency_phone))}</dl></div>
+          ${kids.map(c => `<div class="sg-group"><h3>${esc(c.name)}</h3><dl>
+            ${row('Medical conditions', esc(c.medical_conditions))}${row('Allergies', esc(c.allergies))}${row('Medication', esc(c.medication))}
+            ${row('Additional needs', esc(c.additional_needs))}${row('Who may collect', esc(c.collection_notes))}
+            ${row('Photos and video', c.photo_consent === true ? 'Yes' : c.photo_consent === false ? 'No' : '')}
+          </dl></div>`).join('')}
+        </div>
+      </details>
+    </article>`;
+  }).join('');
+}
+async function approveRegistration(id) {
+  const r = state.registrations.find(x => x.id === id); if (!r) return;
+  const picks = [...document.querySelectorAll(`[data-reg="${id}"] select[data-kid]`)];
+  const missing = picks.find(s => !s.value);
+  if (missing) { toast('Choose a class for every child', 'warn'); missing.focus(); return; }
+  const { data, error } = await db.rpc('approve_registration', { p_id: id, p_class_ids: picks.map(s => s.value) });
+  if (error) { toast(error.message, 'warn'); return; }
+  await loadAll(); renderAll();
+  toast(`${plural(data || picks.length, 'child', 'children')} added. ${r.parent_name.split(/\s+/)[0]} can now sign in`);
+}
+function declineRegistration(id) {
+  const r = state.registrations.find(x => x.id === id); if (!r) return;
+  confirmDialog({ title: `Decline ${r.parent_name}'s registration?`, message: 'Their details won’t be added, and they won’t be told automatically. They can register again from the welcome page.', confirmLabel: 'Decline' }, async () => {
+    const { error } = await db.rpc('decline_registration', { p_id: id });
+    if (error) { toast(error.message, 'warn'); return; }
+    await loadAll(); renderAll();
+    toast('Registration declined');
+  });
 }
 function renderStudentSelects() {
   const opts = state.students.map(s => `<option value="${s.id}">${esc(s.name)}</option>`).join('');
@@ -3056,6 +3219,7 @@ async function makeClassReport() {
 function showWelcome(pane) {
   $('welcome').hidden = false;
   document.querySelectorAll('#welcome [data-pane]').forEach(p => { p.hidden = p.dataset.pane !== pane; });
+  $('welcome').scrollTop = 0;
   if (pane === 'choose') settleWelcomeArt();
   const first = document.querySelector(`#welcome [data-pane="${pane}"] input`);
   if (first) setTimeout(() => first.focus(), 60);
@@ -3074,6 +3238,109 @@ async function sendParentLink() {
   $('parent-status').textContent = error ? '' : 'Check your email and tap the link to sign in. You can close this page.';
   if (error) toast(error.message, 'warn');
 }
+function showForgot(role) {
+  state.welcomeRole = role;
+  $('forgot-email').value = $(role + '-email').value;
+  showWelcome('forgot');
+}
+async function parentSignIn() {
+  const email = $('parent-email').value.trim(), password = $('parent-password').value;
+  if (!email) { toast('Enter your email address', 'warn'); return; }
+  if (!password) { toast('Enter your password, or ask us to email you a sign-in link', 'warn'); return; }
+  state.passwordJustUsed = true;
+  const { error } = await db.auth.signInWithPassword({ email, password });
+  if (error) {
+    state.passwordJustUsed = false;
+    toast(/confirm/i.test(error.message) ? 'Confirm your email first. Tap the link we sent when you registered.'
+      : /invalid/i.test(error.message) ? 'That email and password don’t match. Try again, or reset your password.' : error.message, 'warn');
+  }
+}
+
+// ── Registering a child ──
+let regCount = 0;
+function addRegChild() {
+  const n = regCount++;
+  const box = document.createElement('fieldset');
+  box.className = 'rg-child';
+  box.dataset.n = n;
+  const id = f => `rgc-${n}-${f}`;
+  box.innerHTML = `
+    <div class="rg-child-head"><h3 class="rg-child-title">${document.querySelectorAll('.rg-child').length ? 'Another child' : 'Your child'}</h3>
+      ${document.querySelectorAll('.rg-child').length ? `<button type="button" class="btn btn-quiet btn-sm" onclick="this.closest('.rg-child').remove()">${ic('trash')}Remove</button>` : ''}</div>
+    <div class="form-grid">
+      <div class="field"><label for="${id('name')}">Child's full name <span class="req">*</span></label><input type="text" id="${id('name')}" data-f="name" class="input" autocomplete="off"></div>
+      <div class="field"><label for="${id('dob')}">Date of birth <span class="req">*</span></label><input type="date" id="${id('dob')}" data-f="dob" class="input" max="${localISO()}"></div>
+      <div class="field full"><label for="${id('medical')}">Medical conditions</label><textarea id="${id('medical')}" data-f="medical" class="input short" placeholder="e.g. Asthma, uses an inhaler. Leave blank if none."></textarea></div>
+      <div class="field"><label for="${id('allergies')}">Allergies</label><input type="text" id="${id('allergies')}" data-f="allergies" class="input"></div>
+      <div class="field"><label for="${id('medication')}">Medication</label><input type="text" id="${id('medication')}" data-f="medication" class="input"></div>
+      <div class="field full"><label for="${id('needs')}">Additional or learning needs</label><textarea id="${id('needs')}" data-f="needs" class="input short"></textarea></div>
+      <div class="field full"><label for="${id('collect')}">Who may collect them</label><input type="text" id="${id('collect')}" data-f="collect" class="input" placeholder="e.g. Mother or uncle Yusuf only"></div>
+      <div class="field"><label for="${id('photo')}">Photos and video</label><select id="${id('photo')}" data-f="photo" class="input"><option value="">Choose an answer</option><option value="yes">Yes, I consent</option><option value="no">No, I don't consent</option></select></div>
+    </div>`;
+  const nameInput = box.querySelector('[data-f="name"]');
+  nameInput.addEventListener('input', () => {
+    const first = nameInput.value.trim().split(/\s+/)[0];
+    box.querySelector('.rg-child-title').textContent = first || (box === document.querySelector('.rg-child') ? 'Your child' : 'Another child');
+  });
+  $('rg-children').appendChild(box);
+  if (n > 0) setTimeout(() => nameInput.focus(), 50);
+}
+function resetRegistration() {
+  document.querySelectorAll('#welcome [data-pane="register"] .rg-grid .input').forEach(i => { i.value = ''; });
+  $('rg-consent').checked = false;
+  $('rg-children').innerHTML = '';
+  regCount = 0;
+  addRegChild();
+}
+async function submitRegistration() {
+  const v = id => $(id).value.trim();
+  const parent = {
+    name: v('rg-name'), relationship: v('rg-rel'), phone: v('rg-phone'), email: v('rg-email').toLowerCase(),
+    address: v('rg-address'), postcode: v('rg-postcode'),
+    emergency_name: v('rg-em-name'), emergency_relationship: v('rg-em-rel'), emergency_phone: v('rg-em-phone')
+  };
+  const boxes = [...document.querySelectorAll('.rg-child')];
+  const children = boxes.map(f => {
+    const g = k => f.querySelector(`[data-f="${k}"]`).value.trim();
+    return { name: g('name'), date_of_birth: g('dob'), medical_conditions: g('medical'), allergies: g('allergies'), medication: g('medication'),
+             additional_needs: g('needs'), collection_notes: g('collect'), photo_consent: g('photo') === 'yes' ? 'true' : g('photo') === 'no' ? 'false' : '' };
+  });
+  const stop = (msg, el) => { toast(msg, 'warn'); if (el) el.focus(); };
+  if (!parent.name) return stop('Add your full name', $('rg-name'));
+  if (!parent.phone) return stop('Add a phone number', $('rg-phone'));
+  if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(parent.email)) return stop('Check your email address', $('rg-email'));
+  if ($('rg-pass').value.length < 8) return stop('Choose a password of at least 8 characters', $('rg-pass'));
+  if ($('rg-pass').value !== $('rg-pass2').value) return stop('The two passwords don’t match', $('rg-pass2'));
+  for (const [i, c] of children.entries()) {
+    if (!c.name) return stop('Add your child’s full name', boxes[i].querySelector('[data-f="name"]'));
+    if (!c.date_of_birth) return stop(`Add ${c.name.split(/\s+/)[0]}’s date of birth`, boxes[i].querySelector('[data-f="dob"]'));
+  }
+  if (!$('rg-consent').checked) return stop('Tick the box to confirm the details', $('rg-consent'));
+
+  $('rg-send').disabled = true;
+  state.registering = true;
+  const done = () => { $('rg-send').disabled = false; state.registering = false; };
+  const su = await db.auth.signUp({ email: parent.email, password: $('rg-pass').value, options: { emailRedirectTo: appUrl(), data: { full_name: parent.name } } });
+  if (su.error) { done(); return stop(su.error.message); }
+  const { error } = await db.rpc('submit_registration', { p_institute: INSTITUTE, p_parent: parent, p_children: children });
+  done();
+  if (error) return stop(error.message);
+  // Only happens if Confirm email is switched off: they're already signed in
+  if (su.data && su.data.session) { resetRegistration(); return start(); }
+
+  // Supabase sends no confirmation to an email that already has an account here
+  const existing = su.data && su.data.user && Array.isArray(su.data.user.identities) && su.data.user.identities.length === 0;
+  const names = children.map(c => c.name.split(/\s+/)[0]);
+  const list = names.length > 1 ? names.slice(0, -1).join(', ') + ' and ' + names[names.length - 1] : names[0];
+  $('registered-title').textContent = `Thank you, ${parent.name.split(/\s+/)[0]}`;
+  $('registered-step1').innerHTML = existing
+    ? `You already have an account with <strong>${esc(parent.email)}</strong>, so use your existing password, or choose Forgot your password to set a new one.`
+    : `Confirm your email by tapping the link we've sent to <strong>${esc(parent.email)}</strong>.`;
+  $('registered-step2').textContent = `The institute checks your details and places ${list} in a class.`;
+  resetRegistration();
+  showWelcome('registered');
+}
+
 async function teacherSignIn() {
   const email = $('teacher-email').value.trim(), password = $('teacher-password').value;
   if (!email || !password) { toast('Enter your email and password', 'warn'); return; }
@@ -3097,7 +3364,7 @@ async function sendReset() {
   if (!email) { toast('Enter your email address', 'warn'); return; }
   const { error } = await db.auth.resetPasswordForEmail(email, { redirectTo: appUrl() });
   if (error) { toast(error.message, 'warn'); return; }
-  $('forgot-status').textContent = 'If that email belongs to a teacher here, a reset link is on its way.';
+  $('forgot-status').textContent = 'If that email has an account here, a reset link is on its way.';
 }
 async function savePassword() {
   const p1 = $('pw-new').value, p2 = $('pw-again').value;
@@ -3149,6 +3416,8 @@ async function startNow() {
   if (!me.length) {
     const kids = await db.rpc('my_children');
     if (!kids.error && kids.data && kids.data.length) return startParent(kids.data);
+    const reg = await db.rpc('my_registration_status');
+    if (!reg.error && reg.data === 'pending') { showWelcome('waiting'); return; }
     $('not-invited').hidden = false;
     return;
   }
@@ -3172,7 +3441,7 @@ async function startNow() {
 // half-written session log safe.
 db.auth.onAuthStateChange((event, session) => {
   if (event === 'PASSWORD_RECOVERY') { state.recovering = true; setTimeout(start, 0); }
-  else if (event === 'SIGNED_IN' && session && session.user.id !== startedFor) setTimeout(start, 0);
+  else if (event === 'SIGNED_IN' && session && session.user.id !== startedFor && !state.registering) setTimeout(start, 0);
   else if (event === 'SIGNED_OUT' && startedFor) location.reload();
 });
 
@@ -3210,6 +3479,8 @@ async function loadAll() {
     ]);
     state.invites = inv.error ? [] : inv.data;
     state.requests = req.error ? [] : req.data;
+    const regs = await db.from('registrations').select('*').eq('status', 'pending').order('created_at');
+    state.registrations = regs.error ? [] : regs.data;
   }
 }
 
@@ -3245,6 +3516,7 @@ function init() {
   syncThemeControls();
   watchSystemTheme();
   buildHeroArt();
+  addRegChild();
   $('session-date').value = localISO();
   renderMoods();
   initRatings();
