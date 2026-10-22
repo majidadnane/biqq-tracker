@@ -1053,6 +1053,56 @@ body{font-size:15.5px}
   .regi-head{flex-wrap:wrap}
   .regi-head .staff-actions{width:100%;justify-content:flex-start;padding-left:56px}
 }
+/* Switched on per school */
+body:not(.has-subjects) .subjects-only,body:not(.has-fees) .fees-only{display:none !important}
+/* Fees */
+.month-step{display:inline-flex;align-items:center;gap:2px;height:42px;padding:0 4px;border:1px solid var(--line-2);border-radius:var(--r-ctl);background:var(--field)}
+.month-step button{width:32px;height:32px;display:grid;place-items:center;border-radius:8px;color:var(--text-2)}
+.month-step button:hover{background:var(--surface-2);color:var(--primary)}
+.month-step .ic{width:17px;height:17px}
+.month-step strong{min-width:136px;text-align:center;font-size:15px;font-weight:600;color:var(--heading)}
+.fee-summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin-bottom:20px;border:1px solid var(--line);border-radius:var(--r-panel);background:var(--surface);overflow:hidden}
+.fee-summary > div{padding:18px 24px}
+.fee-summary > div + div{border-left:1px solid var(--line)}
+.fee-summary span{display:block;font-size:14px;font-weight:600;color:var(--text-3)}
+.fee-summary strong{display:block;margin-top:8px;font-size:30px;font-weight:600;line-height:1;letter-spacing:-.02em;color:var(--heading);font-variant-numeric:tabular-nums}
+.fee-summary small{margin-left:6px;font-size:15px;font-weight:500;letter-spacing:0;color:var(--text-3)}
+.fee-list{padding-top:6px;padding-bottom:8px}
+.fee-row{display:grid;grid-template-columns:auto minmax(0,1fr) 140px 128px;grid-template-areas:"av who amt tick";align-items:center;gap:10px 14px;padding:12px 0}
+.fee-row + .fee-row{border-top:1px solid var(--line)}
+.fee-row > .avatar{grid-area:av}
+.fee-who{grid-area:who;min-width:0;display:flex;flex-direction:column}
+.fee-who .row-sub{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fee-amount{grid-area:amt;position:relative;display:block}
+.fee-amount span{position:absolute;left:13px;top:50%;transform:translateY(-50%);font-weight:600;color:var(--text-3);pointer-events:none}
+.fee-amount .input{height:42px;padding-left:28px;font-variant-numeric:tabular-nums}
+.fee-tick{grid-area:tick;display:inline-flex;align-items:center;justify-content:flex-start;gap:9px;height:42px;padding:0 14px 0 11px;border-radius:999px;border:1.5px solid var(--line-2);background:var(--surface);font-size:14.5px;font-weight:600;color:var(--text-2);transition:background .15s,border-color .15s,color .15s}
+.fee-tick .box{width:21px;height:21px;flex-shrink:0;display:grid;place-items:center;border-radius:7px;border:1.5px solid var(--off-line);transition:inherit}
+.fee-tick .box .ic{width:14px;height:14px;stroke-width:3;opacity:0;transition:opacity .15s}
+.fee-tick:hover{border-color:var(--primary);color:var(--primary)}
+.fee-tick[aria-checked="true"]{background:#2e7d4f;border-color:#2e7d4f;color:#fff}
+.fee-tick[aria-checked="true"] .box{border-color:rgba(255,255,255,.75);background:rgba(255,255,255,.16)}
+.fee-tick[aria-checked="true"] .box .ic{opacity:1}
+.fee-row.paid .row-sub{color:#2e7d4f}
+:root[data-theme="dark"] .fee-row.paid .row-sub{color:#7cc49a}
+:root[data-theme="dark"] .fee-tick[aria-checked="true"]{background:#2b7a4b;border-color:#2b7a4b}
+.fee-months{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px;padding:8px 26px 24px}
+.fm{display:flex;flex-direction:column;align-items:flex-start;gap:4px;padding:11px 12px;border-radius:12px;border:1px solid var(--line);background:var(--surface-2);text-align:left;transition:border-color .15s}
+.fm:hover{border-color:var(--line-2)}
+.fm span{font-size:13px;font-weight:600;color:var(--text-3)}
+.fm strong{font-size:15px;font-weight:600;color:var(--text-3);white-space:nowrap}
+.fm.paid{background:color-mix(in srgb,#2e7d4f 9%,var(--surface));border-color:color-mix(in srgb,#2e7d4f 30%,transparent)}
+.fm.paid strong{color:#2e7d4f}
+:root[data-theme="dark"] .fm.paid strong{color:#7cc49a}
+@media (max-width:900px){ .fee-months{grid-template-columns:repeat(3,minmax(0,1fr))} }
+@media (max-width:640px){
+  .fee-summary > div{padding:14px 14px}
+  .fee-summary strong{font-size:24px}
+  .fee-summary small{display:block;margin:4px 0 0;font-size:13px}
+  .fee-row{grid-template-columns:auto minmax(0,1fr) auto;grid-template-areas:"av who tick" "av amt amt"}
+  .fee-months{padding:6px 18px 20px;gap:6px}
+  .month-step{width:100%;justify-content:space-between}
+}
 /* Drawn icons, in the welcome page's line */
 .dw{display:block;flex-shrink:0;overflow:visible}
 .dw .arch{fill:var(--icon-wash);stroke:none}
@@ -1232,6 +1282,16 @@ body{font-size:15.5px}
 .rp-brand i{align-self:flex-start}
 .welcome::before{opacity:.05}
 @media (max-width:430px){ .ledger .ledger-value.text,.ledger.three .ledger-value.text{font-size:16px;line-height:1.3;letter-spacing:-.02em;white-space:normal} }
+/* Student profile header: purple like the dashboard, so its words and buttons turn light */
+.profile-hero{border:0;color:var(--cream);box-shadow:0 26px 60px -34px rgba(45,18,74,.6)}
+.profile-hero .ph-name{color:#fdf9ff}
+.profile-hero .ph-meta span{color:rgba(247,240,254,.82)}
+.profile-hero .ph-meta .ic{color:var(--accent-soft)}
+.profile-hero .btn-accent{background:linear-gradient(180deg,var(--sand-1),var(--sand-2));color:var(--on-sand);border-color:rgba(176,118,20,.3);box-shadow:inset 0 1px 0 rgba(255,255,255,.6)}
+.profile-hero .btn-accent:hover{background:linear-gradient(180deg,#fff1c4,#f5c860)}
+.profile-hero .btn-dark{background:rgba(255,255,255,.06);border-color:rgba(247,240,254,.32);color:#fdf9ff}
+.profile-hero .btn-dark:hover{background:rgba(255,255,255,.12);border-color:rgba(247,240,254,.55)}
+.profile-hero .btn-dark .ic{color:var(--accent-soft)}
 </style>
 </head>
 <body>
@@ -1277,6 +1337,11 @@ body{font-size:15.5px}
   <symbol id="i-up" viewBox="0 0 24 24"><path d="M12 18.5V5.5"/><path d="m6.5 11 5.5-5.5 5.5 5.5"/></symbol>
   <symbol id="i-down" viewBox="0 0 24 24"><path d="M12 5.5v13"/><path d="m6.5 13 5.5 5.5 5.5-5.5"/></symbol>
   <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+  <symbol id="i-arabic" viewBox="0 0 24 24"><path d="M5 4.5h14a2 2 0 0 1 2 2V15a2 2 0 0 1-2 2h-7l-4.5 3.5V17H5a2 2 0 0 1-2-2V6.5a2 2 0 0 1 2-2Z"/><path d="M12 11.6c1-2 4.6-2.5 4.9-1.1.3 1.3-2.5 1.7-4.9 1.1Zm0 0c-.6 2-2.3 2.7-3.8 2.3-1.1-.4-1.5-1.5-1.2-2.5"/></symbol>
+  <symbol id="i-islamic" viewBox="0 0 24 24"><path d="M6 12c0-3.4 2.6-5.6 6-6.8 3.4 1.2 6 3.4 6 6.8"/><path d="M4.5 12h15M5.5 12v8.5h13V12"/><path d="M10 20.5v-3a2 2 0 0 1 4 0v3"/><path d="M12 5.2V2.5"/></symbol>
+  <symbol id="i-fees" viewBox="0 0 24 24"><rect x="2.5" y="6" width="19" height="12" rx="2"/><circle cx="12" cy="12" r="2.6"/><path d="M6 9.5v5M18 9.5v5"/></symbol>
+  <symbol id="i-prev" viewBox="0 0 24 24"><path d="m14.5 6-6 6 6 6"/></symbol>
+  <symbol id="i-next" viewBox="0 0 24 24"><path d="m9.5 6 6 6-6 6"/></symbol>
   <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 8v5"/><path d="M12 16.5h.01"/><circle cx="12" cy="12" r="9"/></symbol>
 </svg>
 
@@ -1295,6 +1360,7 @@ body{font-size:15.5px}
       <button class="nav-item staff-only" data-nav="log-session" onclick="showPage('log-session')"><svg class="ic"><use href="#i-pen"/></svg><span>Record a lesson</span></button>
       <button class="nav-item" data-nav="history" onclick="showPage('history')"><svg class="ic"><use href="#i-library"/></svg><span>Lesson history</span></button>
       <button class="nav-item staff-only admin-only" data-nav="staff" onclick="showPage('staff')"><svg class="ic"><use href="#i-badge"/></svg><span>Staff and classes</span></button>
+      <button class="nav-item staff-only admin-only fees-only" data-nav="fees" onclick="showPage('fees')"><svg class="ic"><use href="#i-fees"/></svg><span>Fees</span></button>
     </nav>
     <div class="side-foot">
       <div class="theme-switch" role="group" aria-label="Appearance">
@@ -1369,6 +1435,7 @@ body{font-size:15.5px}
           <div class="head-actions">
             <label class="search staff-only"><svg class="ic"><use href="#i-search"/></svg><input type="search" id="student-search" class="input" placeholder="Find a student" aria-label="Find a student" oninput="renderStudentList()"></label>
             <label class="filter staff-only" id="student-class-wrap" hidden><span>Class</span><select id="student-class-filter" class="input" onchange="renderStudentList()"></select></label>
+            <button class="btn btn-ghost admin-only fees-only" onclick="showPage('fees')"><svg class="ic"><use href="#i-fees"/></svg>Fees</button>
             <button class="btn btn-accent staff-only" onclick="openStudentForm()"><svg class="ic"><use href="#i-plus"/></svg>Add a student</button>
           </div>
         </header>
@@ -1462,6 +1529,32 @@ body{font-size:15.5px}
             </div>
           </section>
 
+          <section class="form-card subjects-only">
+            <div class="fc-head">
+              <div class="fc-title-wrap">
+                <span class="fc-icon dwt" data-drawn="arabic"></span>
+                <div><h2 class="fc-title">Arabic<span lang="ar">العربية</span></h2><p class="fc-sub">Reading, writing and new words</p></div>
+              </div>
+            </div>
+            <div class="form-grid">
+              <div class="field"><label for="arabic-covered">What they covered</label><input type="text" id="arabic-covered" class="input" dir="auto" placeholder="e.g. Madinah book 1, lesson 4"></div>
+              <div class="field"><label for="arabic-notes">Notes</label><input type="text" id="arabic-notes" class="input" dir="auto" placeholder="e.g. Reads the new words confidently"></div>
+            </div>
+          </section>
+
+          <section class="form-card subjects-only">
+            <div class="fc-head">
+              <div class="fc-title-wrap">
+                <span class="fc-icon dwt" data-drawn="islamic"></span>
+                <div><h2 class="fc-title">Islamic studies<span lang="ar">الدراسات الإسلامية</span></h2><p class="fc-sub">Belief, worship, manners and the seerah</p></div>
+              </div>
+            </div>
+            <div class="form-grid">
+              <div class="field"><label for="islamic-topic">Topic</label><input type="text" id="islamic-topic" class="input" dir="auto" placeholder="e.g. How to make wudu"></div>
+              <div class="field"><label for="islamic-notes">Notes</label><input type="text" id="islamic-notes" class="input" dir="auto" placeholder="e.g. Knew every step, practise at home"></div>
+            </div>
+          </section>
+
           <section class="form-card">
             <div class="fc-head">
               <div class="fc-title-wrap">
@@ -1521,6 +1614,26 @@ body{font-size:15.5px}
       </section>
 
       <!-- STAFF AND CLASSES (admin) -->
+      <section class="page" id="page-fees">
+        <header class="page-head">
+          <div>
+            <h1 class="page-title">Fees</h1>
+            <p class="page-sub">Tick each student once they've paid for the month, and note how much.</p>
+          </div>
+          <div class="head-actions">
+            <div class="month-step" role="group" aria-label="Month">
+              <button type="button" onclick="stepFeeMonth(-1)" aria-label="Previous month"><svg class="ic"><use href="#i-prev"/></svg></button>
+              <strong id="fee-month-label" aria-live="polite"></strong>
+              <button type="button" onclick="stepFeeMonth(1)" aria-label="Next month"><svg class="ic"><use href="#i-next"/></svg></button>
+            </div>
+            <label class="filter" id="fee-class-wrap"><span>Class</span><select id="fee-class" class="input" onchange="renderFees()"></select></label>
+            <label class="filter"><span>Show</span><select id="fee-show" class="input" onchange="renderFees()"><option value="">Everyone</option><option value="unpaid">Not paid yet</option><option value="paid">Paid</option></select></label>
+          </div>
+        </header>
+        <section class="fee-summary" id="fee-summary" aria-live="polite"></section>
+        <section class="card"><div class="list fee-list" id="fee-list"></div></section>
+      </section>
+
       <section class="page" id="page-staff">
         <header class="page-head">
           <div>
@@ -1889,7 +2002,8 @@ body{font-size:15.5px}
 // ── Constants ──
 const SUPABASE_URL = 'https://jasydhtioaddbsxxpxxk.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_BSq3lejgQFM7S0zNLmtj0g_7uAvznI4';
-const INSTITUTE = 'horizons';   // this madrassah's short name, set in the database update
+const INSTITUTE = 'horizons';
+const FEATURES = { subjects: true, fees: true };   // Arabic and Islamic studies in lessons; the Fees page   // this madrassah's short name, set in the database update
 const RECOVERY_LINK = location.hash.includes('type=recovery');   // arrived from a password reset email
 // When an emailed link has expired or was already used, Supabase sends people
 // back with the reason in the address. Keep it so the welcome page can say so.
@@ -1923,7 +2037,7 @@ const HIJRI_MONTHS = ['Muharram', 'Safar', 'Rabi‘ al-Awwal', 'Rabi‘ al-Thani
 // ── State ──
 const state = { students: [], sessions: [], classes: [], enrolments: [], guardians: [], guardiansOn: false, members: [], classTeachers: [], invites: [], requests: [],
   me: null, role: null, orgId: null, ratings: { mem: 0, rev: 0, rec: 0 }, selectedBehaviour: '', currentStudentId: null, currentSessionId: null, currentPage: 'dashboard',
-  register: { classId: '', date: '', marks: {}, saved: {} }, recentAttendance: [], registrations: [], welcomeRole: 'teacher', userEmail: '', heroDrawn: false, editingStudentId: null, reportStudentId: null, recovering: RECOVERY_LINK, passwordJustUsed: false };
+  register: { classId: '', date: '', marks: {}, saved: {} }, recentAttendance: [], registrations: [], fees: [], feeMonth: '', welcomeRole: 'teacher', userEmail: '', heroDrawn: false, editingStudentId: null, reportStudentId: null, recovering: RECOVERY_LINK, passwordJustUsed: false };
 
 // ── Small helpers ──
 const $ = id => document.getElementById(id);
@@ -2122,6 +2236,26 @@ function detailBlock(key, q, fields) {
     <dl class="kv">${fields.map(([label, v]) => `<div><dt>${label}</dt><dd dir="auto">${val(v)}</dd></div>`).join('')}</dl>
   </div>`;
 }
+const SUBJECTS = {
+  arabic: { label: 'Arabic', ar: 'العربية', fields: s => [['What they covered', s.arabic.covered], ['Notes', s.arabic.notes]], line: s => s.arabic.covered || s.arabic.notes },
+  islamic: { label: 'Islamic studies', ar: 'الدراسات الإسلامية', fields: s => [['Topic', s.islamic.topic], ['Notes', s.islamic.notes]], line: s => s.islamic.topic || s.islamic.notes }
+};
+const subjectsIn = s => Object.keys(SUBJECTS).filter(k => s[k] && Object.values(s[k]).some(Boolean));
+function subjectDetail(s) {
+  return subjectsIn(s).map(k => `<div class="d-block">
+    <div class="d-head"><span class="d-title">${drawn(k, 'sm')}${SUBJECTS[k].label}<span lang="ar">${SUBJECTS[k].ar}</span></span></div>
+    <dl class="kv">${SUBJECTS[k].fields(s).map(([label, v]) => `<div><dt>${label}</dt><dd dir="auto">${val(v)}</dd></div>`).join('')}</dl>
+  </div>`).join('');
+}
+function subjectReport(s) {
+  return subjectsIn(s).map(k => {
+    const filled = SUBJECTS[k].fields(s).filter(([, v]) => v);
+    return `<section class="rp-block">
+      <div class="rp-block-head"><div class="rp-block-title">${drawn(k, 'sm')}${SUBJECTS[k].label}<span lang="ar">${SUBJECTS[k].ar}</span></div></div>
+      <dl class="rp-fields">${filled.map(([label, v]) => `<div><dt>${label}</dt><dd dir="auto">${esc(v)}</dd></div>`).join('')}</dl>
+    </section>`;
+  }).join('');
+}
 function exportCurrentSession() {
   closeModal('modal-session-detail');
   if (state.currentSessionId) exportSession(state.currentSessionId);
@@ -2267,6 +2401,8 @@ function normalizeSession(s) {
     revision: Object.assign({ content: '', mistakes: '', quality: 0, notes: '' }, s.revision || {}),
     recitation: Object.assign({ surah: '', tajweed: '', quality: 0, notes: '' }, s.recitation || {}),
     behaviour: Object.assign({ rating: '', notes: '' }, s.behaviour || {}),
+    arabic: Object.assign({ covered: '', notes: '' }, s.arabic || {}),
+    islamic: Object.assign({ topic: '', notes: '' }, s.islamic || {}),
     targets: s.targets || '', reflection: s.reflection || ''
   };
   out.memorization.quality = q(out.memorization.quality);
@@ -2281,6 +2417,8 @@ function fromRow(r) {
     revision: { content: r.rev_content, mistakes: r.rev_mistakes, quality: r.rev_quality, notes: r.rev_notes },
     recitation: { surah: r.rec_surah, tajweed: r.rec_tajweed, quality: r.rec_quality, notes: r.rec_notes },
     behaviour: { rating: r.behaviour || '', notes: r.behaviour_notes || '' },
+    arabic: { covered: r.arabic_covered || '', notes: r.arabic_notes || '' },
+    islamic: { topic: r.islamic_topic || '', notes: r.islamic_notes || '' },
     targets: r.targets, reflection: r.reflection
   });
 }
@@ -2348,7 +2486,7 @@ function selectMood(btn, rating) {
   if (!same) { btn.classList.add('selected'); btn.setAttribute('aria-pressed', 'true'); redrawInk(btn.closest('.form-card').querySelector('.dw')); }
 }
 function clearSessionForm() {
-  ['mem-surah', 'mem-verses', 'mem-notes', 'rev-content', 'rev-mistakes', 'rev-notes', 'rec-surah', 'rec-tajweed', 'rec-notes', 'behaviour-notes', 'targets', 'reflection'].forEach(id => $(id).value = '');
+  ['mem-surah', 'mem-verses', 'mem-notes', 'rev-content', 'rev-mistakes', 'rev-notes', 'rec-surah', 'rec-tajweed', 'rec-notes', 'behaviour-notes', 'targets', 'reflection', 'arabic-covered', 'arabic-notes', 'islamic-topic', 'islamic-notes'].forEach(id => $(id).value = '');
   state.ratings = { mem: 0, rev: 0, rec: 0 };
   ['mem', 'rev', 'rec'].forEach(f => paintRating(f, 0));
   state.selectedBehaviour = '';
@@ -2371,6 +2509,7 @@ function showPage(id) {
   if (id === 'history') { renderStudentSelects(); renderHistory(); }
   if (id === 'register') { renderRegisterControls(); loadRegister(); }
   if (id === 'staff') { state.renamingClass = null; renderStaff(); }
+  if (id === 'fees') renderFees();
   if (id === 'log-session') playDrawn($('page-log-session'));
   window.scrollTo(0, 0);
 }
@@ -2696,6 +2835,7 @@ function viewStudent(id, silent = false) {
 
     ${isParent ? '' : safeguardingCard(st)}
     ${isParent ? '' : guardiansCard(st)}
+    ${state.role === 'admin' && FEATURES.fees ? feesCard(st) : ''}
 
     <section class="card" style="margin-top:20px">
       <div class="card-head"><h2 class="card-title">Lessons</h2><span class="card-note">Newest first</span></div>
@@ -3042,6 +3182,113 @@ async function createClass() {
   toast(`${name} added`);
 }
 
+// ── Fees (admins) ──
+// One payment per student per month. Ticking records it; unticking removes it.
+const money = n => n == null || n === '' ? '' : '£' + Number(n).toLocaleString('en-GB', { minimumFractionDigits: Number(n) % 1 ? 2 : 0, maximumFractionDigits: 2 });
+const monthKey = (d = new Date()) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
+const monthLabel = (key, opts = { month: 'long', year: 'numeric' }) => new Date(key + '-01T12:00:00').toLocaleDateString('en-GB', opts);
+const feeFor = (studentId, key) => state.fees.find(f => f.student_id === studentId && String(f.period).slice(0, 7) === key);
+function stepFeeMonth(n) {
+  const [y, m] = (state.feeMonth || monthKey()).split('-').map(Number);
+  state.feeMonth = monthKey(new Date(y, m - 1 + n, 1));
+  renderFees();
+}
+function openFees(month) { if (month) state.feeMonth = month; showPage('fees'); }
+function renderFees() {
+  if (!state.feeMonth) state.feeMonth = monthKey();
+  const key = state.feeMonth;
+  $('fee-month-label').textContent = monthLabel(key);
+  const sel = $('fee-class'), cur = sel.value;
+  sel.innerHTML = '<option value="">All classes</option>' + state.classes.map(c => `<option value="${c.id}">${esc(c.name)}</option>`).join('');
+  sel.value = state.classes.some(c => c.id === cur) ? cur : '';
+  $('fee-class-wrap').hidden = state.classes.length < 2;
+  let list = [...state.students].sort((a, b) => a.name.localeCompare(b.name));
+  if (sel.value) list = list.filter(st => classIdsOf(st.id).includes(sel.value));
+  const paid = list.filter(st => feeFor(st.id, key));
+  const total = paid.reduce((t, st) => t + (Number(feeFor(st.id, key).amount) || 0), 0);
+  $('fee-summary').innerHTML = `
+    <div><span>Paid</span><strong>${paid.length}<small>of ${list.length}</small></strong></div>
+    <div><span>Collected</span><strong>${money(total) || '£0'}</strong></div>
+    <div><span>Still to pay</span><strong>${list.length - paid.length}</strong></div>`;
+  const show = $('fee-show').value;
+  if (show) list = list.filter(st => show === 'paid' ? feeFor(st.id, key) : !feeFor(st.id, key));
+  if (!list.length) {
+    $('fee-list').innerHTML = emptyState(state.students.length ? (show === 'unpaid' ? 'Everyone has paid' : 'Nobody here yet') : 'No students yet',
+      state.students.length ? (show === 'unpaid' ? `Every student shown has paid for ${monthLabel(key, { month: 'long' })}.` : 'Nobody matches what you’ve chosen.') : 'Add students and they’ll appear here.', '');
+    return;
+  }
+  $('fee-list').innerHTML = list.map(st => {
+    const f = feeFor(st.id, key);
+    const cls = classIdsOf(st.id).map(c => (classById(c) || {}).name).filter(Boolean).join(', ') || 'Not in a class';
+    const sub = f ? `${esc(cls)}, paid ${relDate(f.paid_on, true)}` : esc(cls);
+    return `<div class="fee-row${f ? ' paid' : ''}" data-student="${st.id}">
+      ${avatar(st.name)}
+      <div class="fee-who"><span class="row-title">${esc(st.name)}</span><span class="row-sub">${sub}</span></div>
+      <label class="fee-amount"><span aria-hidden="true">£</span><input type="text" class="input" inputmode="decimal" autocomplete="off" placeholder="Amount"
+        value="${f && f.amount != null ? Number(f.amount).toFixed(Number(f.amount) % 1 ? 2 : 0) : ''}" aria-label="Amount ${esc(st.name)} paid"
+        onchange="saveFeeAmount('${st.id}', this)" onkeydown="if (event.key === 'Enter') this.blur()"></label>
+      <button type="button" class="fee-tick" role="checkbox" aria-checked="${f ? 'true' : 'false'}" aria-label="${esc(st.name)} has paid for ${monthLabel(key)}" onclick="toggleFeePaid('${st.id}')">
+        <span class="box">${ic('check')}</span>${f ? 'Paid' : 'Not paid'}</button>
+    </div>`;
+  }).join('');
+}
+async function upsertFee(studentId, amount) {
+  const key = state.feeMonth, f = feeFor(studentId, key);
+  const row = { student_id: studentId, period: key + '-01', amount, paid_on: f ? f.paid_on : localISO() };
+  const { data, error } = await db.from('fee_payments').upsert(row, { onConflict: 'student_id,period' }).select('id, student_id, period, amount, paid_on').single();
+  if (error) { toast('That payment couldn’t be saved: ' + error.message, 'warn'); return false; }
+  state.fees = state.fees.filter(x => !(x.student_id === studentId && String(x.period).slice(0, 7) === key)).concat(data);
+  return true;
+}
+async function toggleFeePaid(studentId) {
+  const key = state.feeMonth, f = feeFor(studentId, key), st = getStudent(studentId);
+  const input = document.querySelector(`.fee-row[data-student="${studentId}"] .fee-amount .input`);
+  if (f) {
+    const { error } = await db.from('fee_payments').delete().eq('id', f.id);
+    if (error) { toast(error.message, 'warn'); return; }
+    state.fees = state.fees.filter(x => x.id !== f.id);
+    renderFees();
+    toast(`${st.name} marked as not paid for ${monthLabel(key, { month: 'long' })}`);
+    return;
+  }
+  const amount = parseMoney(input ? input.value : '');
+  if (amount === undefined) { toast('Check the amount, for example 30 or 27.50', 'warn'); if (input) input.focus(); return; }
+  if (await upsertFee(studentId, amount)) { renderFees(); toast(`${st.name} has paid for ${monthLabel(key, { month: 'long' })}`); }
+}
+function parseMoney(text) {
+  const t = String(text).replace(/[£,\s]/g, '');
+  if (!t) return null;
+  if (!/^\d{1,5}(\.\d{1,2})?$/.test(t)) return undefined;
+  return Number(t);
+}
+async function saveFeeAmount(studentId, input) {
+  const amount = parseMoney(input.value), f = feeFor(studentId, state.feeMonth);
+  if (amount === undefined) { toast('Check the amount, for example 30 or 27.50', 'warn'); input.focus(); return; }
+  if (!f && amount === null) return;
+  if (f && Number(f.amount) === amount) return;
+  if (await upsertFee(studentId, amount)) {
+    renderFees();
+    toast(amount === null ? 'Amount cleared' : `${money(amount)} saved for ${getStudent(studentId).name}`);
+  }
+}
+function feesCard(st) {
+  const now = new Date(), start = parseDate(st.startDate);
+  const months = [];
+  for (let i = 5; i >= 0; i--) {
+    const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
+    if (start && d < new Date(start.getFullYear(), start.getMonth(), 1)) continue;
+    months.push(monthKey(d));
+  }
+  return `<section class="card fees-card" style="margin-top:20px">
+    <div class="card-head"><h2 class="card-title">Fees</h2><button class="link-btn" onclick="openFees()">Open fees${ic('chev')}</button></div>
+    <div class="fee-months">${months.map(k => {
+      const f = feeFor(st.id, k);
+      return `<button type="button" class="fm${f ? ' paid' : ''}" onclick="openFees('${k}')" aria-label="${monthLabel(k)}: ${f ? 'paid' + (f.amount != null ? ' ' + money(f.amount) : '') : 'not paid'}">
+        <span>${monthLabel(k, { month: 'short' })}</span><strong>${f ? (f.amount != null ? money(f.amount) : 'Paid') : 'Not paid'}</strong></button>`;
+    }).join('')}</div>
+  </section>`;
+}
+
 // ── Register ──
 function renderRegisterControls() {
   const sel = $('reg-class'); const cur = sel.value || state.register.classId;
@@ -3112,7 +3359,10 @@ async function saveSession() {
   const v = id => $(id).value.trim();
   const mine = state.me && state.role !== 'admin' ? state.classTeachers.filter(ct => ct.user_id === state.me.user_id).map(ct => ct.class_id) : null;
   const classId = classIdsOf(studentId).find(c => !mine || mine.includes(c)) || null;
+  const extra = FEATURES.subjects
+    ? { arabic_covered: v('arabic-covered'), arabic_notes: v('arabic-notes'), islamic_topic: v('islamic-topic'), islamic_notes: v('islamic-notes') } : {};
   const { data, error } = await db.from('sessions').insert({
+    ...extra,
     student_id: studentId, class_id: classId, session_date: date,
     mem_surah: v('mem-surah'), mem_verses: v('mem-verses'), mem_quality: state.ratings.mem, mem_notes: v('mem-notes'),
     rev_content: v('rev-content'), rev_mistakes: v('rev-mistakes'), rev_quality: state.ratings.rev, rev_notes: v('rev-notes'),
@@ -3159,6 +3409,7 @@ function renderHistory() {
           ${scoreBlock('rev', s.revision.quality, s.revision.content)}
           ${scoreBlock('rec', s.recitation.quality, s.recitation.surah)}
         </div>
+        ${subjectsIn(s).map(k => `<div class="h-targets">${ic(k)}<div><strong>${SUBJECTS[k].label}</strong><p dir="auto">${esc(SUBJECTS[k].line(s))}</p></div></div>`).join('')}
         ${s.behaviour.notes ? `<div class="h-targets">${ic('heart')}<div><strong>Behaviour notes</strong><p dir="auto">${esc(s.behaviour.notes)}</p></div></div>` : ''}
         ${s.targets ? `<div class="h-targets">${ic('target')}<div><strong>Targets for next lesson</strong><p dir="auto">${esc(s.targets)}</p></div></div>` : ''}
       </div>
@@ -3177,6 +3428,7 @@ function viewSessionDetail(id) {
     ${detailBlock('mem', s.memorization.quality, [['Surah or passage', s.memorization.surah], ['Verses memorised', s.memorization.verses], ['Notes', s.memorization.notes]])}
     ${detailBlock('rev', s.revision.quality, [['Content revised', s.revision.content], ['Mistakes', s.revision.mistakes], ['Notes', s.revision.notes]])}
     ${detailBlock('rec', s.recitation.quality, [['Passage recited', s.recitation.surah], ['Tajweed', s.recitation.tajweed], ['Notes', s.recitation.notes]])}
+    ${subjectDetail(s)}
     ${(s.behaviour.rating || s.behaviour.notes) ? `<div class="d-block"><div class="d-head"><span class="d-title">${drawn('heart', 'sm')}Behaviour</span>${behaviourTag(s.behaviour.rating)}</div>${s.behaviour.notes ? `<p class="d-text" dir="auto">${esc(s.behaviour.notes)}</p>` : ''}</div>` : ''}
     ${s.targets ? `<div class="d-block"><div class="d-head"><span class="d-title">${drawn('target', 'sm')}Targets for next lesson</span></div><div class="targets flush" dir="auto">${esc(s.targets)}</div></div>` : ''}
     ${s.reflection ? `<div class="d-block"><div class="d-head"><span class="d-title">${drawn('moon', 'sm')}Reflection<span lang="ar">تأمل</span></span></div><p class="reflection" dir="auto">${esc(s.reflection)}</p></div>` : ''}`;
@@ -3224,6 +3476,7 @@ function exportSession(id) {
     ${reportBlock('mem', s.memorization.quality, [['Surah or passage', s.memorization.surah], ['Verses memorised', s.memorization.verses], ['Notes', s.memorization.notes]])}
     ${reportBlock('rev', s.revision.quality, [['Content revised', s.revision.content], ['Mistakes', s.revision.mistakes], ['Notes', s.revision.notes]])}
     ${reportBlock('rec', s.recitation.quality, [['Passage recited', s.recitation.surah], ['Tajweed', s.recitation.tajweed], ['Notes', s.recitation.notes]])}
+    ${subjectReport(s)}
     ${s.behaviour.notes ? `<section class="rp-note"><h3>Behaviour notes</h3><p dir="auto">${esc(s.behaviour.notes)}</p></section>` : ''}
     ${s.targets ? `<section class="rp-note rp-targets"><h3>Targets for next lesson</h3><p dir="auto">${esc(s.targets)}</p></section>` : ''}
     ${s.reflection ? `<section class="rp-note rp-reflection"><h3>Reflection</h3><p dir="auto">${esc(s.reflection)}</p></section>` : ''}
@@ -3313,6 +3566,7 @@ async function makeClassReport() {
       ${last.memorization.surah || last.memorization.verses ? `<div><dt>Memorised</dt><dd dir="auto">${esc([last.memorization.surah, last.memorization.verses].filter(Boolean).join(', '))}</dd></div>` : ''}
       ${last.revision.content ? `<div><dt>Revised</dt><dd dir="auto">${esc(last.revision.content)}</dd></div>` : ''}
       ${last.recitation.surah ? `<div><dt>Recited</dt><dd dir="auto">${esc(last.recitation.surah)}</dd></div>` : ''}
+      ${subjectsIn(last).map(k => `<div><dt>${SUBJECTS[k].label}</dt><dd dir="auto">${esc(SUBJECTS[k].line(last))}</dd></div>`).join('')}
     </dl>` : '<p class="rp-none">No lessons recorded yet.</p>';
   const targetsNow = (allSessions.find(s => s.targets) || {}).targets || st.targets || '';
 
@@ -3365,7 +3619,15 @@ const DRAWN = {
     'i M9.3 21.5A3.2 3.2 0 1 0 15.7 21.5A3.2 3.2 0 1 0 9.3 21.5Z', 'i M6.5 36.5C6.5 32 8.9 29 12.4 28.6', 'i M32.3 21.5A3.2 3.2 0 1 0 38.7 21.5A3.2 3.2 0 1 0 32.3 21.5Z', 'i M41.5 36.5C41.5 32 39.1 29 35.6 28.6'] },
   register: { x: 22, p: ['f M14.5 13.5H33.5A2 2 0 0 1 35.5 15.5V38A2 2 0 0 1 33.5 40H14.5A2 2 0 0 1 12.5 38V15.5A2 2 0 0 1 14.5 13.5Z', 'f M19.5 10.5H28.5V16H19.5Z', 'F M25 23.5H31.5M25 31.5H31.5',
     'i M16.5 23L18.5 25L22 21.5', 'i M16.5 31L18.5 33L22 29.5'] },
-  chart: { x: 26, p: ['f M10.5 11V37.5H38.5', 'i M14.5 32L20.5 25.5L25.5 29.5L35 18', 'i M31.1 19.1L35 18L34.7 22'] }
+  chart: { x: 26, p: ['f M10.5 11V37.5H38.5', 'i M14.5 32L20.5 25.5L25.5 29.5L35 18', 'i M31.1 19.1L35 18L34.7 22'] },
+  // Arabic: a speech bubble with a line of handwriting in it
+  arabic: { x: 25, p: ['f M12 11.5H36A4 4 0 0 1 40 15.5V29A4 4 0 0 1 36 33H22L15.5 39V33H12A4 4 0 0 1 8 29V15.5A4 4 0 0 1 12 11.5Z',
+    'i M23.5 24.6C25.6 20.6 33.2 19.6 33.8 22.5C34.3 25 28.6 25.9 23.5 24.6', 'i M23.5 24.6C22.2 28.6 18.6 30.1 15.6 29.2C13.2 28.5 12.3 26.2 12.9 24',
+    'i M28.8 15.6L30.2 17L28.8 18.4L27.4 17Z'] },
+  // Islamic studies: a masjid, its dome topped with a crescent
+  islamic: { x: 23, p: ['f M13.5 25.5C13.5 19.4 17.8 15.4 23 13.6C28.2 15.4 32.5 19.4 32.5 25.5', 'f M10.5 25.5H35.5M12 25.5V39.5H34V25.5',
+    'f M20 39.5V34A3 3 0 0 1 26 34V39.5', 'f M38 39.5V21.5M41.5 39.5V21.5M37.5 21.5H42L39.75 16.5Z',
+    'i M23 13.6V10.2', 'i M24.2 5.6A2.4 2.4 0 1 0 24.2 9.8A2.9 2.9 0 0 1 24.2 5.6', 'n M16.5 29.5V32.5M29.5 29.5V32.5'] }
 };
 const DRAWN_CLASS = { f: 'frame', F: 'frame faint', i: 'ink', n: 'ink fine' };
 function drawn(name, size = '') {
@@ -3387,6 +3649,11 @@ function playDrawn(scope) {
   });
 }
 // Rating a section writes its accent lines again
+document.addEventListener('input', e => {
+  const t = e.target;
+  if (!['arabic-covered', 'islamic-topic'].includes(t.id) || t.value.length !== 1) return;
+  redrawInk(t.closest('.form-card').querySelector('.dw'));
+});
 function redrawInk(svg) {
   if (!svg) return;
   svg.classList.remove('play', 'redraw'); void svg.getBoundingClientRect();
@@ -3663,6 +3930,10 @@ async function loadAll() {
     state.requests = req.error ? [] : req.data;
     const regs = await db.from('registrations').select('*').eq('org_id', state.orgId).eq('status', 'pending').order('created_at');
     state.registrations = regs.error ? [] : regs.data;
+    if (FEATURES.fees) {
+      const fees = await db.from('fee_payments').select('id, student_id, period, amount, paid_on').eq('org_id', state.orgId);
+      state.fees = fees.error ? [] : fees.data;
+    }
   }
 }
 
@@ -3698,6 +3969,8 @@ async function startParent(kids) {
 function init() {
   syncThemeControls();
   watchSystemTheme();
+  document.body.classList.toggle('has-subjects', FEATURES.subjects);
+  document.body.classList.toggle('has-fees', FEATURES.fees);
   buildHeroArt();
   fillDrawn();
   addRegChild();
