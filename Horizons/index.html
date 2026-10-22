@@ -3669,7 +3669,12 @@ function showWelcome(pane) {
   const first = document.querySelector(`#welcome [data-pane="${pane}"] input`);
   if (first) setTimeout(() => first.focus(), 60);
 }
-function hideWelcome() { $('welcome').hidden = true; }
+function hideWelcome() {
+  // Close the phone keyboard and undo the scroll it caused, so the header starts at the top
+  if (document.activeElement && document.activeElement.blur) document.activeElement.blur();
+  $('welcome').hidden = true;
+  window.scrollTo(0, 0);
+}
 function settleWelcomeArt() {
   document.querySelectorAll('.w-art').forEach(a => a.classList.remove('drawn'));
   clearTimeout(settleWelcomeArt.t);
@@ -3831,7 +3836,8 @@ async function signOut() {
 // fires one as the page loads), so overlapping calls share a single run.
 let startRun = null, startedFor = null;
 function start() {
-  if (!startRun) startRun = startNow().finally(() => { startRun = null; $('boot').classList.add('done'); });
+  // The loading screen covers each start, so nobody sees the empty page while their data arrives
+  if (!startRun) { $('boot').classList.remove('done'); startRun = startNow().finally(() => { startRun = null; $('boot').classList.add('done'); window.scrollTo(0, 0); }); }
   return startRun;
 }
 async function startNow() {
