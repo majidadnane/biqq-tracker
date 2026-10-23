@@ -3531,7 +3531,7 @@ function viewSessionDetail(id) {
   $('detail-head').innerHTML = `<div class="dh">${avatar(name, 'lg')}<div><h3 class="modal-title">${esc(name)}</h3><p class="modal-sub">${formatDate(s.date, { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}${where ? `, ${esc(where)}` : ''}</p></div></div>`;
   $('detail-body').innerHTML = `
     ${detailBlock('mem', s.memorization.quality, [['Surah or passage', s.memorization.surah], ['Verses memorised', s.memorization.verses]].concat(s.memorization.to ? [['Size', sizeText(s.memorization.from, s.memorization.to)]] : [], [['Notes', s.memorization.notes]]))}
-    ${detailBlock('rev', s.revision.quality, [['Content revised', s.revision.content]].concat(s.revision.to ? [['Size', linesText(MUSHAF.lines(s.revision.from, s.revision.to))]] : [], s.revision.mistakeCount != null ? [['Mistakes counted', String(s.revision.mistakeCount)]] : [], [['Mistakes', s.revision.mistakes], ['Notes', s.revision.notes]]))}
+    ${detailBlock('rev', s.revision.quality, [['Content revised', s.revision.content]].concat(s.revision.to ? [['Size', linesText(portionLines(s.revision.from, s.revision.to))]] : [], s.revision.mistakeCount != null ? [['Mistakes counted', String(s.revision.mistakeCount)]] : [], [['Mistakes', s.revision.mistakes], ['Notes', s.revision.notes]]))}
     ${detailBlock('rec', s.recitation.quality, [['Passage recited', s.recitation.surah], ['Tajweed', s.recitation.tajweed], ['Notes', s.recitation.notes]])}
     ${subjectDetail(s)}
     ${(s.behaviour.rating || s.behaviour.notes) ? `<div class="d-block"><div class="d-head"><span class="d-title">${drawn('heart', 'sm')}Behaviour</span>${behaviourTag(s.behaviour.rating)}</div>${s.behaviour.notes ? `<p class="d-text" dir="auto">${esc(s.behaviour.notes)}</p>` : ''}</div>` : ''}
@@ -3579,7 +3579,7 @@ function exportSession(id) {
       ${st && st.level ? `<div class="rp-level"><span>Current level</span><p dir="auto">${esc(st.level)}</p></div>` : ''}
     </section>
     ${reportBlock('mem', s.memorization.quality, [['Surah or passage', s.memorization.surah], ['Verses memorised', s.memorization.verses]].concat(s.memorization.to ? [['Size', sizeText(s.memorization.from, s.memorization.to)]] : [], [['Notes', s.memorization.notes]]))}
-    ${reportBlock('rev', s.revision.quality, [['Content revised', s.revision.content]].concat(s.revision.to ? [['Size', linesText(MUSHAF.lines(s.revision.from, s.revision.to))]] : [], s.revision.mistakeCount != null ? [['Mistakes counted', String(s.revision.mistakeCount)]] : [], [['Mistakes', s.revision.mistakes], ['Notes', s.revision.notes]]))}
+    ${reportBlock('rev', s.revision.quality, [['Content revised', s.revision.content]].concat(s.revision.to ? [['Size', linesText(portionLines(s.revision.from, s.revision.to))]] : [], s.revision.mistakeCount != null ? [['Mistakes counted', String(s.revision.mistakeCount)]] : [], [['Mistakes', s.revision.mistakes], ['Notes', s.revision.notes]]))}
     ${reportBlock('rec', s.recitation.quality, [['Passage recited', s.recitation.surah], ['Tajweed', s.recitation.tajweed], ['Notes', s.recitation.notes]])}
     ${subjectReport(s)}
     ${s.behaviour.notes ? `<section class="rp-note"><h3>Behaviour notes</h3><p dir="auto">${esc(s.behaviour.notes)}</p></section>` : ''}
@@ -3750,7 +3750,20 @@ function rangeLabel(a, b) {
   if (s1 === s2) return whole ? MUSHAF.name(s1) : a1 === a2 ? `${MUSHAF.name(s1)} ${a1}` : `${MUSHAF.name(s1)} ${a1} to ${a2}`;
   return whole ? `${MUSHAF.name(s1)} to ${MUSHAF.name(s2)}` : `${MUSHAF.name(s1)} ${a1} to ${MUSHAF.name(s2)} ${a2}`;
 }
-function sizeText(a, b) { const v = b - a + 1; return `${v} ${v === 1 ? 'verse' : 'verses'}, ${linesText(MUSHAF.lines(a, b))}`; }
+// A portion is kept as its first and last ayah in the order the student went. When the first comes after the last,
+// they were working back through the surahs (memorising from the end), still reading each surah from its start.
+function portionRanges(a, b) {
+  if (!a || !b) return [];
+  if (a <= b) return [[a, b]];
+  const [s1] = MUSHAF.sa(a), [s2] = MUSHAF.sa(b), end = s => MUSHAF.g(s, MUSHAF.ayat(s));
+  if (s1 === s2) return [[b, a]];
+  const out = [[MUSHAF.g(s2, 1), b], [a, end(s1)]];
+  if (s1 - s2 > 1) out.push([MUSHAF.g(s2 + 1, 1), end(s1 - 1)]);
+  return mergeRanges(out);
+}
+const portionVerses = (a, b) => portionRanges(a, b).reduce((t, [x, y]) => t + y - x + 1, 0);
+const portionLines = (a, b) => portionRanges(a, b).reduce((t, [x, y]) => t + MUSHAF.lines(x, y), 0);
+function sizeText(a, b) { const v = portionVerses(a, b); return `${v} ${v === 1 ? 'verse' : 'verses'}, ${linesText(portionLines(a, b))}`; }
 function mergeRanges(list) {
   const r = list.filter(x => x && x[0] && x[1]).map(x => [Math.min(x[0], x[1]), Math.max(x[0], x[1])]).sort((p, q) => p[0] - q[0]);
   const out = [];
@@ -3787,7 +3800,8 @@ function wireRangePicker(prefix, mode) {
     if (mode === 'whole') { el('from-a').value = 1; el('to-s').value = s; el('to-a').value = MUSHAF.ayat(s); }
     else {
       if (!+el('from-a').value || +el('from-a').value > MUSHAF.ayat(s)) el('from-a').value = 1;
-      if (!+el('to-s').value || +el('to-s').value < s) { el('to-s').value = s; el('to-a').value = ''; }
+      // The end follows along until the teacher types it, whichever way they're going
+      if (!+el('to-s').value || !el('to-a').value) { el('to-s').value = s; el('to-a').value = ''; }
     }
     fit();
   });
@@ -3819,7 +3833,7 @@ function readRange(prefix) {
   if (![fa, ta].every(Number.isInteger) || fa < 1 || ta < 1 || fa > MUSHAF.ayat(fs) || ta > MUSHAF.ayat(ts))
     return { state: 'invalid', msg: `Check the ayah numbers. ${MUSHAF.name(fa > MUSHAF.ayat(fs) || fa < 1 ? fs : ts)} has ${MUSHAF.ayat(fa > MUSHAF.ayat(fs) || fa < 1 ? fs : ts)}.` };
   const a = MUSHAF.g(fs, fa), b = MUSHAF.g(ts, ta);
-  if (b < a) return { state: 'invalid', msg: 'The last ayah comes before the first one.' };
+  if (b < a && fs === ts) return { state: 'invalid', msg: 'The last ayah comes before the first one.' };
   return { state: 'ok', from: a, to: b };
 }
 function rangeSummary(prefix, mode) {
@@ -3828,12 +3842,12 @@ function rangeSummary(prefix, mode) {
   out.classList.toggle('warn', r.state === 'invalid');
   if (r.state === 'invalid') { out.textContent = r.msg; return; }
   if (r.state === 'ok') {
-    const [p1, p2] = [MUSHAF.page(r.from), MUSHAF.page(r.to)];
+    const rs = portionRanges(r.from, r.to), [p1, p2] = [MUSHAF.page(rs[0][0]), MUSHAF.page(rs[rs.length - 1][1])];
     let note = '';
     if (prefix === 'mem') {
       const known = knownMap($('session-student').value);
-      let had = 0; for (let x = r.from; x <= r.to; x++) if (known[x]) had++;
-      const n = r.to - r.from + 1;
+      let had = 0; rs.forEach(([x0, x1]) => { for (let x = x0; x <= x1; x++) if (known[x]) had++; });
+      const n = portionVerses(r.from, r.to);
       if (had === n) note = ' They already knew all of this, so it won’t add to their total.';
       else if (had) note = ` They already knew ${had} of ${n === 2 ? 'these' : 'these verses'}.`;
     }
@@ -3850,7 +3864,7 @@ function knownMap(id) {
   const k = new Uint8Array(6237), st = getStudent(id);
   if (!st) return k;
   (st.hifz ? st.hifz.known : []).forEach(([a, b]) => k.fill(1, a, b + 1));
-  state.sessions.forEach(s => { if (s.studentId === id && s.memorization.to) k.fill(1, s.memorization.from, s.memorization.to + 1); });
+  state.sessions.forEach(s => { if (s.studentId === id && s.memorization.to) portionRanges(s.memorization.from, s.memorization.to).forEach(([a, b]) => k.fill(1, a, b + 1)); });
   return k;
 }
 function nextPortion(id) {
@@ -3866,7 +3880,8 @@ function nextPortion(id) {
     [s, a] = MUSHAF.sa(last.memorization.to); a += 1;
     if (a > MUSHAF.ayat(s)) {
       // Finished a surah. Keep the way they've been moving lately, otherwise their usual direction.
-      const before = done.map(x => MUSHAF.sa(x.memorization.from)[0]).find(x => x !== s);
+      const fs = MUSHAF.sa(last.memorization.from)[0];
+      const before = fs !== s ? fs : done.map(x => MUSHAF.sa(x.memorization.from)[0]).find(x => x !== s);
       if (before) step = before < s ? 1 : -1;
       s += step; a = 1;
     }
@@ -3932,14 +3947,15 @@ function hifzStats(id, upto = localISO()) {
     const m = s.memorization, r = s.revision;
     if (m.to) {
       let added = 0;
-      for (let x = m.from; x <= m.to; x++) if (!known[x]) { known[x] = 1; added += MUSHAF.line(x); }
+      const rs = portionRanges(m.from, m.to);
+      rs.forEach(([a, b]) => { for (let x = a; x <= b; x++) if (!known[x]) { known[x] = 1; added += MUSHAF.line(x); } });
       total += added;
-      mem.push({ date: s.date, from: m.from, to: m.to, added, size: MUSHAF.lines(m.from, m.to), total });
-      for (let j = MUSHAF.juzOf(m.from); j <= MUSHAF.juzOf(m.to); j++) lastSeen[j] = s.date;
+      mem.push({ date: s.date, from: m.from, to: m.to, added, size: portionLines(m.from, m.to), total });
+      rs.forEach(([a, b]) => { for (let j = MUSHAF.juzOf(a); j <= MUSHAF.juzOf(b); j++) lastSeen[j] = s.date; });
     }
     if (r.to) {
-      rev.push({ date: s.date, from: r.from, to: r.to, size: MUSHAF.lines(r.from, r.to), mistakes: r.mistakeCount });
-      for (let j = MUSHAF.juzOf(r.from); j <= MUSHAF.juzOf(r.to); j++) lastSeen[j] = s.date;
+      rev.push({ date: s.date, from: r.from, to: r.to, size: portionLines(r.from, r.to), mistakes: r.mistakeCount });
+      portionRanges(r.from, r.to).forEach(([a, b]) => { for (let j = MUSHAF.juzOf(a); j <= MUSHAF.juzOf(b); j++) lastSeen[j] = s.date; });
     }
   });
   // Week by week, from the first portion recorded to this week
@@ -3979,7 +3995,7 @@ function hifzStats(id, upto = localISO()) {
   // Revision in the last 30 days, and mistakes a page against the 30 days before
   const since = addDays(upto, -30), before = addDays(upto, -60);
   const revMap = new Uint8Array(6237);
-  rev.filter(r => r.date > since).forEach(r => revMap.fill(1, r.from, r.to + 1));
+  rev.filter(r => r.date > since).forEach(r => portionRanges(r.from, r.to).forEach(([a, b]) => revMap.fill(1, a, b + 1)));
   let covered = 0; for (let x = 1; x <= 6236; x++) if (revMap[x] && known[x]) covered += MUSHAF.line(x);
   const perPage = (from, to) => {
     const rs = rev.filter(r => r.date > from && r.date <= to && r.mistakes != null);
@@ -4169,7 +4185,7 @@ function hifzStartRanges() {
   document.querySelectorAll('#hs-juz .hs-j').forEach((b, i) => { if (b.getAttribute('aria-pressed') === 'true') out.push(MUSHAF.juzRange(i + 1)); });
   document.querySelectorAll('#hs-extra .ayah-range').forEach(el => {
     const r = readRange(el.id.replace('-range', ''));
-    if (r.state === 'ok') out.push([r.from, r.to]); else if (r.state !== 'empty') bad.push(r);
+    if (r.state === 'ok') out.push(...portionRanges(r.from, r.to)); else if (r.state !== 'empty') bad.push(r);
   });
   return { ranges: mergeRanges(out), bad };
 }
