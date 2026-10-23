@@ -1103,6 +1103,137 @@ body:not(.has-subjects) .subjects-only,body:not(.has-fees) .fees-only{display:no
   .fee-months{padding:6px 18px 20px;gap:6px}
   .month-step{width:100%;justify-content:space-between}
 }
+/* Hifz tracking, switched on per school */
+body:not(.has-hifz) .hifz-only{display:none !important}
+body.has-hifz .no-hifz{display:none !important}
+.ayah-range{display:grid;gap:10px}
+.ar-row{display:grid;grid-template-columns:44px minmax(0,1fr) 112px;align-items:center;gap:10px}
+.ar-tag{font-size:14px;font-weight:600;color:var(--text-3)}
+.ar-a{font-variant-numeric:tabular-nums}
+.ar-juz{display:flex;align-items:center;gap:10px;padding-left:54px;font-size:14px;color:var(--text-3)}
+.ar-juz .input{width:auto;min-width:170px;height:40px}
+.ar-sum{min-height:1.5em;padding-left:54px;font-size:14.5px;line-height:1.5;color:var(--text-2)}
+.ar-sum strong{font-weight:600;color:var(--heading)}
+.ar-sum.warn{color:var(--danger-text);font-weight:600}
+@media (max-width:640px){
+  .ar-row{grid-template-columns:36px minmax(0,1fr) 84px;gap:8px}
+  .ar-juz,.ar-sum{padding-left:0}
+  .ar-juz{flex-wrap:wrap}
+}
+
+/* The profile section */
+.hifz-card{margin-top:20px}
+.hifz-card .card-head{align-items:center}
+.hifz-card .card-title{display:flex;align-items:center;gap:8px}
+.hifz-card .card-title .dw{margin:-6px 0 -6px -3px}
+.hz-empty{padding:4px 26px 24px;max-width:70ch}
+.hz-empty p{font-size:15px;color:var(--text-2);margin-bottom:14px}
+.hz-figs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));margin:4px 26px 0;border:1px solid var(--line);border-radius:var(--r-inset);overflow:hidden}
+.hz-figs > div{padding:16px 18px;min-width:0}
+.hz-figs > div + div{border-left:1px solid var(--line)}
+.hz-figs span{display:block;font-size:13.5px;font-weight:600;color:var(--text-3)}
+.hz-figs strong{display:block;margin-top:6px;font-size:24px;font-weight:600;line-height:1.15;letter-spacing:-.02em;color:var(--heading)}
+.hz-figs strong .na{font-size:17px;letter-spacing:0}
+.hz-figs small{display:block;margin-top:6px;font-size:13.5px;line-height:1.45;font-weight:400;letter-spacing:0;color:var(--text-3)}
+.hz-figs strong small{margin-top:4px}
+.hz-c.steady{color:#2e7d4f}
+.hz-c.uneven{color:var(--accent-text)}
+.hz-c.stalled{color:var(--danger-text)}
+:root[data-theme="dark"] .hz-c.steady{color:#7cc49a}
+.hz-charts{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:24px;padding:22px 26px 6px}
+.hz-fig figcaption{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:4px 12px;margin-bottom:8px;font-size:15px;font-weight:600;color:var(--heading)}
+.hz-fig figcaption > span{font-size:13px;font-weight:400;color:var(--text-3)}
+.hz-key{display:inline-flex;align-items:center;flex-wrap:wrap;gap:4px 14px;font-size:13px;font-weight:400;color:var(--text-3)}
+.hz-key > span{display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+.hz-key i{display:inline-block;flex-shrink:0}
+.hz-key .k-bar{width:10px;height:10px;border-radius:3px;background:var(--bar-a)}
+.hz-key .k-avg{width:16px;height:0;border-top:2px dashed var(--accent)}
+.hz-key .k-fill{width:10px;height:10px;border-radius:3px;background:color-mix(in srgb,var(--primary) 70%,var(--surface))}
+.hz-key .k-dot{width:8px;height:8px;border-radius:50%}
+.hz-chart{position:relative;min-height:190px}
+.hz-svg{display:block;overflow:visible;touch-action:pan-y}
+.hz-grid line{stroke:var(--line);stroke-width:1}
+.hz-grid text,.hz-x text{fill:var(--text-3);font-size:11.5px;font-family:var(--f-ui)}
+.hz-line{fill:none;stroke:var(--primary);stroke-width:2;stroke-linejoin:round}
+.hz-area{fill:var(--primary);opacity:.09}
+.hz-pt{fill:var(--surface);stroke:var(--primary);stroke-width:1.5}
+.hz-cross{stroke:var(--text-3);stroke-width:1;stroke-dasharray:3 3}
+.hz-dot{fill:var(--surface);stroke:var(--primary);stroke-width:2.5}
+.hz-bar{fill:var(--bar-a);transition:opacity .15s}
+.hz-zero{fill:var(--off)}
+.hz-wk.dim .hz-bar{opacity:.45}
+.hz-avg{fill:none;stroke:var(--accent);stroke-width:2;stroke-dasharray:5 4;stroke-linecap:round;pointer-events:none}
+.hz-tip{position:absolute;z-index:3;transform:translate(-50%,-100%);padding:7px 10px;border-radius:9px;background:var(--heading);color:var(--surface);font-size:13px;line-height:1.4;white-space:nowrap;pointer-events:none;box-shadow:var(--shadow-2)}
+.hz-tip strong{display:block;font-weight:600}
+.hz-table{margin:6px 26px 0;font-size:14px}
+.hz-table summary{width:max-content;cursor:pointer;font-weight:600;color:var(--primary)}
+.hz-table table{width:100%;max-width:520px;margin-top:10px;border-collapse:collapse;font-variant-numeric:tabular-nums}
+.hz-table th{text-align:left;font-size:13px;font-weight:600;color:var(--text-3);padding:6px 10px 6px 0;border-bottom:1px solid var(--line)}
+.hz-table td{padding:7px 10px 7px 0;border-bottom:1px solid var(--line);color:var(--text-2)}
+.hz-juz{padding:22px 26px 4px}
+.hz-sub{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:6px 14px;margin-bottom:12px}
+.hz-sub h3{font-size:15px;font-weight:600;color:var(--heading)}
+.jm{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:6px}
+.jm-cell{position:relative;height:46px;border-radius:9px;background:var(--surface-2);border:1px solid var(--line);overflow:hidden}
+.jm-fill{position:absolute;left:0;right:0;bottom:0;background:color-mix(in srgb,var(--primary) 70%,var(--surface))}
+.jm-cell.full .jm-fill{background:var(--primary)}
+.jm-n{position:absolute;left:7px;top:5px;font-size:12.5px;font-weight:600;color:var(--text-3);font-variant-numeric:tabular-nums}
+.jm-cell.full .jm-n{color:var(--on-primary)}
+.jm-dot,.k-dot{background:var(--off-line)}
+.jm-dot{position:absolute;right:6px;top:7px;width:8px;height:8px;border-radius:50%;box-shadow:0 0 0 2px var(--surface)}
+.fresh .jm-dot,.k-dot.fresh{background:#2e7d4f}
+.recent .jm-dot,.k-dot.recent{background:#d39a23}
+.old .jm-dot,.k-dot.old{background:#b3362a}
+.hz-rev{display:flex;gap:10px;align-items:flex-start;margin:14px 26px 24px;padding-top:14px;border-top:1px solid var(--line);font-size:14.5px;line-height:1.55;color:var(--text-2)}
+.hz-rev .ic{width:17px;height:17px;margin-top:2px;color:var(--icon);flex-shrink:0}
+.hifz-card > .hz-juz:last-child{padding-bottom:24px}
+@media (max-width:1100px){ .hz-figs{grid-template-columns:repeat(2,minmax(0,1fr))} .hz-figs > div:nth-child(3){border-left:0} .hz-figs > div:nth-child(n+3){border-top:1px solid var(--line)} .hz-charts{grid-template-columns:1fr} }
+@media (max-width:640px){
+  .hz-figs{margin:4px 18px 0}
+  .hz-figs > div{padding:13px 14px}
+  .hz-figs strong{font-size:20px}
+  .hz-charts{padding:18px 18px 4px;gap:18px}
+  .hz-table{margin:6px 18px 0}
+  .hz-juz{padding:18px 18px 4px}
+  .jm{grid-template-columns:repeat(6,minmax(0,1fr))}
+  .jm-n{left:6px;top:4px;font-size:12px}
+  .jm-dot{right:5px;top:6px;width:7px;height:7px}
+  .hz-rev{margin:14px 18px 20px}
+  .hz-empty{padding:4px 18px 20px}
+  .hifz-card .card-head{flex-wrap:wrap;row-gap:4px}
+  .hifz-card .card-head .link-btn{white-space:nowrap}
+}
+
+/* Where they started */
+.hs-dir{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:8px 0 20px}
+.hs-opt{display:flex;gap:10px;align-items:flex-start;padding:12px 14px;border:1px solid var(--line-2);border-radius:12px;cursor:pointer}
+.hs-opt:has(input:checked){border-color:var(--primary);background:color-mix(in srgb,var(--primary) 6%,var(--surface))}
+.hs-opt input{margin-top:3px;accent-color:var(--primary)}
+.hs-opt strong{display:block;font-size:15px;font-weight:600;color:var(--heading)}
+.hs-opt em{display:block;font-style:normal;font-size:13.5px;color:var(--text-3)}
+.hs-juz{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:6px;margin:8px 0 20px}
+.hs-j{height:38px;border-radius:9px;border:1px solid var(--line-2);background:var(--surface);font-weight:600;font-variant-numeric:tabular-nums;color:var(--text-2)}
+.hs-j:hover{border-color:var(--primary);color:var(--primary)}
+.hs-j[aria-pressed="true"]{background:var(--primary);border-color:var(--primary);color:var(--on-primary)}
+#hs-extra{display:grid;gap:12px;margin:8px 0 10px}
+.hs-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;align-items:start;padding:12px;border:1px solid var(--line);border-radius:12px;background:var(--surface-2)}
+.hs-row .ar-sum{padding-left:54px;font-size:13.5px}
+.hs-total{margin-top:14px;font-size:15px;color:var(--text-2)}
+.hs-total strong{color:var(--heading)}
+@media (max-width:640px){ .hs-dir{grid-template-columns:1fr} .hs-juz{grid-template-columns:repeat(6,minmax(0,1fr))} .hs-row .ar-sum{padding-left:0} }
+
+/* Class report */
+.rp-hifz{margin-top:14px}
+.rp-hz{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:16px;align-items:center;padding:12px 14px 14px}
+.rp-hz-figs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.rp-hz-figs dt{font-size:11.5px;color:var(--text-3)}
+.rp-hz-figs dd{margin-top:3px;font-size:16px;font-weight:600;color:var(--heading);line-height:1.25}
+.rp-hz-figs small{display:block;margin-top:2px;font-size:11.5px;font-weight:400;color:var(--text-3)}
+.rp-hz-chart svg{display:block;width:100%;height:70px}
+.rp-hz-chart rect{fill:var(--bar-a)}
+.rp-hz-chart rect.z{fill:#ddd5e6}
+.rp-hz-chart figcaption{margin-top:4px;font-size:11.5px;color:var(--text-3)}
+@media (max-width:640px){ .rp-hz{grid-template-columns:1fr} .rp-hz-figs{grid-template-columns:1fr 1fr} }
 /* Drawn icons, in the welcome page's line */
 .dw{display:block;flex-shrink:0;overflow:visible}
 .dw .arch{fill:var(--icon-wash);stroke:none}
@@ -1493,8 +1624,9 @@ body:not(.has-subjects) .subjects-only,body:not(.has-fees) .fees-only{display:no
               <div class="rating" id="star-mem" data-field="mem" role="group" aria-label="Memorisation rating"></div>
             </div>
             <div class="form-grid">
-              <div class="field"><label for="mem-surah">Surah or passage</label><input type="text" id="mem-surah" class="input" dir="auto" placeholder="e.g. Al-Mulk, verses 1 to 10"></div>
-              <div class="field"><label for="mem-verses">Verses memorised</label><input type="text" id="mem-verses" class="input" dir="auto" placeholder="e.g. Five new verses"></div>
+              <div class="field full hifz-only"><span class="label">Portion memorised</span><div class="ayah-range" id="mem-range"></div></div>
+              <div class="field no-hifz"><label for="mem-surah">Surah or passage</label><input type="text" id="mem-surah" class="input" dir="auto" placeholder="e.g. Al-Mulk, verses 1 to 10"></div>
+              <div class="field no-hifz"><label for="mem-verses">Verses memorised</label><input type="text" id="mem-verses" class="input" dir="auto" placeholder="e.g. Five new verses"></div>
               <div class="field full"><label for="mem-notes">Notes</label><input type="text" id="mem-notes" class="input" dir="auto" placeholder="e.g. Fluent, no mistakes"></div>
             </div>
           </section>
@@ -1508,7 +1640,9 @@ body:not(.has-subjects) .subjects-only,body:not(.has-fees) .fees-only{display:no
               <div class="rating" id="star-rev" data-field="rev" role="group" aria-label="Revision rating"></div>
             </div>
             <div class="form-grid">
-              <div class="field"><label for="rev-content">Content revised</label><input type="text" id="rev-content" class="input" dir="auto" placeholder="e.g. Surah An-Nas to Surah Al-Qari'ah"></div>
+              <div class="field full hifz-only"><span class="label">Portion revised</span><div class="ayah-range" id="rev-range"></div></div>
+              <div class="field hifz-only"><label for="rev-mistake-count">Mistakes counted</label><input type="number" id="rev-mistake-count" class="input" inputmode="numeric" min="0" max="999" placeholder="How many, if you counted"></div>
+              <div class="field no-hifz"><label for="rev-content">Content revised</label><input type="text" id="rev-content" class="input" dir="auto" placeholder="e.g. Surah An-Nas to Surah Al-Qari'ah"></div>
               <div class="field"><label for="rev-notes">Notes</label><input type="text" id="rev-notes" class="input" dir="auto" placeholder="e.g. Strong overall"></div>
               <div class="field full"><label for="rev-mistakes">Mistakes and observations</label><textarea id="rev-mistakes" class="input short" dir="auto" placeholder="e.g. Two slips in Al-Ghashiyah, mixed up the order of surahs"></textarea></div>
             </div>
@@ -1781,6 +1915,33 @@ body:not(.has-subjects) .subjects-only,body:not(.has-fees) .fees-only{display:no
   </div>
 </div>
 
+<!-- WHERE THEY STARTED -->
+<div class="modal-overlay" id="modal-hifz-start">
+  <div class="modal wide" role="dialog" aria-modal="true" aria-labelledby="hs-title">
+    <div class="modal-head">
+      <div><h3 class="modal-title" id="hs-title">Where they started</h3><p class="modal-sub" id="hs-sub"></p></div>
+      <button class="icon-close" onclick="closeModal('modal-hifz-start')" aria-label="Close"><svg class="ic"><use href="#i-x"/></svg></button>
+    </div>
+    <div class="modal-body">
+      <span class="label">Which way are they memorising?</span>
+      <div class="hs-dir" role="radiogroup" aria-label="Which way are they memorising?">
+        <label class="hs-opt"><input type="radio" name="hs-dir" value="end"><span><strong>From the end</strong><em>Juz 30 first, then working up</em></span></label>
+        <label class="hs-opt"><input type="radio" name="hs-dir" value="start"><span><strong>From the start</strong><em>Al-Baqarah onwards</em></span></label>
+      </div>
+      <span class="label">Whole juz they knew when they joined</span>
+      <div class="hs-juz" id="hs-juz"></div>
+      <span class="label">Any other surahs or passages</span>
+      <div id="hs-extra"></div>
+      <button type="button" class="btn btn-ghost btn-sm" onclick="addHifzExtra(); hifzStartTotal()"><svg class="ic"><use href="#i-plus"/></svg>Add a surah or passage</button>
+      <p class="hs-total" id="hs-total" aria-live="polite"></p>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost" onclick="closeModal('modal-hifz-start')">Cancel</button>
+      <button class="btn btn-accent" onclick="saveHifzStart()"><svg class="ic"><use href="#i-check"/></svg>Save</button>
+    </div>
+  </div>
+</div>
+
 <!-- SESSION DETAIL -->
 <div class="modal-overlay" id="modal-session-detail">
   <div class="modal wide" role="dialog" aria-modal="true">
@@ -2003,7 +2164,7 @@ body:not(.has-subjects) .subjects-only,body:not(.has-fees) .fees-only{display:no
 const SUPABASE_URL = 'https://jasydhtioaddbsxxpxxk.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_BSq3lejgQFM7S0zNLmtj0g_7uAvznI4';
 const INSTITUTE = 'horizons';
-const FEATURES = { subjects: true, fees: true };   // Arabic and Islamic studies in lessons; the Fees page   // this madrassah's short name, set in the database update
+const FEATURES = { subjects: true, fees: true, hifz: true };   // Arabic and Islamic studies in lessons; the Fees page; hifz tracking   // this madrassah's short name, set in the database update
 const RECOVERY_LINK = location.hash.includes('type=recovery');   // arrived from a password reset email
 // When an emailed link has expired or was already used, Supabase sends people
 // back with the reason in the address. Keep it so the welcome page can say so.
@@ -2183,6 +2344,7 @@ function logSessionFor(id) {
   showPage('log-session');
   $('session-student').value = id;
   updateSaveBar();
+  prefillPortion();
 }
 function initRatings() {
   ['mem', 'rev', 'rec'].forEach(field => {
@@ -2396,9 +2558,9 @@ const firstName = () => ((state.me && state.me.display_name) || '').trim().split
 function normalizeSession(s) {
   const q = v => Math.max(0, Math.min(5, parseInt(v, 10) || 0));
   const out = {
-    id: s.id || uid(), studentId: s.studentId, classId: s.classId || null, teacherId: s.teacherId || null, date: s.date || '',
-    memorization: Object.assign({ surah: '', verses: '', quality: 0, notes: '' }, s.memorization || {}),
-    revision: Object.assign({ content: '', mistakes: '', quality: 0, notes: '' }, s.revision || {}),
+    id: s.id || uid(), studentId: s.studentId, classId: s.classId || null, teacherId: s.teacherId || null, date: s.date || '', created: s.created || '',
+    memorization: Object.assign({ surah: '', verses: '', quality: 0, notes: '', from: null, to: null }, s.memorization || {}),
+    revision: Object.assign({ content: '', mistakes: '', quality: 0, notes: '', from: null, to: null, mistakeCount: null }, s.revision || {}),
     recitation: Object.assign({ surah: '', tajweed: '', quality: 0, notes: '' }, s.recitation || {}),
     behaviour: Object.assign({ rating: '', notes: '' }, s.behaviour || {}),
     arabic: Object.assign({ covered: '', notes: '' }, s.arabic || {}),
@@ -2412,9 +2574,9 @@ function normalizeSession(s) {
 }
 function fromRow(r) {
   return normalizeSession({
-    id: r.id, studentId: r.student_id, classId: r.class_id || null, teacherId: r.teacher_id || null, date: r.session_date,
-    memorization: { surah: r.mem_surah, verses: r.mem_verses, quality: r.mem_quality, notes: r.mem_notes },
-    revision: { content: r.rev_content, mistakes: r.rev_mistakes, quality: r.rev_quality, notes: r.rev_notes },
+    id: r.id, studentId: r.student_id, classId: r.class_id || null, teacherId: r.teacher_id || null, date: r.session_date, created: r.created_at || '',
+    memorization: { surah: r.mem_surah, verses: r.mem_verses, quality: r.mem_quality, notes: r.mem_notes, from: r.mem_from || null, to: r.mem_to || null },
+    revision: { content: r.rev_content, mistakes: r.rev_mistakes, quality: r.rev_quality, notes: r.rev_notes, from: r.rev_from || null, to: r.rev_to || null, mistakeCount: r.rev_mistake_count ?? null },
     recitation: { surah: r.rec_surah, tajweed: r.rec_tajweed, quality: r.rec_quality, notes: r.rec_notes },
     behaviour: { rating: r.behaviour || '', notes: r.behaviour_notes || '' },
     arabic: { covered: r.arabic_covered || '', notes: r.arabic_notes || '' },
@@ -2427,9 +2589,10 @@ function fromRow(r) {
 const SG_FIELDS = ['date_of_birth', 'address', 'postcode', 'contact_name', 'contact_relationship', 'contact_phone', 'contact_email',
   'emergency_name', 'emergency_relationship', 'emergency_phone', 'medical_conditions', 'allergies', 'medication',
   'additional_needs', 'collection_notes', 'photo_consent'];
+const hifzOf = s => ({ known: Array.isArray(s.hifz_known) ? s.hifz_known : [], direction: s.hifz_direction === 'start' ? 'start' : 'end' });
 function studentFromRow(s) {
   const st = { id: s.id, name: s.name, age: s.age ?? '', startDate: s.start_date ?? '', dob: s.date_of_birth || '',
-               level: s.level || '', targets: s.targets || '', notes: s.notes || '', sg: null };
+               level: s.level || '', targets: s.targets || '', notes: s.notes || '', sg: null, hifz: hifzOf(s) };
   if ('contact_name' in s) { st.sg = {}; SG_FIELDS.forEach(f => { st.sg[f] = s[f] ?? (f === 'photo_consent' ? null : ''); }); }
   return st;
 }
@@ -2491,6 +2654,8 @@ function clearSessionForm() {
   ['mem', 'rev', 'rec'].forEach(f => paintRating(f, 0));
   state.selectedBehaviour = '';
   document.querySelectorAll('.mood').forEach(b => { b.classList.remove('selected'); b.setAttribute('aria-pressed', 'false'); });
+  resetRevisionPicker();
+  prefillPortion();
 }
 
 // ── Navigation ──
@@ -2833,6 +2998,7 @@ function viewStudent(id, silent = false) {
       </section>
     </div>
 
+    ${FEATURES.hifz ? hifzSection(st) : ''}
     ${isParent ? '' : safeguardingCard(st)}
     ${isParent ? '' : guardiansCard(st)}
     ${state.role === 'admin' && FEATURES.fees ? feesCard(st) : ''}
@@ -2860,6 +3026,7 @@ function viewStudent(id, silent = false) {
     document.querySelectorAll('[data-nav]').forEach(b => b.classList.toggle('active', b.dataset.nav === 'students'));
     window.scrollTo(0, 0);
   }
+  if (FEATURES.hifz) requestAnimationFrame(drawHifzCharts);
   animateBars();
 }
 
@@ -3361,6 +3528,12 @@ async function saveSession() {
   const classId = classIdsOf(studentId).find(c => !mine || mine.includes(c)) || null;
   const extra = FEATURES.subjects
     ? { arabic_covered: v('arabic-covered'), arabic_notes: v('arabic-notes'), islamic_topic: v('islamic-topic'), islamic_notes: v('islamic-notes') } : {};
+  let portions = {};
+  if (FEATURES.hifz) {
+    const hp = hifzPayload();
+    if (hp.error) { toast(hp.error, 'warn'); $(hp.field).focus(); return; }
+    portions = hp.data;
+  }
   const { data, error } = await db.from('sessions').insert({
     ...extra,
     student_id: studentId, class_id: classId, session_date: date,
@@ -3368,7 +3541,8 @@ async function saveSession() {
     rev_content: v('rev-content'), rev_mistakes: v('rev-mistakes'), rev_quality: state.ratings.rev, rev_notes: v('rev-notes'),
     rec_surah: v('rec-surah'), rec_tajweed: v('rec-tajweed'), rec_quality: state.ratings.rec, rec_notes: v('rec-notes'),
     behaviour: state.selectedBehaviour || '', behaviour_notes: v('behaviour-notes'),
-    targets: v('targets'), reflection: v('reflection')
+    targets: v('targets'), reflection: v('reflection'),
+    ...portions
   }).select().single();
   if (error) { toast('That lesson couldn’t be saved: ' + error.message, 'warn'); return; }
   state.sessions.push(fromRow(data));
@@ -3425,8 +3599,8 @@ function viewSessionDetail(id) {
   const where = state.role === 'parent' ? '' : sessionWhere(s);
   $('detail-head').innerHTML = `<div class="dh">${avatar(name, 'lg')}<div><h3 class="modal-title">${esc(name)}</h3><p class="modal-sub">${formatDate(s.date, { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}${where ? `, ${esc(where)}` : ''}</p></div></div>`;
   $('detail-body').innerHTML = `
-    ${detailBlock('mem', s.memorization.quality, [['Surah or passage', s.memorization.surah], ['Verses memorised', s.memorization.verses], ['Notes', s.memorization.notes]])}
-    ${detailBlock('rev', s.revision.quality, [['Content revised', s.revision.content], ['Mistakes', s.revision.mistakes], ['Notes', s.revision.notes]])}
+    ${detailBlock('mem', s.memorization.quality, [['Surah or passage', s.memorization.surah], ['Verses memorised', s.memorization.verses]].concat(s.memorization.to ? [['Size', sizeText(s.memorization.from, s.memorization.to)]] : [], [['Notes', s.memorization.notes]]))}
+    ${detailBlock('rev', s.revision.quality, [['Content revised', s.revision.content]].concat(s.revision.to ? [['Size', linesText(MUSHAF.lines(s.revision.from, s.revision.to))]] : [], s.revision.mistakeCount != null ? [['Mistakes counted', String(s.revision.mistakeCount)]] : [], [['Mistakes', s.revision.mistakes], ['Notes', s.revision.notes]]))}
     ${detailBlock('rec', s.recitation.quality, [['Passage recited', s.recitation.surah], ['Tajweed', s.recitation.tajweed], ['Notes', s.recitation.notes]])}
     ${subjectDetail(s)}
     ${(s.behaviour.rating || s.behaviour.notes) ? `<div class="d-block"><div class="d-head"><span class="d-title">${drawn('heart', 'sm')}Behaviour</span>${behaviourTag(s.behaviour.rating)}</div>${s.behaviour.notes ? `<p class="d-text" dir="auto">${esc(s.behaviour.notes)}</p>` : ''}</div>` : ''}
@@ -3473,8 +3647,8 @@ function exportSession(id) {
       </div>
       ${st && st.level ? `<div class="rp-level"><span>Current level</span><p dir="auto">${esc(st.level)}</p></div>` : ''}
     </section>
-    ${reportBlock('mem', s.memorization.quality, [['Surah or passage', s.memorization.surah], ['Verses memorised', s.memorization.verses], ['Notes', s.memorization.notes]])}
-    ${reportBlock('rev', s.revision.quality, [['Content revised', s.revision.content], ['Mistakes', s.revision.mistakes], ['Notes', s.revision.notes]])}
+    ${reportBlock('mem', s.memorization.quality, [['Surah or passage', s.memorization.surah], ['Verses memorised', s.memorization.verses]].concat(s.memorization.to ? [['Size', sizeText(s.memorization.from, s.memorization.to)]] : [], [['Notes', s.memorization.notes]]))}
+    ${reportBlock('rev', s.revision.quality, [['Content revised', s.revision.content]].concat(s.revision.to ? [['Size', linesText(MUSHAF.lines(s.revision.from, s.revision.to))]] : [], s.revision.mistakeCount != null ? [['Mistakes counted', String(s.revision.mistakeCount)]] : [], [['Mistakes', s.revision.mistakes], ['Notes', s.revision.notes]]))}
     ${reportBlock('rec', s.recitation.quality, [['Passage recited', s.recitation.surah], ['Tajweed', s.recitation.tajweed], ['Notes', s.recitation.notes]])}
     ${subjectReport(s)}
     ${s.behaviour.notes ? `<section class="rp-note"><h3>Behaviour notes</h3><p dir="auto">${esc(s.behaviour.notes)}</p></section>` : ''}
@@ -3588,11 +3762,524 @@ async function makeClassReport() {
       <section class="rp-block"><div class="rp-block-head"><div class="rp-block-title">${drawn('book', 'sm')}Their last lesson</div></div>${lastBlock}</section>
       <section class="rp-block"><div class="rp-block-head"><div class="rp-block-title">${drawn('heart', 'sm')}Behaviour</div></div>${behaviour}</section>
     </div>
+    ${FEATURES.hifz ? hifzReportBlock(st, r.from, r.to) : ''}
     ${targetsNow ? `<section class="rp-note rp-targets"><h3>Current targets</h3><p dir="auto">${esc(targetsNow)}</p></section>` : ''}
     ${comments ? `<section class="rp-note rp-reflection"><h3>Teacher's comments</h3><p dir="auto">${esc(comments)}</p></section>` : ''}
     ${reportFoot}`;
   closeModal('modal-class-report');
   openReport('Class report preview', `Class report, ${st.name}, ${r.name}`);
+}
+
+// Madinah mushaf (KFGQPC 1441, 604 pages of 15 lines, Hafs). Lines are each ayah's share of the
+// mushaf's lines in hundredths, measured word by word from the QCF4 layout data by Mohamad Hajj Rabee
+// (MIT, github.com/MohamadHajjRabee/quran-qcf4). Surah titles and basmalah lines are left out.
+const QURAN_DATA = {"surahs":[["Al-Fatihah","الفاتحة",7],["Al-Baqarah","البقرة",286],["Ali 'Imran","آل عمران",200],["An-Nisa","النساء",176],["Al-Ma'idah","المائدة",120],["Al-An'am","الأنعام",165],["Al-A'raf","الأعراف",206],["Al-Anfal","الأنفال",75],["At-Tawbah","التوبة",129],["Yunus","يونس",109],["Hud","هود",123],["Yusuf","يوسف",111],["Ar-Ra'd","الرعد",43],["Ibrahim","ابراهيم",52],["Al-Hijr","الحجر",99],["An-Nahl","النحل",128],["Al-Isra","الإسراء",111],["Al-Kahf","الكهف",110],["Maryam","مريم",98],["Taha","طه",135],["Al-Anbya","الأنبياء",112],["Al-Hajj","الحج",78],["Al-Mu'minun","المؤمنون",118],["An-Nur","النور",64],["Al-Furqan","الفرقان",77],["Ash-Shu'ara","الشعراء",227],["An-Naml","النمل",93],["Al-Qasas","القصص",88],["Al-'Ankabut","العنكبوت",69],["Ar-Rum","الروم",60],["Luqman","لقمان",34],["As-Sajdah","السجدة",30],["Al-Ahzab","الأحزاب",73],["Saba","سبإ",54],["Fatir","فاطر",45],["Ya-Sin","يس",83],["As-Saffat","الصافات",182],["Sad","ص",88],["Az-Zumar","الزمر",75],["Ghafir","غافر",85],["Fussilat","فصلت",54],["Ash-Shuraa","الشورى",53],["Az-Zukhruf","الزخرف",89],["Ad-Dukhan","الدخان",59],["Al-Jathiyah","الجاثية",37],["Al-Ahqaf","الأحقاف",35],["Muhammad","محمد",38],["Al-Fath","الفتح",29],["Al-Hujurat","الحجرات",18],["Qaf","ق",45],["Adh-Dhariyat","الذاريات",60],["At-Tur","الطور",49],["An-Najm","النجم",62],["Al-Qamar","القمر",55],["Ar-Rahman","الرحمن",78],["Al-Waqi'ah","الواقعة",96],["Al-Hadid","الحديد",29],["Al-Mujadila","المجادلة",22],["Al-Hashr","الحشر",24],["Al-Mumtahanah","الممتحنة",13],["As-Saf","الصف",14],["Al-Jumu'ah","الجمعة",11],["Al-Munafiqun","المنافقون",11],["At-Taghabun","التغابن",18],["At-Talaq","الطلاق",12],["At-Tahrim","التحريم",12],["Al-Mulk","الملك",30],["Al-Qalam","القلم",52],["Al-Haqqah","الحاقة",52],["Al-Ma'arij","المعارج",44],["Nuh","نوح",28],["Al-Jinn","الجن",28],["Al-Muzzammil","المزمل",20],["Al-Muddaththir","المدثر",56],["Al-Qiyamah","القيامة",40],["Al-Insan","الانسان",31],["Al-Mursalat","المرسلات",50],["An-Naba","النبإ",40],["An-Nazi'at","النازعات",46],["'Abasa","عبس",42],["At-Takwir","التكوير",29],["Al-Infitar","الإنفطار",19],["Al-Mutaffifin","المطففين",36],["Al-Inshiqaq","الإنشقاق",25],["Al-Buruj","البروج",22],["At-Tariq","الطارق",17],["Al-A'la","الأعلى",19],["Al-Ghashiyah","الغاشية",26],["Al-Fajr","الفجر",30],["Al-Balad","البلد",20],["Ash-Shams","الشمس",15],["Al-Layl","الليل",21],["Ad-Duhaa","الضحى",11],["Ash-Sharh","الشرح",8],["At-Tin","التين",8],["Al-'Alaq","العلق",19],["Al-Qadr","القدر",5],["Al-Bayyinah","البينة",8],["Az-Zalzalah","الزلزلة",8],["Al-'Adiyat","العاديات",11],["Al-Qari'ah","القارعة",11],["At-Takathur","التكاثر",8],["Al-'Asr","العصر",3],["Al-Humazah","الهمزة",9],["Al-Fil","الفيل",5],["Quraysh","قريش",4],["Al-Ma'un","الماعون",7],["Al-Kawthar","الكوثر",3],["Al-Kafirun","الكافرون",6],["An-Nasr","النصر",3],["Al-Masad","المسد",5],["Al-Ikhlas","الإخلاص",4],["Al-Falaq","الفلق",5],["An-Nas","الناس",6]],"lines":"100,100,49,51,80,72,248,18,103,128,151,200,124,152,124,129,144,110,87,209,173,90,158,194,58,227,252,143,244,209,173,393,441,254,182,230,289,186,106,256,152,197,202,112,172,128,153,192,94,113,148,100,100,129,171,232,135,133,100,100,318,159,91,232,270,205,325,700,277,200,145,140,121,217,217,183,141,251,108,147,353,218,282,100,126,274,266,165,147,422,200,641,159,373,127,300,300,324,166,410,191,109,287,213,172,128,126,274,852,148,182,318,174,170,205,365,202,205,179,374,302,124,150,138,287,125,288,163,127,164,204,254,300,158,189,220,195,90,189,305,154,156,344,200,120,180,342,158,222,521,396,361,189,86,196,191,371,231,90,146,127,173,100,131,248,221,145,155,100,100,477,323,147,253,173,127,222,178,179,248,343,169,161,652,393,110,202,143,150,189,361,569,231,777,223,336,164,281,58,140,237,140,644,362,377,161,300,185,115,300,200,158,165,148,190,139,200,192,208,537,316,247,264,686,196,354,300,500,300,222,178,148,132,72,422,451,275,491,351,658,300,539,286,375,119,181,363,110,109,318,95,205,581,519,400,726,228,392,154,548,213,474,265,320,460,720,400,271,253,134,442,352,432,331,185,200,177,312,356,406,249,489,111,233,141,206,158,162,1500,364,283,337,516,10,61,124,175,99,126,465,130,110,180,185,135,351,343,306,137,142,202,297,322,260,140,200,166,160,253,221,294,206,255,157,111,129,74,174,260,340,147,239,170,223,165,98,219,239,100,200,100,500,246,103,251,123,77,364,161,155,102,142,76,300,131,69,329,171,226,174,154,134,112,131,199,295,96,379,100,300,328,337,165,404,90,176,336,155,235,131,103,121,163,256,145,255,127,119,112,242,136,198,166,200,117,402,181,154,212,113,121,100,327,146,413,168,238,108,200,272,328,323,243,134,138,124,157,181,179,121,118,166,170,70,76,171,193,282,190,164,100,100,300,94,153,135,300,264,217,198,139,200,85,265,550,400,756,231,375,138,68,304,197,188,143,92,295,213,100,346,183,138,214,139,180,200,161,139,213,133,178,356,320,250,108,342,183,294,323,247,232,109,146,266,116,237,147,531,88,81,275,359,166,249,151,238,132,151,379,219,181,194,171,735,1030,270,200,300,200,255,315,430,249,151,222,878,520,780,200,164,92,295,167,182,319,281,554,265,449,232,214,156,160,133,159,522,156,100,421,305,174,138,104,258,100,94,206,100,226,242,245,287,330,192,219,206,311,242,268,76,56,245,86,130,166,214,259,300,221,454,340,185,130,270,153,347,235,220,145,154,220,307,419,400,739,229,532,368,86,289,157,93,282,225,800,273,256,171,80,153,234,214,138,131,150,400,292,225,201,125,109,332,103,113,268,223,200,199,128,482,350,281,124,345,100,138,162,385,342,189,72,179,333,416,215,144,219,106,251,149,136,129,269,113,216,410,227,242,74,314,70,157,159,175,309,349,171,180,164,118,136,119,263,576,251,348,125,200,500,227,573,672,328,500,800,229,322,149,122,304,644,430,354,346,277,523,354,271,249,192,184,250,177,148,175,266,163,157,114,300,487,413,143,195,262,140,177,147,218,818,364,194,525,417,300,173,595,319,113,220,248,180,364,152,103,233,122,178,250,150,156,160,484,169,296,261,330,225,219,200,342,258,100,242,153,205,223,138,260,218,399,262,147,176,110,193,142,532,200,255,175,292,263,515,232,291,100,119,189,269,87,213,236,214,536,298,216,144,786,170,219,181,228,172,380,267,114,233,106,183,135,136,115,131,317,153,130,120,160,120,291,103,261,88,99,158,100,316,145,120,119,100,100,320,118,162,130,93,177,261,139,179,221,300,117,176,207,194,160,123,144,169,210,100,233,159,164,113,261,170,300,190,310,100,200,231,157,312,255,188,125,178,84,260,93,54,263,145,519,428,100,308,159,141,142,180,178,165,260,275,129,171,300,100,121,140,159,209,171,419,255,497,329,175,159,166,165,476,159,200,151,128,176,133,112,150,250,228,172,253,264,150,302,131,179,109,112,300,161,239,272,201,327,327,126,121,402,124,400,124,124,252,80,220,384,316,320,296,234,423,227,300,480,366,354,157,398,107,331,508,400,217,212,112,158,400,325,175,166,162,98,75,271,229,15,140,145,117,114,93,76,123,152,125,200,130,120,49,44,89,160,125,171,252,59,300,131,129,85,215,340,200,200,200,163,263,258,116,176,143,381,400,179,255,108,190,368,273,112,215,136,164,156,200,244,128,391,381,100,170,330,200,200,81,119,134,166,189,149,162,100,78,322,200,329,171,400,335,289,121,185,91,179,156,144,175,107,118,489,359,252,222,350,128,87,142,189,161,221,222,120,115,124,219,280,120,200,100,175,112,66,71,91,85,88,49,133,61,110,159,100,82,70,48,57,35,208,118,57,157,268,200,247,153,254,129,217,262,119,139,380,268,103,103,263,299,464,182,251,414,175,278,200,423,118,184,175,174,426,374,626,389,111,600,300,224,376,200,200,100,200,223,445,132,200,262,181,74,165,370,126,123,290,157,80,111,51,110,231,108,361,272,328,132,68,100,135,184,281,100,139,141,93,121,143,85,237,119,186,136,219,203,98,143,137,127,273,100,148,179,273,278,157,91,141,233,245,81,274,131,95,111,133,251,179,256,144,135,239,193,177,202,154,263,182,276,255,186,215,123,394,436,261,238,171,177,206,401,207,200,109,200,182,218,100,138,120,142,100,367,133,144,215,104,314,299,205,106,113,235,145,506,152,217,245,100,159,341,247,337,216,300,218,159,115,198,232,278,175,125,243,223,259,275,200,126,89,272,492,293,228,126,341,365,330,338,169,195,403,255,478,400,361,212,527,200,345,155,200,191,180,229,186,190,218,161,270,164,312,200,126,131,167,216,318,342,160,190,216,187,196,309,242,474,363,363,300,155,481,164,118,182,135,265,259,274,111,283,173,189,211,127,221,152,213,287,262,238,364,260,176,191,201,308,346,267,187,172,173,206,149,321,243,271,165,500,337,253,240,186,184,300,317,110,573,222,278,231,269,172,193,267,195,173,61,264,275,300,250,150,172,79,205,185,228,289,218,124,392,208,153,337,210,200,200,426,274,476,124,185,292,202,121,167,297,126,110,154,246,147,199,154,200,124,157,119,100,116,203,170,134,76,200,121,103,147,129,223,152,59,166,121,208,195,376,100,72,187,118,279,193,281,96,174,344,156,200,222,178,100,120,180,68,102,163,91,237,139,100,66,213,321,133,310,89,168,276,224,100,100,100,240,160,145,155,182,118,247,102,151,240,233,127,100,78,235,70,217,190,354,256,134,166,139,261,200,162,164,174,391,268,141,258,116,77,186,163,100,100,300,200,218,104,312,147,98,185,136,159,141,200,113,252,135,200,223,220,157,200,177,214,209,158,142,220,180,165,72,163,200,151,128,159,262,200,227,202,138,209,124,125,157,190,128,125,157,118,53,137,132,278,100,88,312,161,102,319,206,130,229,353,218,107,204,187,238,246,100,81,119,121,115,106,258,125,175,58,100,91,151,200,200,200,115,129,181,198,77,291,109,100,181,178,99,42,200,61,93,177,169,169,293,87,151,168,170,109,87,143,123,187,51,224,209,196,121,383,129,254,227,235,209,105,136,134,200,327,213,160,118,103,301,278,281,119,341,248,211,300,100,122,271,143,130,99,235,292,108,139,161,88,199,102,111,174,86,68,172,200,179,312,236,298,300,175,187,69,119,125,73,127,361,255,184,132,368,200,135,203,162,154,146,224,276,121,243,110,126,175,146,79,188,97,104,155,450,278,156,73,100,140,88,165,177,330,223,277,155,282,242,302,319,249,162,163,93,157,320,116,240,226,141,424,426,282,128,72,142,226,163,69,249,164,163,125,100,273,487,154,350,135,236,264,191,209,87,147,185,181,200,200,163,229,229,279,365,155,149,431,400,300,200,231,143,76,82,196,273,149,51,365,549,211,175,158,154,208,138,61,146,214,300,121,167,156,166,311,167,151,110,109,163,136,300,187,166,135,133,88,91,108,155,80,92,105,90,77,95,89,98,75,76,98,61,65,100,100,100,59,80,137,93,113,144,73,100,76,89,71,117,104,63,80,80,120,53,64,65,47,50,122,60,60,122,58,93,57,50,100,100,77,67,55,89,71,96,96,86,62,75,70,81,65,48,82,68,156,117,64,74,45,55,61,58,51,110,59,41,54,66,71,60,69,83,51,66,179,57,98,158,55,53,63,56,38,75,55,93,80,73,67,100,192,100,88,120,100,165,135,123,155,222,225,175,300,135,65,90,110,72,115,87,152,145,112,173,244,255,207,126,212,200,165,235,100,300,354,146,200,137,90,195,78,147,153,178,76,82,164,158,91,119,112,108,112,84,133,83,100,170,130,243,189,192,176,142,158,163,132,225,180,231,269,155,107,289,326,223,219,181,300,350,86,114,150,120,256,124,171,310,220,249,351,200,224,156,185,235,100,121,114,192,173,200,141,159,300,200,181,94,225,164,310,126,178,239,263,51,169,193,107,100,100,129,215,256,162,138,100,240,160,100,155,203,142,300,117,183,100,100,280,138,82,213,149,138,180,156,143,139,97,261,140,142,118,124,118,144,117,148,89,225,176,129,154,130,70,170,130,100,100,69,211,136,184,190,110,100,56,271,113,177,160,174,136,229,184,224,276,156,184,118,261,112,168,184,159,226,210,202,111,175,101,132,167,124,174,135,164,92,144,135,104,131,130,94,206,140,110,121,146,254,146,157,126,300,166,234,158,198,184,108,152,100,100,151,88,84,206,171,100,200,34,66,165,127,108,82,118,161,90,111,138,200,200,200,365,299,463,173,366,401,74,159,100,237,163,325,324,138,301,160,121,131,113,126,161,74,152,159,87,208,94,86,240,157,129,158,306,289,161,173,127,150,214,236,313,204,117,135,131,121,208,84,132,105,65,76,94,115,168,75,96,161,85,127,249,131,198,125,98,387,100,88,25,210,115,126,28,136,66,28,124,196,107,164,87,111,118,60,111,147,53,113,158,91,114,60,151,213,22,70,54,154,167,102,131,166,153,144,137,100,67,70,97,117,132,80,97,117,177,76,170,100,100,190,110,123,102,89,133,82,108,99,131,92,124,117,121,79,78,122,113,102,132,145,108,145,155,100,100,78,66,110,100,76,39,304,127,137,117,116,83,147,137,86,111,128,99,76,90,93,180,100,240,160,100,91,95,61,91,85,103,74,70,62,99,61,48,117,43,75,103,50,72,132,130,138,10,68,44,78,52,115,76,79,50,172,49,107,51,114,113,105,57,141,39,60,97,111,54,50,46,32,45,27,47,24,32,36,35,31,40,57,56,49,214,337,38,89,48,73,87,65,217,99,46,81,57,91,199,101,100,72,93,156,89,79,160,78,183,100,88,126,53,56,142,88,289,185,133,106,115,119,172,95,50,168,175,108,61,93,100,293,184,138,122,170,96,74,49,188,54,200,298,111,115,85,82,98,68,114,91,47,51,149,114,101,100,117,169,175,106,119,135,65,72,148,179,68,211,137,84,100,124,176,100,213,170,134,136,206,141,100,121,199,126,154,100,160,117,123,100,120,80,119,58,101,90,100,132,155,70,75,122,60,218,136,107,91,166,157,210,154,113,119,117,130,225,125,91,189,141,163,166,163,237,130,139,231,121,100,98,103,111,60,81,79,147,100,100,100,77,98,88,111,106,111,129,108,90,82,82,104,114,220,199,81,158,163,179,200,135,165,161,139,200,100,100,247,137,116,300,181,119,100,160,107,133,224,156,120,80,120,122,178,224,176,72,76,152,152,111,105,132,100,246,125,129,700,112,105,115,160,89,260,137,122,187,213,100,270,403,208,66,43,127,283,100,300,219,159,282,140,300,200,100,117,232,195,294,233,129,115,399,236,109,54,152,175,260,167,133,85,115,119,269,195,237,180,182,134,224,115,177,185,183,159,141,279,121,200,79,121,181,172,347,351,95,142,112,200,600,41,59,61,60,61,100,77,69,61,39,72,71,58,266,48,57,100,139,149,112,150,50,164,256,80,55,345,145,81,57,57,126,258,76,100,60,120,107,53,60,125,75,70,202,96,85,88,59,85,115,128,89,98,48,70,67,77,67,56,100,83,117,130,88,68,114,56,107,70,111,193,101,62,100,118,109,110,117,79,125,62,105,137,90,69,100,66,145,68,68,232,88,51,61,76,108,81,57,98,180,100,90,130,80,100,100,100,65,166,111,100,71,87,100,100,100,200,100,100,231,156,206,95,166,80,106,78,82,246,144,154,156,166,148,103,77,195,111,362,285,166,114,115,244,214,231,188,181,900,200,500,150,502,148,200,147,253,282,201,81,336,100,250,131,169,117,68,155,201,109,200,236,464,119,140,541,256,292,952,452,334,214,100,200,243,173,128,156,200,188,129,176,106,100,100,100,141,122,195,242,200,300,200,129,104,93,93,118,129,72,125,123,131,183,100,148,124,129,173,114,85,182,130,202,114,150,150,63,128,151,121,117,70,90,191,127,142,62,125,157,188,157,127,132,152,82,135,58,125,256,117,227,100,100,134,187,147,83,149,11,51,67,110,98,80,83,67,47,69,40,54,87,56,80,76,48,90,86,60,110,78,52,100,55,65,80,100,100,59,71,70,69,76,93,82,51,68,61,72,114,56,58,121,79,45,55,33,235,63,98,88,63,48,36,36,58,42,61,39,100,58,142,41,59,47,89,64,45,55,84,57,46,74,58,54,63,46,55,49,51,89,74,60,56,58,42,47,52,54,49,55,68,48,37,44,53,49,50,39,31,66,75,57,47,63,36,41,100,46,77,59,63,48,41,78,41,98,72,52,81,57,37,59,37,43,105,61,68,54,46,59,41,31,69,100,50,36,114,54,41,66,39,41,102,57,40,60,60,40,54,73,59,106,86,86,56,117,63,49,66,36,42,107,56,100,87,57,54,46,42,33,71,73,60,55,51,38,43,103,75,56,100,67,57,101,105,55,115,83,55,49,43,58,34,44,95,59,58,62,79,63,53,49,56,60,73,93,53,51,68,62,100,52,77,71,56,44,48,52,74,55,71,54,65,60,221,77,41,102,97,103,68,137,117,58,170,86,160,84,141,159,200,117,208,275,130,127,143,128,204,158,89,84,115,85,83,54,117,130,153,100,160,140,100,141,332,118,133,100,276,153,167,145,135,183,101,138,132,82,117,147,178,105,88,129,300,252,218,230,194,135,124,118,129,100,100,85,97,110,82,96,130,60,93,73,108,148,182,105,131,91,156,170,183,100,130,170,170,130,13,61,119,237,170,153,247,200,200,186,114,200,200,124,390,125,94,181,307,179,100,121,304,144,301,130,325,175,300,224,219,301,94,162,200,200,200,300,148,152,128,144,228,129,238,233,231,269,140,260,86,93,138,160,178,145,270,205,225,156,175,109,204,156,87,89,124,159,84,157,200,243,176,113,210,290,268,269,207,200,184,286,154,200,183,172,166,178,13,108,135,118,119,107,170,230,100,300,100,241,159,200,100,163,312,147,140,196,96,177,170,200,350,150,256,176,292,75,200,188,270,142,100,200,126,274,200,374,268,145,113,138,262,300,265,161,161,158,191,264,163,98,139,100,84,205,66,135,159,127,224,147,153,100,200,167,133,15,32,101,152,100,100,117,255,413,136,79,70,130,75,125,154,78,113,155,124,250,186,187,253,163,85,220,352,169,251,129,131,176,91,111,152,139,194,237,227,173,145,150,105,121,196,204,279,100,200,100,118,148,234,160,226,114,218,82,100,14,62,46,119,91,193,175,100,92,254,154,183,143,203,309,217,176,141,128,262,217,168,153,100,163,102,216,119,300,169,197,234,320,280,12,88,169,231,153,76,91,80,151,129,120,200,200,178,189,153,125,77,146,232,138,162,200,156,118,226,200,100,121,79,141,126,69,300,307,357,200,100,241,203,85,142,251,143,135,144,193,154,394,254,161,200,188,183,186,211,156,206,170,200,174,216,335,175,600,216,484,189,139,172,87,46,167,86,99,73,84,158,270,730,380,242,778,100,300,169,148,183,258,226,91,125,148,74,78,131,109,96,164,91,149,218,242,155,177,337,147,133,183,168,149,287,148,131,285,219,281,200,200,100,200,215,129,204,252,200,193,101,106,137,163,100,100,400,178,384,138,100,132,253,115,200,118,150,181,309,131,157,248,134,72,78,147,100,105,115,155,225,175,200,116,139,133,145,233,174,260,300,338,354,208,122,78,48,352,53,47,49,168,35,125,180,77,266,200,183,117,165,273,162,114,150,205,301,130,235,316,186,199,264,300,300,10,40,41,38,47,79,75,116,141,93,145,175,100,140,148,70,58,137,103,128,84,88,171,51,57,85,80,118,82,124,118,58,136,130,107,162,107,109,94,155,86,59,86,59,110,116,228,76,101,96,100,142,110,131,75,92,66,47,66,145,74,103,63,69,141,121,138,91,109,100,139,100,96,105,100,104,131,125,100,129,171,100,100,25,29,29,30,72,70,45,81,43,76,100,32,41,49,58,76,33,36,63,52,60,88,69,43,36,42,56,66,51,88,61,54,64,48,86,77,61,54,56,47,42,38,34,39,55,45,69,57,39,67,68,43,77,40,58,52,70,37,72,51,56,61,54,66,63,81,64,55,52,48,63,59,78,53,73,74,47,44,52,49,52,42,47,43,64,60,52,48,30,38,66,35,49,39,43,46,78,76,58,42,42,258,51,49,93,55,38,52,41,46,56,71,126,61,79,59,62,61,66,56,63,61,54,50,76,74,48,52,52,40,54,54,49,51,49,39,59,45,51,57,50,50,57,63,61,64,74,61,73,76,62,54,55,42,30,41,63,124,48,52,45,55,45,55,49,51,40,60,47,44,69,40,47,37,42,41,78,42,44,69,46,54,42,58,87,104,73,119,88,113,69,107,58,82,83,57,88,72,93,92,55,92,88,226,146,308,100,300,154,146,120,80,71,109,82,102,136,80,53,59,66,56,113,73,100,129,106,65,71,92,63,57,89,57,57,59,55,60,61,58,108,113,100,84,74,55,87,81,31,32,79,65,79,93,58,74,132,86,49,56,62,47,52,65,59,42,73,85,52,48,70,121,335,174,300,371,329,300,270,230,73,59,80,53,187,148,125,175,100,188,312,200,356,144,121,139,114,78,218,47,83,186,114,100,164,173,123,420,120,100,219,306,169,141,215,201,249,122,219,124,186,149,234,139,181,146,85,115,130,170,137,87,170,95,204,69,238,200,200,100,400,128,255,217,200,9,70,137,125,286,130,343,223,171,184,166,187,144,113,169,144,139,174,74,181,310,166,92,112,252,200,134,442,261,116,146,68,132,317,259,111,278,120,145,270,100,176,224,146,124,178,244,138,170,200,141,122,127,66,171,297,176,200,131,192,236,141,100,324,159,217,320,123,114,119,99,73,72,180,119,109,173,339,124,170,88,279,179,138,183,9,54,87,77,173,187,95,100,159,183,176,218,107,230,244,224,176,63,83,154,200,200,126,117,257,132,132,136,200,238,198,44,145,197,116,139,260,163,213,228,93,118,148,348,222,131,280,120,115,335,164,150,215,120,11,13,117,98,233,128,217,178,143,162,234,157,388,306,415,200,140,260,100,223,246,331,281,219,139,176,169,116,155,108,138,68,132,74,85,159,113,137,69,142,89,167,83,182,331,150,192,308,167,134,218,262,138,10,37,91,95,118,68,81,100,154,146,133,133,206,52,106,91,142,102,171,139,96,129,200,152,86,100,62,93,107,86,106,294,214,77,144,107,100,133,114,114,78,93,97,74,143,146,80,145,129,84,180,92,135,106,106,71,99,140,112,100,120,80,200,100,144,122,102,88,81,86,198,100,79,67,59,75,92,80,54,115,83,99,106,117,153,152,100,74,75,9,35,93,51,70,76,102,116,48,76,55,69,80,65,74,81,100,100,84,61,55,59,60,75,52,41,50,55,97,85,74,74,78,39,82,71,124,84,100,72,97,89,42,37,63,39,88,98,75,70,69,42,103,73,81,144,74,86,58,8,66,66,75,185,116,34,119,104,147,99,139,142,155,120,174,251,148,152,100,227,173,214,169,143,159,115,117,116,157,127,183,100,136,164,100,100,9,74,172,267,178,92,128,234,175,237,190,204,140,100,464,214,273,165,99,285,229,127,134,194,152,339,125,200,219,217,164,178,222,200,300,76,167,157,317,38,45,100,71,79,150,100,235,129,110,374,228,79,163,182,300,135,125,97,87,169,187,127,155,118,162,121,234,125,139,136,154,97,332,47,153,46,209,232,291,113,68,141,287,384,207,105,172,345,293,281,213,91,242,142,131,107,200,462,338,329,171,600,145,236,201,118,112,188,300,75,325,128,372,320,203,277,222,166,188,124,42,112,67,93,86,133,127,53,114,62,90,74,47,100,100,128,85,66,82,58,65,116,50,50,45,102,88,83,75,82,64,61,83,58,59,154,122,146,144,64,70,91,76,95,138,34,33,33,31,37,32,38,40,33,28,46,43,43,76,53,100,57,43,67,54,47,57,94,75,90,59,57,100,100,100,54,64,54,48,62,65,83,82,60,76,69,83,67,91,80,78,70,65,77,72,100,121,58,51,62,69,75,64,121,79,20,32,31,38,36,37,41,31,48,40,46,58,66,76,65,135,53,98,79,89,204,77,78,86,65,71,82,82,80,76,80,81,61,78,80,82,95,123,49,70,59,83,83,94,78,84,123,109,68,33,44,38,38,34,30,38,28,46,45,42,43,41,36,35,47,42,56,41,43,40,33,208,36,41,142,100,122,95,133,168,303,38,41,54,59,39,48,60,40,53,47,50,50,64,36,47,38,40,51,38,86,36,32,50,54,28,63,57,46,34,100,49,74,77,66,51,83,100,90,101,49,60,100,52,60,68,44,76,58,89,69,44,77,37,92,76,58,100,74,52,41,97,73,42,94,67,77,109,59,40,75,46,85,90,54,53,72,52,95,53,73,74,53,62,67,71,17,28,27,28,49,51,56,44,86,46,68,50,50,69,63,61,55,52,39,41,47,53,46,74,49,32,68,51,90,52,48,51,184,51,89,53,82,58,83,59,100,52,70,56,51,49,49,25,48,39,49,48,49,105,53,95,50,54,58,63,57,42,57,24,57,46,54,49,51,40,60,58,62,68,62,85,65,100,36,37,27,45,41,40,42,74,80,43,35,32,32,36,39,61,56,64,57,43,44,21,57,41,53,36,60,32,27,26,28,33,49,29,44,35,27,30,35,37,69,35,32,34,52,60,107,37,48,62,58,42,41,44,37,42,54,39,64,79,90,86,39,57,78,34,34,53,78,69,55,77,74,54,59,63,39,35,48,46,60,59,51,42,71,49,50,50,53,64,54,69,31,29,49,51,88,106,106,312,88,118,182,157,166,366,111,246,296,223,167,292,130,146,261,439,284,202,165,149,349,200,490,239,222,173,259,222,290,198,158,371,382,238,196,313,213,245,165,94,105,156,180,169,91,82,600,117,435,148,118,154,240,388,239,361,262,338,187,137,264,127,185,152,203,145,147,253,137,243,220,453,147,131,461,108,161,139,200,222,559,219,400,200,100,100,94,139,267,261,139,120,130,98,152,166,90,344,116,228,94,99,263,177,117,206,200,200,200,185,131,108,276,200,200,251,249,226,251,123,132,109,109,150,112,172,149,105,262,200,169,150,105,264,126,237,164,85,400,300,178,287,135,350,216,146,72,145,327,244,120,108,267,218,205,258,124,500,166,334,274,226,83,117,163,103,151,83,80,120,130,87,77,106,92,67,141,100,121,79,153,132,105,127,142,82,75,84,120,150,130,100,42,50,50,43,35,36,105,39,50,50,43,57,34,40,85,41,94,24,68,32,32,65,41,59,44,57,31,68,57,51,47,84,86,60,52,35,42,39,105,38,82,107,118,116,45,69,52,122,104,74,151,49,15,21,38,43,47,58,142,36,79,67,72,66,57,73,41,59,102,61,92,48,39,29,28,87,87,33,40,33,32,23,30,70,52,50,50,38,41,36,28,36,63,58,43,57,40,43,59,47,57,54,44,56,48,52,41,120,39,38,29,49,41,43,100,28,38,54,27,26,40,23,41,37,43,26,52,52,32,49,60,51,50,92,66,62,51,57,43,59,51,66,46,78,87,105,108,100,123,57,65,155,63,52,185,47,80,73,49,101,50,36,80,84,56,62,55,51,121,40,130,85,125,90,102,183,112,88,83,68,86,105,82,104,130,108,93,100,141,127,73,85,106,72,91,65,67,96,155,112,93,73,129,156,27,32,41,62,52,71,52,63,89,79,84,48,55,93,118,80,91,63,100,700,30,21,22,27,27,32,25,38,37,41,43,45,27,35,34,56,30,30,27,31,16,26,35,51,47,27,40,30,24,29,530,22,26,30,32,23,54,47,37,36,26,32,49,46,48,43,36,60,61,46,33,88,48,29,28,107,42,47,54,52,50,40,30,23,37,55,20,40,61,49,34,50,40,44,32,46,32,36,30,35,42,41,24,31,41,42,34,35,47,33,38,59,54,50,72,78,84,109,64,71,72,66,77,86,89,59,83,57,108,75,77,48,59,42,97,58,145,74,61,83,56,79,98,117,84,111,111,33,33,34,32,32,27,37,36,36,37,34,29,27,52,43,38,40,51,49,44,42,29,44,41,40,28,90,42,58,54,57,50,36,45,36,45,40,64,49,43,51,35,75,53,40,62,42,65,47,53,26,33,41,26,31,43,30,32,38,40,45,52,41,65,44,30,49,66,56,53,43,32,39,60,37,26,55,51,51,65,33,28,28,25,56,44,108,142,78,158,33,33,33,33,32,35,33,36,31,55,35,43,36,31,38,62,52,48,52,48,30,37,33,41,59,52,66,42,57,49,54,35,45,50,50,45,27,47,47,88,46,76,41,34,49,100,20,29,38,42,29,26,35,35,18,28,32,27,28,27,22,20,39,32,40,33,31,32,37,47,38,35,31,23,26,23,24,37,33,44,24,29,67,35,33,51,36,64,34,42,39,43,42,37,37,43,38,45,39,39,40,43,39,31,33,36,38,48,27,38,49,50,50,26,46,46,82,37,41,38,46,54,74,54,57,46,41,29,36,40,44,40,43,46,49,86,28,72,52,48,22,56,57,39,26,37,47,49,67,70,62,46,62,60,41,25,34,43,41,59,44,90,37,45,91,50,69,73,58,91,44,65,35,34,31,45,40,91,56,53,48,58,35,27,47,36,47,38,37,42,42,40,75,43,53,47,100,39,33,28,39,38,36,67,98,104,145,160,36,38,39,38,34,44,26,47,44,37,30,33,39,28,52,48,34,58,39,36,47,44,42,29,32,39,30,70,44,34,37,45,40,30,70,30,40,30,34,46,50,33,37,54,40,59,47,48,39,29,36,40,50,48,37,29,28,39,31,33,30,30,30,65,48,55,55,52,48,39,61,46,54,17,22,31,30,48,52,28,51,59,37,43,45,50,35,117,101,53,63,55,47,59,57,125,59,56,43,55,62,56,44,37,37,26,55,56,46,43,45,36,39,37,43,18,50,32,40,115,45,71,29,29,35,36,41,43,43,38,56,40,39,43,38,77,102,40,28,32,40,30,41,29,32,40,28,32,52,31,46,39,47,34,36,43,54,59,27,20,34,46,63,53,48,36,47,53,51,49,51,49,32,31,37,35,34,31,35,25,40,59,41,100,46,54,49,41,42,40,52,44,32,46,42,31,48,33,35,39,61,39,26,33,67,52,48,51,96,53,129,56,27,105,183,167,117,216,48,43,39,37,33,82,60,58,38,39,41,41,41,45,38,46,71,43,57,20,26,46,67,63,52,44,52,30,61,39,31,34,30,34,45,26,45,55,19,44,137,47,53,48,52,43,37,51,39,30,79,60,61,54,46,33,67,66,134,64,58,66,39,73,49,51,56,44,100,52,48,52,48,57,43,68,99,133,45,55,48,52,100,35,28,37,100,48,35,52,65,100,54,32,36,64,114,100","perPage":"7,5,11,8,5,8,11,9,4,8,7,7,5,5,8,4,7,7,7,8,7,4,8,10,6,7,5,5,4,6,6,8,5,4,5,6,3,4,8,3,4,4,3,5,5,5,7,1,4,9,6,7,7,8,8,7,9,9,7,6,8,9,8,7,6,11,8,8,5,4,8,8,7,6,8,6,6,5,3,5,4,3,7,4,7,7,8,6,9,5,7,5,3,7,4,8,8,6,7,6,7,7,8,8,5,3,3,4,4,4,6,8,5,5,4,5,7,7,6,7,6,7,5,8,5,5,7,8,10,9,8,9,8,7,9,5,8,9,4,7,9,8,6,6,7,5,4,5,6,8,11,11,8,7,6,8,6,10,6,8,6,8,9,16,10,7,6,6,6,4,4,7,8,9,8,11,8,8,9,8,7,5,7,9,8,6,6,7,7,6,5,5,4,7,7,7,7,4,7,7,7,6,7,5,6,5,7,6,8,6,5,8,9,11,8,9,8,10,9,9,8,7,7,9,9,8,8,9,9,10,7,9,11,9,10,10,8,8,7,6,9,11,6,9,8,9,8,8,5,8,5,10,6,8,6,5,8,6,9,9,10,15,16,20,19,20,15,8,12,8,8,12,10,8,7,8,6,9,8,8,10,7,10,10,11,11,9,8,9,11,10,8,11,11,5,7,7,11,8,8,13,9,14,13,11,14,13,13,13,12,19,15,25,14,13,12,11,11,15,12,10,10,14,11,9,13,15,9,9,11,11,5,10,8,7,8,8,9,9,8,6,17,10,15,17,15,15,15,14,10,10,7,4,5,7,10,5,3,5,9,9,12,11,12,12,10,19,20,21,23,28,25,23,24,23,21,13,9,13,9,11,8,13,12,10,8,8,7,7,8,7,9,11,7,7,10,8,9,7,8,7,7,11,11,10,9,8,9,9,10,11,8,9,6,11,9,10,6,9,7,8,5,8,7,4,8,11,7,7,8,9,8,9,9,8,7,12,8,6,13,15,13,14,16,13,24,27,25,26,24,27,29,16,10,16,19,22,10,5,11,10,9,7,9,11,7,8,9,9,8,7,9,9,8,11,8,11,9,9,9,8,8,10,5,7,9,13,7,12,12,11,14,13,13,16,18,21,20,13,9,10,10,9,6,8,7,11,8,10,9,9,6,8,5,5,7,7,15,20,16,24,21,23,17,18,26,18,24,21,22,24,23,28,25,34,26,23,8,7,6,5,6,5,10,4,6,7,8,5,6,7,9,8,7,7,9,9,5,7,7,5,12,14,20,26,18,27,27,30,14,18,13,15,19,19,29,28,26,20,25,31,30,26,30,40,31,23,29,27,23,27,31,26,26,26,25,26,17,16,25,17,14,14,15","juz":[1,149,260,386,517,641,751,900,1042,1201,1328,1479,1649,1803,2030,2215,2484,2674,2876,3215,3386,3564,3733,4090,4265,4511,4706,5105,5242,5673]};
+
+// ── Hifz and revision tracking ──
+// Portions are stored as positions in the mushaf, 1 to 6,236 in Hafs numbering. Everything else
+// (verses, lines, pages, juz) is worked out here from the Madinah mushaf's layout.
+const MUSHAF = (() => {
+  const S = QURAN_DATA.surahs;                                   // [name, Arabic name, ayat]
+  const start = [0]; S.forEach(s => start.push(start[start.length - 1] + s[2]));
+  const per = new Float64Array(6237), pre = new Float64Array(6237);
+  QURAN_DATA.lines.split(',').forEach((v, i) => { per[i + 1] = +v / 100; pre[i + 1] = pre[i] + per[i + 1]; });
+  const surahOf = new Uint8Array(6237);
+  S.forEach((s, i) => { for (let a = 1; a <= s[2]; a++) surahOf[start[i] + a] = i + 1; });
+  const pageOf = new Uint16Array(6237); let g = 1;
+  QURAN_DATA.perPage.split(',').forEach((n, p) => { for (let k = 0; k < +n; k++) pageOf[g++] = p + 1; });
+  const juz = QURAN_DATA.juz;
+  const M = {
+    S, total: pre[6236],
+    g: (s, a) => start[s - 1] + a,
+    sa: x => { const s = surahOf[x]; return [s, x - start[s - 1]]; },
+    name: s => S[s - 1][0], ayat: s => S[s - 1][2],
+    lines: (a, b) => pre[b] - pre[a - 1],
+    line: x => per[x],
+    page: x => pageOf[x],
+    juzOf: x => { let j = 0; while (j < 29 && juz[j + 1] <= x) j++; return j + 1; },
+    juzRange: j => [juz[j - 1], j < 30 ? juz[j] - 1 : 6236],
+  };
+  M.juzLines = M.total / 30;
+  return M;
+})();
+
+const fmtNum = (x, d = 1) => Number(x).toLocaleString('en-GB', { maximumFractionDigits: d });
+function linesText(x) {
+  const v = x >= 20 ? Math.round(x) : Math.round(x * 10) / 10;
+  return `${fmtNum(v)} ${v === 1 ? 'line' : 'lines'}`;
+}
+function juzText(lines) {
+  const j = lines / MUSHAF.juzLines;
+  return j >= 30 - 1e-6 ? 'the whole Qur’an' : `${fmtNum(j, j < 10 ? 1 : 0)} juz`;
+}
+function rangeLabel(a, b) {
+  for (let j = 1; j <= 30; j++) { const [x, y] = MUSHAF.juzRange(j); if (x === a && y === b) return `Juz ${j}`; }
+  const [s1, a1] = MUSHAF.sa(a), [s2, a2] = MUSHAF.sa(b);
+  const whole = a1 === 1 && a2 === MUSHAF.ayat(s2);
+  if (s1 === s2) return whole ? MUSHAF.name(s1) : a1 === a2 ? `${MUSHAF.name(s1)} ${a1}` : `${MUSHAF.name(s1)} ${a1} to ${a2}`;
+  return whole ? `${MUSHAF.name(s1)} to ${MUSHAF.name(s2)}` : `${MUSHAF.name(s1)} ${a1} to ${MUSHAF.name(s2)} ${a2}`;
+}
+function sizeText(a, b) { const v = b - a + 1; return `${v} ${v === 1 ? 'verse' : 'verses'}, ${linesText(MUSHAF.lines(a, b))}`; }
+function mergeRanges(list) {
+  const r = list.filter(x => x && x[0] && x[1]).map(x => [Math.min(x[0], x[1]), Math.max(x[0], x[1])]).sort((p, q) => p[0] - q[0]);
+  const out = [];
+  r.forEach(x => { const last = out[out.length - 1]; if (last && x[0] <= last[1] + 1) last[1] = Math.max(last[1], x[1]); else out.push(x.slice()); });
+  return out;
+}
+
+// ── The portion picker ──
+const SURAH_OPTIONS = () => '<option value="">Surah</option>' + MUSHAF.S.map((s, i) => `<option value="${i + 1}">${i + 1}. ${esc(s[0])}</option>`).join('');
+// mode 'mem' leaves the end for the teacher; 'whole' fills in the whole surah when one is picked
+function buildRangePicker(prefix, mode, withJuz) {
+  const opts = SURAH_OPTIONS();
+  $(prefix + '-range').innerHTML = `
+    <div class="ar-row"><span class="ar-tag">From</span>
+      <select class="input ar-s" id="${prefix}-from-s" aria-label="First surah">${opts}</select>
+      <input type="number" class="input ar-a" id="${prefix}-from-a" inputmode="numeric" min="1" placeholder="Ayah" aria-label="First ayah"></div>
+    <div class="ar-row"><span class="ar-tag">To</span>
+      <select class="input ar-s" id="${prefix}-to-s" aria-label="Last surah">${opts}</select>
+      <input type="number" class="input ar-a" id="${prefix}-to-a" inputmode="numeric" min="1" placeholder="Ayah" aria-label="Last ayah"></div>
+    ${withJuz ? `<label class="ar-juz"><span>or a whole juz</span><select class="input" id="${prefix}-juz" aria-label="A whole juz"><option value="">Choose a juz</option>${Array.from({ length: 30 }, (_, i) => `<option value="${i + 1}">Juz ${i + 1}</option>`).join('')}</select></label>` : ''}
+    <p class="ar-sum" id="${prefix}-sum" aria-live="polite"></p>`;
+  wireRangePicker(prefix, mode);
+}
+function wireRangePicker(prefix, mode) {
+  const el = k => $(`${prefix}-${k}`);
+  const fit = () => {
+    ['from', 'to'].forEach(e => { const s = +el(e + '-s').value; el(e + '-a').max = s ? MUSHAF.ayat(s) : ''; });
+    rangeSummary(prefix, mode);
+  };
+  el('from-s').addEventListener('change', () => {
+    const s = +el('from-s').value;
+    // Setting the first surah back to blank clears the whole portion
+    if (!s) { ['from-a', 'to-s', 'to-a'].forEach(k => { el(k).value = ''; }); fit(); return; }
+    if (mode === 'whole') { el('from-a').value = 1; el('to-s').value = s; el('to-a').value = MUSHAF.ayat(s); }
+    else {
+      if (!+el('from-a').value || +el('from-a').value > MUSHAF.ayat(s)) el('from-a').value = 1;
+      if (!+el('to-s').value || +el('to-s').value < s) { el('to-s').value = s; el('to-a').value = ''; }
+    }
+    fit();
+  });
+  el('to-s').addEventListener('change', () => {
+    const s = +el('to-s').value;
+    if (!s) el('to-a').value = '';
+    else if (mode === 'whole') el('to-a').value = MUSHAF.ayat(s);
+    else if (s && +el('to-a').value > MUSHAF.ayat(s)) el('to-a').value = '';
+    fit();
+  });
+  ['from-a', 'to-a'].forEach(k => el(k).addEventListener('input', fit));
+  if (el('juz')) el('juz').addEventListener('change', () => {
+    const j = +el('juz').value; if (!j) return;
+    const [a, b] = MUSHAF.juzRange(j), [s1, a1] = MUSHAF.sa(a), [s2, a2] = MUSHAF.sa(b);
+    el('from-s').value = s1; el('from-a').value = a1; el('to-s').value = s2; el('to-a').value = a2;
+    el('juz').value = ''; fit();
+  });
+}
+function setRange(prefix, a, b) {
+  const el = k => $(`${prefix}-${k}`);
+  if (a) { const [s, x] = MUSHAF.sa(a); el('from-s').value = s; el('from-a').value = x; } else { el('from-s').value = ''; el('from-a').value = ''; }
+  if (b) { const [s, x] = MUSHAF.sa(b); el('to-s').value = s; el('to-a').value = x; } else { el('to-s').value = a ? MUSHAF.sa(a)[0] : ''; el('to-a').value = ''; }
+}
+function readRange(prefix) {
+  const v = k => { const x = $(`${prefix}-${k}`).value; return x === '' ? 0 : Number(x); };
+  const fs = v('from-s'), fa = v('from-a'), ts = v('to-s'), ta = v('to-a');
+  if (!fs && !ts && !ta) return { state: 'empty' };
+  if (!fs || !fa || !ts || !ta) return { state: 'partial' };
+  if (![fa, ta].every(Number.isInteger) || fa < 1 || ta < 1 || fa > MUSHAF.ayat(fs) || ta > MUSHAF.ayat(ts))
+    return { state: 'invalid', msg: `Check the ayah numbers. ${MUSHAF.name(fa > MUSHAF.ayat(fs) || fa < 1 ? fs : ts)} has ${MUSHAF.ayat(fa > MUSHAF.ayat(fs) || fa < 1 ? fs : ts)}.` };
+  const a = MUSHAF.g(fs, fa), b = MUSHAF.g(ts, ta);
+  if (b < a) return { state: 'invalid', msg: 'The last ayah comes before the first one.' };
+  return { state: 'ok', from: a, to: b };
+}
+function rangeSummary(prefix, mode) {
+  const out = $(prefix + '-sum'); if (!out) return;
+  const r = readRange(prefix);
+  out.classList.toggle('warn', r.state === 'invalid');
+  if (r.state === 'invalid') { out.textContent = r.msg; return; }
+  if (r.state === 'ok') {
+    const [p1, p2] = [MUSHAF.page(r.from), MUSHAF.page(r.to)];
+    let note = '';
+    if (prefix === 'mem') {
+      const known = knownMap($('session-student').value);
+      let had = 0; for (let x = r.from; x <= r.to; x++) if (known[x]) had++;
+      const n = r.to - r.from + 1;
+      if (had === n) note = ' They already knew all of this, so it won’t add to their total.';
+      else if (had) note = ` They already knew ${had} of ${n === 2 ? 'these' : 'these verses'}.`;
+    }
+    out.innerHTML = `<strong>${sizeText(r.from, r.to)}</strong>, ${p1 === p2 ? `page ${p1}` : `pages ${p1} to ${p2}`}.${note}`;
+    return;
+  }
+  if (prefix === 'mem') out.textContent = (state.portionHint ? state.portionHint + ' ' : '') + (r.state === 'partial' ? 'Choose the last ayah they memorised today.' : 'Nothing new recorded.');
+  else if (mode === 'whole' && prefix === 'rev') out.textContent = r.state === 'partial' ? 'Choose where the revision ended.' : 'Choose a surah, or a whole juz.';
+  else out.textContent = r.state === 'partial' ? 'Choose where it ends.' : '';
+}
+
+// ── What a student knows, and what comes next ──
+function knownMap(id) {
+  const k = new Uint8Array(6237), st = getStudent(id);
+  if (!st) return k;
+  (st.hifz ? st.hifz.known : []).forEach(([a, b]) => k.fill(1, a, b + 1));
+  state.sessions.forEach(s => { if (s.studentId === id && s.memorization.to) k.fill(1, s.memorization.from, s.memorization.to + 1); });
+  return k;
+}
+function nextPortion(id) {
+  const st = getStudent(id); if (!st) return null;
+  const dir = st.hifz && st.hifz.direction === 'start' ? 1 : -1;
+  const known = knownMap(id);
+  // Newest first. Two lessons on the same day go by when they were saved.
+  const done = state.sessions.map((s, i) => [s, i]).filter(([s]) => s.studentId === id && s.memorization.to)
+    .sort(([a, i], [b, j]) => b.date.localeCompare(a.date) || b.created.localeCompare(a.created) || j - i).map(([s]) => s);
+  const last = done[0];
+  let s, a, step = dir;
+  if (last) {
+    [s, a] = MUSHAF.sa(last.memorization.to); a += 1;
+    if (a > MUSHAF.ayat(s)) {
+      // Finished a surah. Keep the way they've been moving lately, otherwise their usual direction.
+      const before = done.map(x => MUSHAF.sa(x.memorization.from)[0]).find(x => x !== s);
+      if (before) step = before < s ? 1 : -1;
+      s += step; a = 1;
+    }
+  } else { s = dir === 1 ? 1 : 114; a = 1; }
+  for (let n = 0; n < 115 && s >= 1 && s <= 114; n++) {
+    while (a <= MUSHAF.ayat(s) && known[MUSHAF.g(s, a)]) a++;
+    if (a <= MUSHAF.ayat(s)) return { g: MUSHAF.g(s, a), after: last ? last.memorization.to : null };
+    s += step; a = 1;
+  }
+  return null;
+}
+function prefillPortion() {
+  if (!FEATURES.hifz) return;
+  const id = $('session-student').value;
+  state.portionHint = '';
+  setRange('mem', null, null);
+  if (id) {
+    const next = nextPortion(id);
+    if (next) {
+      setRange('mem', next.g, null);
+      state.portionHint = next.after ? `Carrying on after ${rangeLabel(next.after, next.after)}.` : 'Starting after what they knew when they joined.';
+    } else if (knownMap(id).slice(1).every(Boolean)) state.portionHint = 'They have memorised the whole Qur’an, mā shā’ Allāh.';
+  }
+  ['from', 'to'].forEach(e => { const s = +$('mem-' + e + '-s').value; $('mem-' + e + '-a').max = s ? MUSHAF.ayat(s) : ''; });
+  rangeSummary('mem', 'mem');
+}
+function resetRevisionPicker() {
+  if (!FEATURES.hifz) return;
+  setRange('rev', null, null); $('rev-to-s').value = ''; $('rev-mistake-count').value = '';
+  rangeSummary('rev', 'whole');
+}
+// The text the rest of the portal (and the older page) reads, filled in from the portions
+function hifzPayload() {
+  const m = readRange('mem'), r = readRange('rev');
+  if (m.state === 'invalid') return { error: 'Memorisation: ' + m.msg, field: 'mem-to-a' };
+  if (r.state === 'invalid') return { error: 'Revision: ' + r.msg, field: 'rev-to-a' };
+  if (r.state === 'partial') return { error: 'Revision: choose where it ends, or clear the surah.', field: 'rev-to-a' };
+  const mc = $('rev-mistake-count').value.trim();
+  if (mc !== '' && !/^\d{1,3}$/.test(mc)) return { error: 'Mistakes counted should be a number, like 0 or 3.', field: 'rev-mistake-count' };
+  const out = { mem_from: null, mem_to: null, rev_from: null, rev_to: null, rev_mistake_count: mc === '' ? null : Number(mc), mem_surah: '', mem_verses: '', rev_content: '' };
+  if (m.state === 'ok') {
+    const [s1, a1] = MUSHAF.sa(m.from), [s2, a2] = MUSHAF.sa(m.to);
+    Object.assign(out, { mem_from: m.from, mem_to: m.to });
+    if (s1 === s2) Object.assign(out, { mem_surah: MUSHAF.name(s1), mem_verses: a1 === a2 ? `${a1}` : `${a1} to ${a2}` });
+    else out.mem_surah = rangeLabel(m.from, m.to);
+  }
+  if (r.state === 'ok') Object.assign(out, { rev_from: r.from, rev_to: r.to, rev_content: rangeLabel(r.from, r.to) });
+  return { data: out };
+}
+
+// ── The numbers behind the charts ──
+function isoDay(d) { return localISO(d); }
+function mondayOf(iso) { const d = parseDate(iso); d.setDate(d.getDate() - (d.getDay() + 6) % 7); return isoDay(d); }
+function addDays(iso, n) { const d = parseDate(iso); d.setDate(d.getDate() + n); return isoDay(d); }
+function hifzStats(id, upto = localISO()) {
+  const st = getStudent(id); if (!st) return null;
+  const known = new Uint8Array(6237);
+  (st.hifz ? st.hifz.known : []).forEach(([a, b]) => known.fill(1, a, b + 1));
+  let base = 0; for (let x = 1; x <= 6236; x++) if (known[x]) base += MUSHAF.line(x);
+  const list = state.sessions.filter(s => s.studentId === id && s.date && s.date <= upto).sort((a, b) => a.date.localeCompare(b.date));
+  const mem = [], rev = []; let total = base, lastSeen = new Array(31).fill('');
+  list.forEach(s => {
+    const m = s.memorization, r = s.revision;
+    if (m.to) {
+      let added = 0;
+      for (let x = m.from; x <= m.to; x++) if (!known[x]) { known[x] = 1; added += MUSHAF.line(x); }
+      total += added;
+      mem.push({ date: s.date, from: m.from, to: m.to, added, size: MUSHAF.lines(m.from, m.to), total });
+      for (let j = MUSHAF.juzOf(m.from); j <= MUSHAF.juzOf(m.to); j++) lastSeen[j] = s.date;
+    }
+    if (r.to) {
+      rev.push({ date: s.date, from: r.from, to: r.to, size: MUSHAF.lines(r.from, r.to), mistakes: r.mistakeCount });
+      for (let j = MUSHAF.juzOf(r.from); j <= MUSHAF.juzOf(r.to); j++) lastSeen[j] = s.date;
+    }
+  });
+  // Week by week, from the first portion recorded to this week
+  const firstDate = [mem[0], rev[0]].filter(Boolean).map(x => x.date).sort()[0];
+  const weeks = [];
+  if (firstDate) {
+    for (let w = mondayOf(firstDate); w <= upto; w = addDays(w, 7)) weeks.push({ start: w, added: 0, size: 0, revised: 0, mistakes: 0, counted: 0 });
+    const at = d => weeks[Math.round((parseDate(mondayOf(d)) - parseDate(weeks[0].start)) / 6048e5)];
+    mem.forEach(m => { const w = at(m.date); if (w) { w.added += m.added; w.size += m.size; } });
+    rev.forEach(r => { const w = at(r.date); if (w) { w.revised += r.size; if (r.mistakes != null) { w.mistakes += r.mistakes; w.counted += r.size; } } });
+  }
+  const recent = weeks.slice(-4);
+  const pace = recent.length ? recent.reduce((t, w) => t + w.added, 0) / recent.length : 0;
+  // Steady, uneven or stalled, over the last eight weeks
+  const span = weeks.slice(-8), n = span.length;
+  let consistency = { key: 'early', label: 'Too early to tell', text: 'This needs three weeks of lessons recorded with the portion picker.' };
+  if (n >= 3) {
+    const active = span.filter(w => w.added > 0).length;
+    const mean = span.reduce((t, w) => t + w.added, 0) / n;
+    const sd = Math.sqrt(span.reduce((t, w) => t + (w.added - mean) ** 2, 0) / n);
+    const cv = mean ? sd / mean : 0;
+    if (weeks.slice(-3).every(w => w.added === 0)) consistency = { key: 'stalled', label: 'Stalled', text: 'No new memorisation in the last three weeks.' };
+    else if (active / n >= 0.75 && cv <= 0.6) consistency = { key: 'steady', label: 'Steady', text: `New memorisation in ${active} of the last ${n} weeks, at a similar amount each time.` };
+    else consistency = { key: 'uneven', label: 'Uneven', text: active / n < 0.75 ? `New memorisation in ${active} of the last ${n} weeks.` : `New memorisation every week, but the amount changes a lot.` };
+  }
+  // Each juz: how much they know, and when they last went over it
+  const juz = Array.from({ length: 30 }, (_, i) => {
+    const j = i + 1, [a, b] = MUSHAF.juzRange(j);
+    let k = 0; for (let x = a; x <= b; x++) if (known[x]) k += MUSHAF.line(x);
+    return { j, pct: k / MUSHAF.lines(a, b), lines: k, last: lastSeen[j] };
+  });
+  // Forecast from the last four weeks' pace
+  const lastMem = mem[mem.length - 1];
+  const cur = lastMem ? MUSHAF.juzOf(lastMem.to) : null;
+  const curLeft = cur ? MUSHAF.lines(...MUSHAF.juzRange(cur)) - juz[cur - 1].lines : 0;
+  const when = left => pace > 0.05 ? addDays(upto, Math.ceil(left / pace) * 7) : null;
+  // Revision in the last 30 days, and mistakes a page against the 30 days before
+  const since = addDays(upto, -30), before = addDays(upto, -60);
+  const revMap = new Uint8Array(6237);
+  rev.filter(r => r.date > since).forEach(r => revMap.fill(1, r.from, r.to + 1));
+  let covered = 0; for (let x = 1; x <= 6236; x++) if (revMap[x] && known[x]) covered += MUSHAF.line(x);
+  const perPage = (from, to) => {
+    const rs = rev.filter(r => r.date > from && r.date <= to && r.mistakes != null);
+    const pages = rs.reduce((t, r) => t + r.size, 0) / 15;
+    return pages >= 0.5 ? rs.reduce((t, r) => t + r.mistakes, 0) / pages : null;
+  };
+  return {
+    base, total, added: total - base, mem, rev, weeks, pace, consistency, juz, cur, curLeft,
+    curDate: cur && curLeft > 0.05 ? when(curLeft) : null,
+    // Only offered when it's within reach, so a slow start doesn't show a date decades away
+    allDate: (d => d && parseDate(d).getFullYear() - parseDate(upto).getFullYear() <= 12 ? d : null)(when(MUSHAF.total - total)),
+    coverage: total ? covered / total : 0, revisedLines: covered,
+    mistakesNow: perPage(since, upto), mistakesBefore: perPage(before, since),
+    since: firstDate || null
+  };
+}
+
+// ── Charts ──
+function niceMax(v) {
+  if (v <= 0) return 10;
+  const p = Math.pow(10, Math.floor(Math.log10(v))), f = v / p;
+  return (f <= 1 ? 1 : f <= 2 ? 2 : f <= 2.5 ? 2.5 : f <= 5 ? 5 : 10) * p;
+}
+const shortDate = iso => formatDate(iso, { day: 'numeric', month: 'short' });
+function growthSVG(stats, st, W, H) {
+  const pad = { l: 44, r: 12, t: 12, b: 26 };
+  const startDate = [st.startDate, stats.mem[0] && stats.mem[0].date, stats.since].filter(Boolean).sort()[0] || localISO();
+  const pts = [{ date: startDate, total: stats.base }].concat(stats.mem.map(m => ({ date: m.date, total: m.total })));
+  const today = localISO();
+  const t0 = parseDate(startDate).getTime(), t1 = Math.max(parseDate(today).getTime(), t0 + 7 * 864e5);
+  // When they joined knowing a lot, the axis starts near that amount so the growth since is visible
+  const hi = Math.max(stats.total, 1), lo = stats.base;
+  let ymin = 0, ymax = niceMax(hi * 1.08), steps = 4;
+  if (lo > 0 && hi - lo < lo) {
+    const step = niceMax(Math.max((hi - lo) * 1.2, 4) / 4);
+    ymin = Math.floor(lo / step) * step;
+    steps = Math.max(3, Math.ceil((hi - ymin) * 1.05 / step));
+    ymax = ymin + step * steps;
+  }
+  const X = d => pad.l + (parseDate(d).getTime() - t0) / (t1 - t0) * (W - pad.l - pad.r);
+  const Y = v => pad.t + (1 - (v - ymin) / (ymax - ymin)) * (H - pad.t - pad.b);
+  let path = `M${X(pts[0].date)},${Y(pts[0].total)}`;
+  pts.slice(1).forEach(p => { path += `H${X(p.date)}V${Y(p.total)}`; });
+  path += `H${X(today)}`;
+  const area = ymin ? '' : `<path class="hz-area" d="${path}V${Y(0)}H${X(pts[0].date)}Z"/>`;
+  const grid = Array.from({ length: steps + 1 }, (_, i) => i / steps).map(f => { const v = ymin + (ymax - ymin) * f, y = Y(v); return `<line x1="${pad.l}" x2="${W - pad.r}" y1="${y}" y2="${y}"/><text x="${pad.l - 8}" y="${y + 4}" text-anchor="end">${fmtNum(v, 0)}</text>`; }).join('');
+  const ticks = []; const d = parseDate(startDate); d.setDate(1); d.setMonth(d.getMonth() + 1);
+  const months = Math.max(1, Math.round((t1 - t0) / 2.63e9)), every = Math.ceil(months / 6);
+  for (let i = 0; d.getTime() <= t1; i++, d.setMonth(d.getMonth() + 1)) if (i % every === 0) ticks.push(localISO(d));
+  const xl = ticks.map(t => `<text x="${X(t)}" y="${H - 6}" text-anchor="middle">${formatDate(t, { month: 'short' })}</text>`).join('');
+  const hits = pts.map((p, i) => i === 0 && pts[1] && pts[1].date === p.date ? '' : `<circle class="hz-pt" cx="${X(p.date)}" cy="${Y(p.total)}" r="3.5" data-i="${i}"/>`).join('');
+  return { pts, svg: `<svg class="hz-svg" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-label="Lines memorised over time, now ${linesText(stats.total)}">
+    <g class="hz-grid">${grid}</g><g class="hz-x">${xl}</g>
+    ${area}<path class="hz-line" d="${path}"/>${hits}
+    <line class="hz-cross" x1="0" x2="0" y1="${pad.t}" y2="${H - pad.b}" visibility="hidden"/><circle class="hz-dot" r="5" visibility="hidden"/>
+    <rect class="hz-hit" x="${pad.l}" y="0" width="${W - pad.l - pad.r}" height="${H}" fill="transparent"/></svg>`, X, Y };
+}
+function paceSVG(stats, W, H) {
+  const weeks = stats.weeks.slice(-12), pad = { l: 34, r: 8, t: 12, b: 26 };
+  const avg = weeks.map((w, i) => { const s = stats.weeks.slice(Math.max(0, stats.weeks.length - weeks.length + i - 3), stats.weeks.length - weeks.length + i + 1); return s.reduce((t, x) => t + x.added, 0) / s.length; });
+  const ymax = niceMax(Math.max(1, ...weeks.map(w => w.added), ...avg) * 1.1);
+  const slot = (W - pad.l - pad.r) / Math.max(weeks.length, 1), bw = Math.max(6, Math.min(26, slot * 0.58));
+  const Y = v => pad.t + (1 - v / ymax) * (H - pad.t - pad.b), base = Y(0);
+  const grid = [0, 0.5, 1].map(f => { const v = ymax * f, y = Y(v); return `<line x1="${pad.l}" x2="${W - pad.r}" y1="${y}" y2="${y}"/><text x="${pad.l - 7}" y="${y + 4}" text-anchor="end">${fmtNum(v, 0)}</text>`; }).join('');
+  const bars = weeks.map((w, i) => {
+    const cx = pad.l + slot * (i + 0.5), x = cx - bw / 2, h = base - Y(w.added), r = Math.min(4, h / 2, bw / 2);
+    const shape = w.added > 0 ? `<path class="hz-bar" d="M${x},${base}V${base - h + r}Q${x},${base - h} ${x + r},${base - h}H${x + bw - r}Q${x + bw},${base - h} ${x + bw},${base - h + r}V${base}Z"/>` : `<rect class="hz-zero" x="${x}" y="${base - 2}" width="${bw}" height="2" rx="1"/>`;
+    return `<g class="hz-wk" data-i="${i}">${shape}<rect class="hz-hit" x="${cx - slot / 2}" y="0" width="${slot}" height="${H}" fill="transparent"/></g>`;
+  }).join('');
+  const line = avg.map((v, i) => `${i ? 'L' : 'M'}${pad.l + slot * (i + 0.5)},${Y(v)}`).join('');
+  const every = Math.max(Math.ceil(weeks.length / 6), Math.ceil(54 / slot));
+  const lab = weeks.map((w, i) => (weeks.length - 1 - i) % every === 0 ? `<text x="${pad.l + slot * (i + 0.5)}" y="${H - 6}" text-anchor="middle">${shortDate(w.start)}</text>` : '').join('');
+  return { weeks, avg, svg: `<svg class="hz-svg" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-label="New lines each week for the last ${weeks.length} weeks">
+    <g class="hz-grid">${grid}</g><g class="hz-x">${lab}</g>${bars}${weeks.length > 1 ? `<path class="hz-avg" d="${line}"/>` : ''}</svg>` };
+}
+function drawHifzCharts() {
+  document.querySelectorAll('[data-hz-chart]').forEach(box => {
+    const id = box.dataset.student, st = getStudent(id); if (!st) return;
+    const stats = hifzStats(id), W = Math.max(260, Math.floor(box.clientWidth)), kind = box.dataset.hzChart;
+    const tip = document.createElement('div'); tip.className = 'hz-tip'; tip.hidden = true;
+    const show = (x, y, html) => { tip.innerHTML = html; tip.hidden = false; tip.style.left = Math.min(Math.max(x, 70), W - 70) + 'px'; tip.style.top = y + 'px'; };
+    if (kind === 'growth') {
+      const g = growthSVG(stats, st, W, 210);
+      box.innerHTML = g.svg; box.appendChild(tip);
+      const svg = box.querySelector('svg'), cross = svg.querySelector('.hz-cross'), dot = svg.querySelector('.hz-dot');
+      const move = e => {
+        const rect = svg.getBoundingClientRect(), px = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
+        let best = 0; g.pts.forEach((p, i) => { if (Math.abs(g.X(p.date) - px) < Math.abs(g.X(g.pts[best].date) - px)) best = i; });
+        const p = g.pts[best], x = g.X(p.date), y = g.Y(p.total);
+        cross.setAttribute('x1', x); cross.setAttribute('x2', x); cross.setAttribute('visibility', 'visible');
+        dot.setAttribute('cx', x); dot.setAttribute('cy', y); dot.setAttribute('visibility', 'visible');
+        show(x, y - 10, `<strong>${best ? formatDate(p.date, { day: 'numeric', month: 'short', year: 'numeric' }) : 'When they joined'}</strong>${linesText(p.total)}, ${juzText(p.total)}`);
+      };
+      const leave = () => { tip.hidden = true; cross.setAttribute('visibility', 'hidden'); dot.setAttribute('visibility', 'hidden'); };
+      svg.addEventListener('mousemove', move); svg.addEventListener('touchstart', move, { passive: true }); svg.addEventListener('touchmove', move, { passive: true });
+      svg.addEventListener('mouseleave', leave);
+    } else {
+      const p = paceSVG(stats, W, 190);
+      box.innerHTML = p.svg; box.appendChild(tip);
+      box.querySelectorAll('.hz-wk').forEach(g => {
+        const i = +g.dataset.i, w = p.weeks[i];
+        const on = () => {
+          box.querySelectorAll('.hz-wk').forEach(x => x.classList.toggle('dim', x !== g));
+          const r = g.querySelector('.hz-hit'), x = +r.getAttribute('x') + +r.getAttribute('width') / 2;
+          show(x, 18, `<strong>Week of ${shortDate(w.start)}</strong>${w.added ? linesText(w.added) + ' new' : 'Nothing new'}${w.revised ? `, ${linesText(w.revised)} revised` : ''}`);
+        };
+        g.addEventListener('mouseenter', on); g.addEventListener('touchstart', on, { passive: true });
+        g.addEventListener('mouseleave', () => { tip.hidden = true; box.querySelectorAll('.hz-wk').forEach(x => x.classList.remove('dim')); });
+      });
+    }
+  });
+}
+let hzResize;
+window.addEventListener('resize', () => { clearTimeout(hzResize); hzResize = setTimeout(() => { if (document.querySelector('[data-hz-chart]')) drawHifzCharts(); }, 150); });
+
+// ── The profile section ──
+function hifzSection(st) {
+  const isParent = state.role === 'parent';
+  const stats = hifzStats(st.id);
+  const editBtn = isParent ? '' : `<button class="link-btn" onclick="openHifzStart('${st.id}')">Where they started${ic('chev')}</button>`;
+  const head = `<div class="card-head"><h2 class="card-title">${drawn('book', 'sm')}Hifz progress</h2>${editBtn}</div>`;
+  if (!stats.mem.length && !stats.rev.length && !stats.base) {
+    return `<section class="card hifz-card">${head}
+      <div class="hz-empty"><p>${isParent ? 'Their teacher hasn’t recorded any portions yet. Their progress will appear here as they do.'
+        : 'Progress fills in as you record lessons with the portion picker. Start by noting what they already knew when they joined, so their total begins from the truth.'}</p>
+      ${isParent ? '' : `<button class="btn btn-ghost btn-sm" onclick="openHifzStart('${st.id}')">${ic('plus')}Set where they started</button>`}</div></section>`;
+  }
+  const c = stats.consistency;
+  const forecast = stats.pace > 0.05
+    ? `${stats.curDate ? formatDate(stats.curDate, { month: 'long', year: 'numeric' }) : `Juz ${stats.cur} done`}<small>${stats.curDate ? `To finish Juz ${stats.cur}, at this pace.` : ''}${stats.allDate ? `${stats.curDate ? ' ' : ''}The whole Qur’an around ${formatDate(stats.allDate, { month: 'long', year: 'numeric' })}.` : ''}</small>`
+    : `<span class="na">No forecast yet</span><small>${stats.mem.length ? 'It returns once they’re memorising again.' : 'It needs a few weeks of portions.'}</small>`;
+  const recency = j => { if (!j.lines) return 'none'; if (!j.last) return 'old'; const d = (parseDate(localISO()) - parseDate(j.last)) / 864e5; return d <= 7 ? 'fresh' : d <= 30 ? 'recent' : 'old'; };
+  const recencyWord = { fresh: 'went over it this week', recent: 'went over it this month', old: 'not gone over in the last month', none: '' };
+  const mistakes = stats.mistakesNow == null ? '' : `${fmtNum(stats.mistakesNow)} mistakes a page in revision${stats.mistakesBefore == null ? '' : stats.mistakesNow < stats.mistakesBefore - 0.05 ? `, down from ${fmtNum(stats.mistakesBefore)}` : stats.mistakesNow > stats.mistakesBefore + 0.05 ? `, up from ${fmtNum(stats.mistakesBefore)}` : ', about the same as before'}.`;
+  const rows = stats.weeks.slice(-12).slice().reverse();
+  return `<section class="card hifz-card">${head}
+    <div class="hz-figs">
+      <div><span>Memorised</span><strong>${juzText(stats.total)}</strong><small>${linesText(stats.total)}${stats.added && stats.base ? `, ${linesText(stats.added)} since joining` : stats.base ? ', all known when they joined' : ''}</small></div>
+      <div><span>Pace</span><strong>${stats.weeks.length ? linesText(stats.pace) : '<span class="na">Not yet</span>'}</strong><small>${stats.weeks.length ? 'a week, over the last four weeks' : 'Once portions are recorded'}</small></div>
+      <div><span>Consistency</span><strong class="hz-c ${c.key}">${c.label}</strong><small>${c.text}</small></div>
+      <div><span>Forecast</span><strong>${forecast}</strong></div>
+    </div>
+    <div class="hz-charts">
+      <figure class="hz-fig"><figcaption>Total memorised<span>Lines in the Madinah mushaf</span></figcaption><div class="hz-chart" data-hz-chart="growth" data-student="${st.id}"></div></figure>
+      <figure class="hz-fig"><figcaption>New lines each week<span class="hz-key"><span><i class="k-bar"></i>New lines</span><span><i class="k-avg"></i>Four week average</span></span></figcaption><div class="hz-chart" data-hz-chart="pace" data-student="${st.id}"></div></figure>
+    </div>
+    ${rows.length ? `<details class="hz-table"><summary>See the weekly numbers</summary><table><thead><tr><th>Week of</th><th>New</th><th>Revised</th><th>Mistakes</th></tr></thead><tbody>
+      ${rows.map(w => `<tr><td>${shortDate(w.start)}</td><td>${w.added ? linesText(w.added) : '0'}</td><td>${w.revised ? linesText(w.revised) : '0'}</td><td>${w.counted ? w.mistakes : '–'}</td></tr>`).join('')}</tbody></table></details>` : ''}
+    <div class="hz-juz">
+      <div class="hz-sub"><h3>The 30 juz</h3><span class="hz-key"><span><i class="k-fill"></i>Memorised</span><span><i class="k-dot fresh"></i>Revised this week</span><span><i class="k-dot recent"></i>This month</span><span><i class="k-dot old"></i>Longer ago</span></span></div>
+      <div class="jm">${stats.juz.map(j => { const r = recency(j), pct = Math.round(j.pct * 100);
+        return `<div class="jm-cell ${r}${pct >= 100 ? ' full' : ''}" title="Juz ${j.j}: ${pct}% memorised${r !== 'none' ? ', ' + recencyWord[r] : ''}" aria-label="Juz ${j.j}: ${pct}% memorised${r !== 'none' ? ', ' + recencyWord[r] : ''}">
+          <span class="jm-fill" style="height:${pct}%"></span><span class="jm-n">${j.j}</span>${r !== 'none' ? '<i class="jm-dot"></i>' : ''}</div>`; }).join('')}</div>
+    </div>
+    ${stats.rev.length ? `<p class="hz-rev">${ic('repeat')}<span>Went over ${Math.round(stats.coverage * 100)}% of what they know in the last 30 days (${linesText(stats.revisedLines)}).${mistakes ? ' ' + mistakes : ''}</span></p>` : ''}
+  </section>`;
+}
+
+// ── Where they started ──
+function openHifzStart(id) {
+  const st = getStudent(id); if (!st) return;
+  state.hifzStartFor = id;
+  $('hs-sub').textContent = `What ${st.name.split(' ')[0]} already knew when they joined, so their total begins from the truth.`;
+  document.querySelectorAll('input[name="hs-dir"]').forEach(r => { r.checked = r.value === (st.hifz.direction || 'end'); });
+  const known = new Uint8Array(6237); st.hifz.known.forEach(([a, b]) => known.fill(1, a, b + 1));
+  const whole = j => { const [a, b] = MUSHAF.juzRange(j); for (let x = a; x <= b; x++) if (!known[x]) return false; return true; };
+  $('hs-juz').innerHTML = Array.from({ length: 30 }, (_, i) => `<button type="button" class="hs-j" aria-pressed="${whole(i + 1)}" onclick="this.setAttribute('aria-pressed', this.getAttribute('aria-pressed') !== 'true'); hifzStartTotal()">${i + 1}</button>`).join('');
+  // Anything known outside the whole juz becomes a passage row
+  for (let j = 1; j <= 30; j++) if (whole(j)) { const [a, b] = MUSHAF.juzRange(j); known.fill(0, a, b + 1); }
+  $('hs-extra').innerHTML = ''; state.hsCount = 0;
+  let a = 0; for (let x = 1; x <= 6237; x++) { if (x <= 6236 && known[x]) { if (!a) a = x; } else if (a) { addHifzExtra(a, x - 1); a = 0; } }
+  hifzStartTotal();
+  openModal('modal-hifz-start');
+}
+function addHifzExtra(a, b) {
+  const n = state.hsCount = (state.hsCount || 0) + 1, prefix = 'hsx' + n;
+  const row = document.createElement('div'); row.className = 'hs-row';
+  row.innerHTML = `<div class="ayah-range" id="${prefix}-range"></div><button type="button" class="btn btn-quiet btn-icon btn-sm" onclick="this.closest('.hs-row').remove(); hifzStartTotal()" aria-label="Remove this passage" title="Remove">${ic('trash')}</button>`;
+  $('hs-extra').appendChild(row);
+  buildRangePicker(prefix, 'whole', false);
+  if (a) setRange(prefix, a, b);
+  ['from-s', 'to-s', 'from-a', 'to-a'].forEach(k => $(`${prefix}-${k}`).addEventListener('change', hifzStartTotal));
+  rangeSummary(prefix, 'whole');
+}
+function hifzStartRanges() {
+  const out = [], bad = [];
+  document.querySelectorAll('#hs-juz .hs-j').forEach((b, i) => { if (b.getAttribute('aria-pressed') === 'true') out.push(MUSHAF.juzRange(i + 1)); });
+  document.querySelectorAll('#hs-extra .ayah-range').forEach(el => {
+    const r = readRange(el.id.replace('-range', ''));
+    if (r.state === 'ok') out.push([r.from, r.to]); else if (r.state !== 'empty') bad.push(r);
+  });
+  return { ranges: mergeRanges(out), bad };
+}
+function hifzStartTotal() {
+  const { ranges } = hifzStartRanges();
+  const lines = ranges.reduce((t, [a, b]) => t + MUSHAF.lines(a, b), 0);
+  $('hs-total').innerHTML = lines ? `That’s <strong>${linesText(lines)}</strong>, about ${juzText(lines)}.` : 'Nothing chosen yet. Leave it empty if they started from scratch.';
+}
+async function saveHifzStart() {
+  const id = state.hifzStartFor, st = getStudent(id); if (!st) return;
+  const { ranges, bad } = hifzStartRanges();
+  if (bad.length) { toast(bad[0].msg || 'Finish or remove the passage that’s only half filled in', 'warn'); return; }
+  const dir = (document.querySelector('input[name="hs-dir"]:checked') || {}).value || 'end';
+  const { error } = await db.from('students').update({ hifz_known: ranges, hifz_direction: dir }).eq('id', id);
+  if (error) { toast(error.message, 'warn'); return; }
+  st.hifz = { known: ranges, direction: dir };
+  closeModal('modal-hifz-start');
+  viewStudent(id, true);
+  if ($('session-student').value === id) prefillPortion();
+  toast(`Saved where ${st.name.split(' ')[0]} started`);
+}
+
+// ── In the class report ──
+function hifzReportBlock(st, from, to) {
+  const all = hifzStats(st.id, to);
+  if (!all.mem.length && !all.base) return '';
+  const inPeriod = all.mem.filter(m => m.date >= from);
+  const added = inPeriod.reduce((t, m) => t + m.added, 0);
+  const weeks = all.weeks.filter(w => addDays(w.start, 6) >= from);
+  const perWeek = weeks.length ? added / weeks.length : 0;
+  const W = 300, H = 70, max = niceMax(Math.max(1, ...weeks.map(w => w.added))), bw = weeks.length ? Math.min(14, (W / weeks.length) * 0.6) : 0;
+  const bars = weeks.map((w, i) => { const h = (w.added / max) * (H - 6), x = (W / weeks.length) * (i + 0.5) - bw / 2; return h > 0 ? `<rect x="${x}" y="${H - h}" width="${bw}" height="${h}" rx="2"/>` : `<rect class="z" x="${x}" y="${H - 1.5}" width="${bw}" height="1.5"/>`; }).join('');
+  return `<section class="rp-block rp-hifz"><div class="rp-block-head"><div class="rp-block-title">${drawn('book', 'sm')}Hifz progress</div></div>
+    <div class="rp-hz">
+      <dl class="rp-hz-figs">
+        <div><dt>Memorised in total</dt><dd>${juzText(all.total)}<small>${linesText(all.total)}</small></dd></div>
+        <div><dt>New in this period</dt><dd>${linesText(added)}<small>${fmtNum(perWeek)} a week on average</small></dd></div>
+        <div><dt>Consistency</dt><dd>${all.consistency.label}<small>${all.consistency.key === 'early' ? 'Needs a few more weeks' : esc(all.consistency.text)}</small></dd></div>
+      </dl>
+      ${weeks.length ? `<figure class="rp-hz-chart"><svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" role="img" aria-label="New lines each week in this period">${bars}</svg><figcaption>New lines each week</figcaption></figure>` : ''}
+    </div></section>`;
 }
 
 // ── Drawn icons ──
@@ -3951,7 +4638,7 @@ async function startParent(kids) {
   if (error) { toast('Could not load your children’s progress: ' + error.message, 'warn'); return; }
   state.students = kids.map(k => ({
     id: k.id, name: k.name, age: k.age ?? '', startDate: k.start_date ?? '', dob: k.date_of_birth || '',
-    level: k.level || '', targets: k.targets || '', notes: '', sg: null
+    level: k.level || '', targets: k.targets || '', notes: '', sg: null, hifz: hifzOf(k)
   }));
   const ids = new Set(kids.map(k => k.id));
   state.sessions = data.filter(x => ids.has(x.student_id)).map(fromRow);
@@ -3977,13 +4664,15 @@ function init() {
   watchSystemTheme();
   document.body.classList.toggle('has-subjects', FEATURES.subjects);
   document.body.classList.toggle('has-fees', FEATURES.fees);
+  document.body.classList.toggle('has-hifz', FEATURES.hifz);
+  if (FEATURES.hifz) { buildRangePicker('mem', 'mem', false); buildRangePicker('rev', 'whole', true); rangeSummary('rev', 'whole'); }
   buildHeroArt();
   fillDrawn();
   addRegChild();
   $('session-date').value = localISO();
   renderMoods();
   initRatings();
-  $('session-student').addEventListener('change', updateSaveBar);
+  $('session-student').addEventListener('change', () => { updateSaveBar(); prefillPortion(); });
   start();
 }
 
