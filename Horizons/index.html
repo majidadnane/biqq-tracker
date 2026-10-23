@@ -1150,6 +1150,9 @@ body.has-hifz .no-hifz{display:none !important}
 .hz-key .k-avg{width:16px;height:0;border-top:2px dashed var(--accent)}
 .hz-key .k-fill{width:10px;height:10px;border-radius:3px;background:color-mix(in srgb,var(--primary) 70%,var(--surface))}
 .hz-key .k-dot{width:8px;height:8px;border-radius:50%}
+.hz-key .k-ring{width:9px;height:9px;border-radius:50%;border:1.75px solid var(--text-3)}
+.hz-revmark{fill:var(--surface);stroke:var(--text-3);stroke-width:1.75}
+.hz-c.revising{color:var(--text-2)}
 .hz-chart{position:relative;min-height:190px}
 .hz-svg{display:block;overflow:visible;touch-action:pan-y}
 .hz-grid line{stroke:var(--line);stroke-width:1}
@@ -1161,13 +1164,17 @@ body.has-hifz .no-hifz{display:none !important}
 .hz-dot{fill:var(--surface);stroke:var(--primary);stroke-width:2.5}
 .hz-bar{fill:var(--bar-a);transition:opacity .15s}
 .hz-zero{fill:var(--off)}
-.hz-wk.dim .hz-bar{opacity:.45}
+.hz-ls.dim .hz-bar{opacity:.45}
 .hz-avg{fill:none;stroke:var(--accent);stroke-width:2;stroke-dasharray:5 4;stroke-linecap:round;pointer-events:none}
 .hz-tip{position:absolute;z-index:3;transform:translate(-50%,-100%);padding:7px 10px;border-radius:9px;background:var(--heading);color:var(--surface);font-size:13px;line-height:1.4;white-space:nowrap;pointer-events:none;box-shadow:var(--shadow-2)}
 .hz-tip strong{display:block;font-weight:600}
 .hz-table{margin:6px 26px 0;font-size:14px}
 .hz-table summary{width:max-content;cursor:pointer;font-weight:600;color:var(--primary)}
-.hz-table table{width:100%;max-width:520px;margin-top:10px;border-collapse:collapse;font-variant-numeric:tabular-nums}
+.hz-scroll{overflow-x:auto;margin-top:10px}
+.hz-table table{width:100%;max-width:760px;border-collapse:collapse;font-variant-numeric:tabular-nums}
+.hz-table td.d{white-space:nowrap}
+.hz-table td.p{min-width:150px;color:var(--text)}
+.hz-more{margin-top:8px;font-size:13px;color:var(--text-3)}
 .hz-table th{text-align:left;font-size:13px;font-weight:600;color:var(--text-3);padding:6px 10px 6px 0;border-bottom:1px solid var(--line)}
 .hz-table td{padding:7px 10px 7px 0;border-bottom:1px solid var(--line);color:var(--text-2)}
 .hz-juz{padding:22px 26px 4px}
@@ -1194,6 +1201,15 @@ body.has-hifz .no-hifz{display:none !important}
   .hz-figs strong{font-size:20px}
   .hz-charts{padding:18px 18px 4px;gap:18px}
   .hz-table{margin:6px 18px 0}
+  /* Each lesson on two lines: the date and portion, then the numbers with their labels */
+  .hz-table thead{display:none}
+  .hz-table tr{display:grid;grid-template-columns:auto auto auto minmax(0,1fr);grid-template-areas:"d p p p" "n r m .";gap:3px 14px;padding:10px 0;border-bottom:1px solid var(--line)}
+  .hz-table td{padding:0;border:0}
+  .hz-table td.d{grid-area:d;font-weight:600;color:var(--heading)}
+  .hz-table td.p{grid-area:p;min-width:0}
+  .hz-table td.n{grid-area:n} .hz-table td.r{grid-area:r} .hz-table td.m{grid-area:m}
+  .hz-table td[data-l]{font-size:13px;white-space:nowrap}
+  .hz-table td[data-l]::before{content:attr(data-l) " ";color:var(--text-3)}
   .hz-juz{padding:18px 18px 4px}
   .jm{grid-template-columns:repeat(6,minmax(0,1fr))}
   .jm-n{left:6px;top:4px;font-size:12px}
@@ -3812,6 +3828,9 @@ function juzText(lines) {
   const j = lines / MUSHAF.juzLines;
   return j >= 30 - 1e-6 ? 'the whole Qur’an' : `${fmtNum(j, j < 10 ? 1 : 0)} juz`;
 }
+// A total under a twentieth of a juz reads better in lines than as 0 juz
+const tinyTotal = lines => lines > 0 && lines < MUSHAF.juzLines * 0.05;
+const totalText = lines => tinyTotal(lines) ? linesText(lines) : juzText(lines);
 function rangeLabel(a, b) {
   for (let j = 1; j <= 30; j++) { const [x, y] = MUSHAF.juzRange(j); if (x === a && y === b) return `Juz ${j}`; }
   const [s1, a1] = MUSHAF.sa(a), [s2, a2] = MUSHAF.sa(b);
@@ -4005,25 +4024,38 @@ function hifzPayload() {
 function isoDay(d) { return localISO(d); }
 function mondayOf(iso) { const d = parseDate(iso); d.setDate(d.getDate() - (d.getDay() + 6) % 7); return isoDay(d); }
 function addDays(iso, n) { const d = parseDate(iso); d.setDate(d.getDate() + n); return isoDay(d); }
+const LESSON_AVG = 5;   // lessons in the moving average and the pace
 function hifzStats(id, upto = localISO()) {
   const st = getStudent(id); if (!st) return null;
   const known = new Uint8Array(6237);
   (st.hifz ? st.hifz.known : []).forEach(([a, b]) => known.fill(1, a, b + 1));
   let base = 0; for (let x = 1; x <= 6236; x++) if (known[x]) base += MUSHAF.line(x);
-  const list = state.sessions.filter(s => s.studentId === id && s.date && s.date <= upto).sort((a, b) => a.date.localeCompare(b.date));
-  const mem = [], rev = []; let total = base, lastSeen = new Array(31).fill('');
+  const list = state.sessions.filter(s => s.studentId === id && s.date && s.date <= upto)
+    .sort((a, b) => a.date.localeCompare(b.date) || (a.created || '').localeCompare(b.created || ''));
+  const mem = [], rev = [], each = []; let total = base, lastSeen = new Array(31).fill('');
   list.forEach(s => {
     const m = s.memorization, r = s.revision;
+    // A lesson with memorisation written as text but no portion can't be measured, so it's left out of the lesson by lesson numbers
+    // What the lesson was for. Memorisation counts when anything was recorded for it (a portion, a rating or a note),
+    // so a lesson meant for memorising that added nothing still counts. Memorisation left empty with revision
+    // recorded makes it a revision lesson, which isn't judged on new lines.
+    const memDone = !!m.to || m.quality > 0 || !!String(m.notes || '').trim();
+    const revDone = !!r.to || r.quality > 0 || !!String(r.notes || '').trim() || !!String(r.content || '').trim();
+    const one = { id: s.id, date: s.date, from: m.from, to: m.to, added: 0, size: 0, revised: 0, mistakes: r.to ? r.mistakeCount : null,
+                  kind: memDone ? 'mem' : revDone ? 'rev' : 'none', measured: !!m.to || !m.surah };
+    each.push(one);
     if (m.to) {
       let added = 0;
       const rs = portionRanges(m.from, m.to);
       rs.forEach(([a, b]) => { for (let x = a; x <= b; x++) if (!known[x]) { known[x] = 1; added += MUSHAF.line(x); } });
       total += added;
       mem.push({ date: s.date, from: m.from, to: m.to, added, size: portionLines(m.from, m.to), total });
+      Object.assign(one, { added, size: portionLines(m.from, m.to) });
       rs.forEach(([a, b]) => { for (let j = MUSHAF.juzOf(a); j <= MUSHAF.juzOf(b); j++) lastSeen[j] = s.date; });
     }
     if (r.to) {
       rev.push({ date: s.date, from: r.from, to: r.to, size: portionLines(r.from, r.to), mistakes: r.mistakeCount });
+      one.revised = portionLines(r.from, r.to);
       portionRanges(r.from, r.to).forEach(([a, b]) => { for (let j = MUSHAF.juzOf(a); j <= MUSHAF.juzOf(b); j++) lastSeen[j] = s.date; });
     }
   });
@@ -4036,19 +4068,31 @@ function hifzStats(id, upto = localISO()) {
     mem.forEach(m => { const w = at(m.date); if (w) { w.added += m.added; w.size += m.size; } });
     rev.forEach(r => { const w = at(r.date); if (w) { w.revised += r.size; if (r.mistakes != null) { w.mistakes += r.mistakes; w.counted += r.size; } } });
   }
+  // Lesson by lesson, from the first lesson with a portion recorded
+  const lessons = firstDate ? each.filter(l => l.date >= firstDate && l.measured && l.kind !== 'none') : [];
+  const memLessons = lessons.filter(l => l.kind === 'mem'), anyRev = memLessons.length < lessons.length;
+  const word = anyRev ? 'memorisation lessons' : 'lessons';
+  const lastFew = memLessons.slice(-LESSON_AVG);
+  const perLesson = lastFew.length ? lastFew.reduce((t, l) => t + l.added, 0) / lastFew.length : 0;
+  // Lines a week over the last four weeks, which the forecast needs because it's about dates
   const recent = weeks.slice(-4);
   const pace = recent.length ? recent.reduce((t, w) => t + w.added, 0) / recent.length : 0;
-  // Steady, uneven or stalled, over the last eight weeks
-  const span = weeks.slice(-8), n = span.length;
-  let consistency = { key: 'early', label: 'Too early to tell', text: 'This needs three weeks of lessons recorded with the portion picker.' };
+  // Steady, uneven, stalled or revising, over their last eight memorisation lessons
+  const span = memLessons.slice(-8), n = span.length;
+  let consistency = { key: 'early', label: 'Too early to tell', text: 'This needs three lessons with memorisation recorded.' };
   if (n >= 3) {
-    const active = span.filter(w => w.added > 0).length;
-    const mean = span.reduce((t, w) => t + w.added, 0) / n;
-    const sd = Math.sqrt(span.reduce((t, w) => t + (w.added - mean) ** 2, 0) / n);
-    const cv = mean ? sd / mean : 0;
-    if (weeks.slice(-3).every(w => w.added === 0)) consistency = { key: 'stalled', label: 'Stalled', text: 'No new memorisation in the last three weeks.' };
-    else if (active / n >= 0.75 && cv <= 0.6) consistency = { key: 'steady', label: 'Steady', text: `New memorisation in ${active} of the last ${n} weeks, at a similar amount each time.` };
-    else consistency = { key: 'uneven', label: 'Uneven', text: active / n < 0.75 ? `New memorisation in ${active} of the last ${n} weeks.` : `New memorisation every week, but the amount changes a lot.` };
+    const done = span.filter(l => l.added > 0), active = done.length;
+    const mean = active ? done.reduce((t, l) => t + l.added, 0) / active : 0;
+    const cv = mean ? Math.sqrt(done.reduce((t, l) => t + (l.added - mean) ** 2, 0) / active) / mean : 0;
+    // The last three weeks, for a student who has had no lessons, or only revision
+    const from3 = weeks[Math.max(0, weeks.length - 3)].start, quiet = weeks.slice(-3).every(w => w.added === 0);
+    const memLately = memLessons.some(l => l.date >= from3), revLately = lessons.some(l => l.kind === 'rev' && l.date >= from3);
+    const share = active === n ? `every one of their last ${n} ${word}` : `${active} of their last ${n} ${word}`;
+    if (quiet && !memLately && revLately) consistency = { key: 'revising', label: 'Revising', text: 'Only revision lessons in the last three weeks.' };
+    else if (span.slice(-3).every(l => l.added === 0)) consistency = { key: 'stalled', label: 'Stalled', text: `Nothing new in their last three ${word}.` };
+    else if (quiet) consistency = { key: 'stalled', label: 'Stalled', text: 'Nothing new in the last three weeks.' };
+    else if (active / n >= 0.75 && cv <= 0.6) consistency = { key: 'steady', label: 'Steady', text: `New memorisation in ${share}, at a similar amount each time.` };
+    else consistency = { key: 'uneven', label: 'Uneven', text: active / n < 0.75 ? `New memorisation in ${share}.` : `New memorisation in ${share}, but the amount changes a lot.` };
   }
   // Each juz: how much they know, and when they last went over it
   const juz = Array.from({ length: 30 }, (_, i) => {
@@ -4072,7 +4116,7 @@ function hifzStats(id, upto = localISO()) {
     return pages >= 0.5 ? rs.reduce((t, r) => t + r.mistakes, 0) / pages : null;
   };
   return {
-    base, total, added: total - base, mem, rev, weeks, pace, consistency, juz, cur, curLeft,
+    base, total, added: total - base, mem, rev, weeks, lessons, memCount: memLessons.length, anyRev, pace, perLesson, consistency, juz, cur, curLeft,
     curDate: cur && curLeft > 0.05 ? when(curLeft) : null,
     // Only offered when it's within reach, so a slow start doesn't show a date decades away
     allDate: (d => d && parseDate(d).getFullYear() - parseDate(upto).getFullYear() <= 12 ? d : null)(when(MUSHAF.total - total)),
@@ -4089,6 +4133,7 @@ function niceMax(v) {
   return (f <= 1 ? 1 : f <= 2 ? 2 : f <= 2.5 ? 2.5 : f <= 5 ? 5 : 10) * p;
 }
 const shortDate = iso => formatDate(iso, { day: 'numeric', month: 'short' });
+const lessonDate = iso => formatDate(iso, { weekday: 'short', day: 'numeric', month: 'short' }).replace(',', '');
 function growthSVG(stats, st, W, H) {
   const pad = { l: 44, r: 12, t: 12, b: 26 };
   const startDate = [st.startDate, stats.mem[0] && stats.mem[0].date, stats.since].filter(Boolean).sort()[0] || localISO();
@@ -4123,29 +4168,38 @@ function growthSVG(stats, st, W, H) {
     <rect class="hz-hit" x="${pad.l}" y="0" width="${W - pad.l - pad.r}" height="${H}" fill="transparent"/></svg>`, X, Y };
 }
 function paceSVG(stats, W, H) {
-  const weeks = stats.weeks.slice(-12), pad = { l: 34, r: 8, t: 12, b: 26 };
-  const avg = weeks.map((w, i) => { const s = stats.weeks.slice(Math.max(0, stats.weeks.length - weeks.length + i - 3), stats.weeks.length - weeks.length + i + 1); return s.reduce((t, x) => t + x.added, 0) / s.length; });
-  const ymax = niceMax(Math.max(1, ...weeks.map(w => w.added), ...avg) * 1.1);
-  const slot = (W - pad.l - pad.r) / Math.max(weeks.length, 1), bw = Math.max(6, Math.min(26, slot * 0.58));
+  const pad = { l: 34, r: 8, t: 12, b: 26 };
+  // As many recent lessons as fit, about 18px each
+  const fit = Math.max(8, Math.min(30, Math.floor((W - pad.l - pad.r) / 18)));
+  const all = stats.lessons, off = Math.max(0, all.length - fit), lessons = all.slice(off);
+  // The average runs over memorisation lessons only, so it holds level across a revision lesson
+  const avg = lessons.map((l, i) => { const w = all.slice(0, off + i + 1).filter(x => x.kind === 'mem').slice(-LESSON_AVG); return w.length ? w.reduce((t, x) => t + x.added, 0) / w.length : 0; });
+  const ymax = niceMax(Math.max(1, ...lessons.map(l => l.added), ...avg) * 1.1);
+  const slot = (W - pad.l - pad.r) / Math.max(lessons.length, 1), bw = Math.max(5, Math.min(22, slot * 0.62));
   const Y = v => pad.t + (1 - v / ymax) * (H - pad.t - pad.b), base = Y(0);
   const grid = [0, 0.5, 1].map(f => { const v = ymax * f, y = Y(v); return `<line x1="${pad.l}" x2="${W - pad.r}" y1="${y}" y2="${y}"/><text x="${pad.l - 7}" y="${y + 4}" text-anchor="end">${fmtNum(v, 0)}</text>`; }).join('');
-  const bars = weeks.map((w, i) => {
-    const cx = pad.l + slot * (i + 0.5), x = cx - bw / 2, h = base - Y(w.added), r = Math.min(4, h / 2, bw / 2);
-    const shape = w.added > 0 ? `<path class="hz-bar" d="M${x},${base}V${base - h + r}Q${x},${base - h} ${x + r},${base - h}H${x + bw - r}Q${x + bw},${base - h} ${x + bw},${base - h + r}V${base}Z"/>` : `<rect class="hz-zero" x="${x}" y="${base - 2}" width="${bw}" height="2" rx="1"/>`;
-    return `<g class="hz-wk" data-i="${i}">${shape}<rect class="hz-hit" x="${cx - slot / 2}" y="0" width="${slot}" height="${H}" fill="transparent"/></g>`;
+  const bars = lessons.map((l, i) => {
+    const cx = pad.l + slot * (i + 0.5), x = cx - bw / 2, h = base - Y(l.added), r = Math.min(4, h / 2, bw / 2);
+    const shape = l.kind === 'rev' ? `<circle class="hz-revmark" cx="${cx}" cy="${base - 6}" r="3.5"/>` : l.added > 0 ? `<path class="hz-bar" d="M${x},${base}V${base - h + r}Q${x},${base - h} ${x + r},${base - h}H${x + bw - r}Q${x + bw},${base - h} ${x + bw},${base - h + r}V${base}Z"/>` : `<rect class="hz-zero" x="${x}" y="${base - 2}" width="${bw}" height="2" rx="1"/>`;
+    return `<g class="hz-ls" data-i="${i}">${shape}<rect class="hz-hit" x="${cx - slot / 2}" y="0" width="${slot}" height="${H}" fill="transparent"/></g>`;
   }).join('');
   const line = avg.map((v, i) => `${i ? 'L' : 'M'}${pad.l + slot * (i + 0.5)},${Y(v)}`).join('');
-  const every = Math.max(Math.ceil(weeks.length / 6), Math.ceil(54 / slot));
-  const lab = weeks.map((w, i) => (weeks.length - 1 - i) % every === 0 ? `<text x="${pad.l + slot * (i + 0.5)}" y="${H - 6}" text-anchor="middle">${shortDate(w.start)}</text>` : '').join('');
-  return { weeks, avg, svg: `<svg class="hz-svg" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-label="New lines each week for the last ${weeks.length} weeks">
-    <g class="hz-grid">${grid}</g><g class="hz-x">${lab}</g>${bars}${weeks.length > 1 ? `<path class="hz-avg" d="${line}"/>` : ''}</svg>` };
+  // Dates under the bars, counted back from the latest lesson so it always has one
+  const every = Math.max(1, Math.ceil(54 / slot));
+  const lab = lessons.map((l, i) => (lessons.length - 1 - i) % every === 0 ? `<text x="${pad.l + slot * (i + 0.5)}" y="${H - 6}" text-anchor="middle">${shortDate(l.date)}</text>` : '').join('');
+  return { lessons, avg, svg: `<svg class="hz-svg" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-label="New lines in each of their last ${lessons.length} lessons">
+    <g class="hz-grid">${grid}</g><g class="hz-x">${lab}</g>${bars}${lessons.length > 1 ? `<path class="hz-avg" d="${line}"/>` : ''}</svg>` };
 }
 function drawHifzCharts() {
   document.querySelectorAll('[data-hz-chart]').forEach(box => {
     const id = box.dataset.student, st = getStudent(id); if (!st) return;
     const stats = hifzStats(id), W = Math.max(260, Math.floor(box.clientWidth)), kind = box.dataset.hzChart;
     const tip = document.createElement('div'); tip.className = 'hz-tip'; tip.hidden = true;
-    const show = (x, y, html) => { tip.innerHTML = html; tip.hidden = false; tip.style.left = Math.min(Math.max(x, 70), W - 70) + 'px'; tip.style.top = y + 'px'; };
+    const show = (x, y, html) => {
+      tip.innerHTML = html; tip.hidden = false;
+      const half = Math.min(tip.offsetWidth, W) / 2;
+      tip.style.left = Math.min(Math.max(x, half), W - half) + 'px'; tip.style.top = y + 'px';
+    };
     if (kind === 'growth') {
       const g = growthSVG(stats, st, W, 210);
       box.innerHTML = g.svg; box.appendChild(tip);
@@ -4164,15 +4218,16 @@ function drawHifzCharts() {
     } else {
       const p = paceSVG(stats, W, 190);
       box.innerHTML = p.svg; box.appendChild(tip);
-      box.querySelectorAll('.hz-wk').forEach(g => {
-        const i = +g.dataset.i, w = p.weeks[i];
+      box.querySelectorAll('.hz-ls').forEach(g => {
+        const i = +g.dataset.i, l = p.lessons[i];
         const on = () => {
-          box.querySelectorAll('.hz-wk').forEach(x => x.classList.toggle('dim', x !== g));
+          box.querySelectorAll('.hz-ls').forEach(x => x.classList.toggle('dim', x !== g));
           const r = g.querySelector('.hz-hit'), x = +r.getAttribute('x') + +r.getAttribute('width') / 2;
-          show(x, 18, `<strong>Week of ${shortDate(w.start)}</strong>${w.added ? linesText(w.added) + ' new' : 'Nothing new'}${w.revised ? `, ${linesText(w.revised)} revised` : ''}`);
+          const what = l.to ? `${esc(rangeLabel(l.from, l.to))}, ${l.added ? linesText(l.added) + ' new' : 'nothing new'}` : l.kind === 'rev' ? 'Revision lesson' : 'Nothing new';
+          show(x, 18, `<strong>${lessonDate(l.date)}</strong>${what}${l.revised ? `<br>${linesText(l.revised)} revised${l.mistakes != null ? `, ${l.mistakes} ${l.mistakes === 1 ? 'mistake' : 'mistakes'}` : ''}` : ''}<br>Average of the last ${LESSON_AVG}: ${linesText(p.avg[i])}`);
         };
         g.addEventListener('mouseenter', on); g.addEventListener('touchstart', on, { passive: true });
-        g.addEventListener('mouseleave', () => { tip.hidden = true; box.querySelectorAll('.hz-wk').forEach(x => x.classList.remove('dim')); });
+        g.addEventListener('mouseleave', () => { tip.hidden = true; box.querySelectorAll('.hz-ls').forEach(x => x.classList.remove('dim')); });
       });
     }
   });
@@ -4193,26 +4248,28 @@ function hifzSection(st) {
       ${isParent ? '' : `<button class="btn btn-ghost btn-sm" onclick="openHifzStart('${st.id}')">${ic('plus')}Set where they started</button>`}</div></section>`;
   }
   const c = stats.consistency;
-  const forecast = stats.pace > 0.05
+  const forecast = stats.pace > 0.05 && stats.lessons.length
     ? `${stats.curDate ? formatDate(stats.curDate, { month: 'long', year: 'numeric' }) : `Juz ${stats.cur} done`}<small>${stats.curDate ? `To finish Juz ${stats.cur}, at this pace.` : ''}${stats.allDate ? `${stats.curDate ? ' ' : ''}The whole Qur’an around ${formatDate(stats.allDate, { month: 'long', year: 'numeric' })}.` : ''}</small>`
     : `<span class="na">No forecast yet</span><small>${stats.mem.length ? 'It returns once they’re memorising again.' : 'It needs a few weeks of portions.'}</small>`;
   const recency = j => { if (!j.lines) return 'none'; if (!j.last) return 'old'; const d = (parseDate(localISO()) - parseDate(j.last)) / 864e5; return d <= 7 ? 'fresh' : d <= 30 ? 'recent' : 'old'; };
   const recencyWord = { fresh: 'went over it this week', recent: 'went over it this month', old: 'not gone over in the last month', none: '' };
   const mistakes = stats.mistakesNow == null ? '' : `${fmtNum(stats.mistakesNow)} mistakes a page in revision${stats.mistakesBefore == null ? '' : stats.mistakesNow < stats.mistakesBefore - 0.05 ? `, down from ${fmtNum(stats.mistakesBefore)}` : stats.mistakesNow > stats.mistakesBefore + 0.05 ? `, up from ${fmtNum(stats.mistakesBefore)}` : ', about the same as before'}.`;
-  const rows = stats.weeks.slice(-12).slice().reverse();
+  const rows = stats.lessons.slice(-30).reverse(), nPace = Math.min(LESSON_AVG, stats.memCount);
+  const NUM = ['', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'];
+  const paceNote = nPace === 1 ? 'from their first lesson' : `a lesson, over their last ${NUM[nPace] || nPace} ${stats.anyRev ? 'memorisation lessons' : 'lessons'}`;
   return `<section class="card hifz-card">${head}
     <div class="hz-figs">
-      <div><span>Memorised</span><strong>${juzText(stats.total)}</strong><small>${linesText(stats.total)}${stats.added && stats.base ? `, ${linesText(stats.added)} since joining` : stats.base ? ', all known when they joined' : ''}</small></div>
-      <div><span>Pace</span><strong>${stats.weeks.length ? linesText(stats.pace) : '<span class="na">Not yet</span>'}</strong><small>${stats.weeks.length ? 'a week, over the last four weeks' : 'Once portions are recorded'}</small></div>
+      <div><span>Memorised</span><strong>${totalText(stats.total)}</strong><small>${tinyTotal(stats.total) ? 'Under a tenth of a juz' : linesText(stats.total)}${stats.added && stats.base ? `, ${linesText(stats.added)} since joining` : stats.base ? ', all known when they joined' : ''}</small></div>
+      <div><span>Pace</span><strong>${nPace ? linesText(stats.perLesson) : '<span class="na">Not yet</span>'}</strong><small>${nPace ? `${paceNote}.${stats.weeks.length >= 2 && stats.pace >= 0.05 ? ` About ${linesText(stats.pace)} a week.` : ''}` : 'Once portions are recorded'}</small></div>
       <div><span>Consistency</span><strong class="hz-c ${c.key}">${c.label}</strong><small>${c.text}</small></div>
       <div><span>Forecast</span><strong>${forecast}</strong></div>
     </div>
     <div class="hz-charts">
       <figure class="hz-fig"><figcaption>Total memorised<span>Lines in the Madinah mushaf</span></figcaption><div class="hz-chart" data-hz-chart="growth" data-student="${st.id}"></div></figure>
-      <figure class="hz-fig"><figcaption>New lines each week<span class="hz-key"><span><i class="k-bar"></i>New lines</span><span><i class="k-avg"></i>Four week average</span></span></figcaption><div class="hz-chart" data-hz-chart="pace" data-student="${st.id}"></div></figure>
+      <figure class="hz-fig"><figcaption>New lines each lesson<span class="hz-key"><span><i class="k-bar"></i>New lines</span><span><i class="k-avg"></i>Average of the last ${LESSON_AVG}</span>${stats.anyRev ? '<span><i class="k-ring"></i>Revision lesson</span>' : ''}</span></figcaption><div class="hz-chart" data-hz-chart="pace" data-student="${st.id}"></div></figure>
     </div>
-    ${rows.length ? `<details class="hz-table"><summary>See the weekly numbers</summary><table><thead><tr><th>Week of</th><th>New</th><th>Revised</th><th>Mistakes</th></tr></thead><tbody>
-      ${rows.map(w => `<tr><td>${shortDate(w.start)}</td><td>${w.added ? linesText(w.added) : '0'}</td><td>${w.revised ? linesText(w.revised) : '0'}</td><td>${w.counted ? w.mistakes : '–'}</td></tr>`).join('')}</tbody></table></details>` : ''}
+    ${rows.length ? `<details class="hz-table"><summary>See each lesson</summary><div class="hz-scroll"><table><thead><tr><th>Lesson</th><th>Memorised</th><th>New</th><th>Revised</th><th>Mistakes</th></tr></thead><tbody>
+      ${rows.map(l => `<tr><td class="d">${lessonDate(l.date)}</td><td class="p">${l.to ? esc(rangeLabel(l.from, l.to)) : l.kind === 'rev' ? 'Revision lesson' : 'Nothing new'}</td><td class="n" data-l="New">${l.added ? linesText(l.added) : '0'}</td><td class="r" data-l="Revised">${l.revised ? linesText(l.revised) : '0'}</td><td class="m" data-l="Mistakes">${l.mistakes != null ? l.mistakes : '–'}</td></tr>`).join('')}</tbody></table></div>${stats.lessons.length > 30 ? '<p class="hz-more">Their last 30 lessons.</p>' : ''}</details>` : ''}
     <div class="hz-juz">
       <div class="hz-sub"><h3>The 30 juz</h3><span class="hz-key"><span><i class="k-fill"></i>Memorised</span><span><i class="k-dot fresh"></i>Revised this week</span><span><i class="k-dot recent"></i>This month</span><span><i class="k-dot old"></i>Longer ago</span></span></div>
       <div class="jm">${stats.juz.map(j => { const r = recency(j), pct = Math.round(j.pct * 100);
@@ -4281,20 +4338,20 @@ async function saveHifzStart() {
 function hifzReportBlock(st, from, to) {
   const all = hifzStats(st.id, to);
   if (!all.mem.length && !all.base) return '';
-  const inPeriod = all.mem.filter(m => m.date >= from);
-  const added = inPeriod.reduce((t, m) => t + m.added, 0);
-  const weeks = all.weeks.filter(w => addDays(w.start, 6) >= from);
-  const perWeek = weeks.length ? added / weeks.length : 0;
-  const W = 300, H = 70, max = niceMax(Math.max(1, ...weeks.map(w => w.added))), bw = weeks.length ? Math.min(14, (W / weeks.length) * 0.6) : 0;
-  const bars = weeks.map((w, i) => { const h = (w.added / max) * (H - 6), x = (W / weeks.length) * (i + 0.5) - bw / 2; return h > 0 ? `<rect x="${x}" y="${H - h}" width="${bw}" height="${h}" rx="2"/>` : `<rect class="z" x="${x}" y="${H - 1.5}" width="${bw}" height="1.5"/>`; }).join('');
+  // Bars for the memorisation lessons in the period. Revision lessons are counted, not drawn.
+  const inPeriod = all.lessons.filter(l => l.date >= from), lessons = inPeriod.filter(l => l.kind === 'mem'), revs = inPeriod.length - lessons.length;
+  const added = lessons.reduce((t, l) => t + l.added, 0);
+  const perLesson = lessons.length ? added / lessons.length : 0;
+  const W = 300, H = 70, max = niceMax(Math.max(1, ...lessons.map(l => l.added))), bw = lessons.length ? Math.min(12, (W / lessons.length) * 0.62) : 0;
+  const bars = lessons.map((l, i) => { const h = (l.added / max) * (H - 6), x = (W / lessons.length) * (i + 0.5) - bw / 2; return h > 0 ? `<rect x="${x}" y="${H - h}" width="${bw}" height="${h}" rx="2"/>` : `<rect class="z" x="${x}" y="${H - 1.5}" width="${bw}" height="1.5"/>`; }).join('');
   return `<section class="rp-block rp-hifz"><div class="rp-block-head"><div class="rp-block-title">${drawn('book', 'sm')}Hifz progress</div></div>
     <div class="rp-hz">
       <dl class="rp-hz-figs">
-        <div><dt>Memorised in total</dt><dd>${juzText(all.total)}<small>${linesText(all.total)}</small></dd></div>
-        <div><dt>New in this period</dt><dd>${linesText(added)}<small>${fmtNum(perWeek)} a week on average</small></dd></div>
-        <div><dt>Consistency</dt><dd>${all.consistency.label}<small>${all.consistency.key === 'early' ? 'Needs a few more weeks' : esc(all.consistency.text)}</small></dd></div>
+        <div><dt>Memorised in total</dt><dd>${totalText(all.total)}<small>${tinyTotal(all.total) ? 'Under a tenth of a juz' : linesText(all.total)}</small></dd></div>
+        <div><dt>New in this period</dt><dd>${linesText(added)}<small>${lessons.length ? `${fmtNum(perLesson)} a lesson, over ${lessons.length} ${lessons.length === 1 ? 'lesson' : 'lessons'}${revs ? `, plus ${revs} revision ${revs === 1 ? 'lesson' : 'lessons'}` : ''}` : revs ? `${revs} revision ${revs === 1 ? 'lesson' : 'lessons'}` : 'No lessons recorded'}</small></dd></div>
+        <div><dt>Consistency</dt><dd>${all.consistency.label}<small>${all.consistency.key === 'early' ? 'Needs a few more lessons' : esc(all.consistency.text)}</small></dd></div>
       </dl>
-      ${weeks.length ? `<figure class="rp-hz-chart"><svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" role="img" aria-label="New lines each week in this period">${bars}</svg><figcaption>New lines each week</figcaption></figure>` : ''}
+      ${lessons.length ? `<figure class="rp-hz-chart"><svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" role="img" aria-label="New lines in each lesson this period">${bars}</svg><figcaption>New lines each ${revs ? 'memorisation lesson' : 'lesson'}</figcaption></figure>` : ''}
     </div></section>`;
 }
 
