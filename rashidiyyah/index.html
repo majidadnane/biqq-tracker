@@ -41,7 +41,7 @@
   --side-a:#fbe6c2; --side-b:#fff8ea; --bar-bg:rgba(0,48,73,.97); --bar-line:transparent;
   --select-arrow:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235b6a77' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
   --flower:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cg fill='%23fdf0d5' stroke='%23c1121f' stroke-width='1.5' stroke-linejoin='round'%3E%3Cpath d='M5.5 5.5h13v13h-13zM12 2.8 21.2 12 12 21.2 2.8 12z'/%3E%3C/g%3E%3Ccircle cx='12' cy='12' r='2.2' fill='%23c1121f'/%3E%3C/svg%3E");
-  --logo-ar:#780000; --logo-en:#003049;
+  --logo-ar:#c1121f; --logo-en:#003049;
 }
 /* ───────── Tokens: dark ───────── */
 :root[data-theme="dark"]{
@@ -1664,10 +1664,10 @@ table.tg{width:100%;border-collapse:collapse;font-size:14.5px;font-variant-numer
 :root:not([data-theme="dark"]) .hero-verse figcaption span{color:rgba(255,253,240,.78)}
 
 /* A girih of eight pointed stars, rising faintly from the foot of the sidebar so the logo sits on clear ground */
-.sidebar::before{background-image:var(--knot);background-size:96px 96px;background-position:0 100%;opacity:.1;
+.sidebar::before{background-image:var(--knot);background-size:96px 96px;background-position:0 100%;opacity:.05;
   -webkit-mask-image:linear-gradient(0deg,#000 0%,rgba(0,0,0,.7) 28%,transparent 72%);mask-image:linear-gradient(0deg,#000 0%,rgba(0,0,0,.7) 28%,transparent 72%)}
-:root[data-theme="dark"] .sidebar::before{background-image:var(--knot-dark);opacity:.07}
-.welcome::before{background-image:var(--knot);background-size:96px 96px;opacity:.06}
+:root[data-theme="dark"] .sidebar::before{background-image:var(--knot-dark);opacity:.04}
+.welcome::before{background-image:var(--knot);background-size:96px 96px;opacity:.035}
 :root[data-theme="dark"] .welcome::before{background-image:var(--knot-dark);opacity:.04}
 </style>
 </head>
