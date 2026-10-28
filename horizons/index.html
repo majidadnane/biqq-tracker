@@ -1532,6 +1532,26 @@ table.tg{width:100%;border-collapse:collapse;font-size:14.5px;font-variant-numer
   *,*::before,*::after{animation:none !important;transition:none !important}
 }
 
+/* The x that deletes a lesson keeps its own size beside the full width buttons on a phone */
+.h-actions .lesson-del{flex:none}
+/* Phone menu: the sidebar slides in from the side */
+.side-close,.menu-scrim{display:none}
+@media (max-width:900px){
+  .sidebar{display:flex;position:fixed;top:0;left:0;bottom:0;z-index:90;width:min(300px,86vw);height:100%;padding:24px 20px calc(20px + env(safe-area-inset-bottom));overflow-y:auto;overscroll-behavior:contain;
+    transform:translateX(-104%);visibility:hidden;transition:transform .3s cubic-bezier(.2,.7,.2,1),visibility 0s .3s}
+  body.menu-open .sidebar{transform:none;visibility:visible;transition:transform .3s cubic-bezier(.2,.7,.2,1),visibility 0s;box-shadow:24px 0 60px -24px rgba(0,0,0,.45)}
+  .menu-scrim{display:block;position:fixed;inset:0;z-index:85;background:var(--overlay);opacity:0;visibility:hidden;transition:opacity .3s,visibility 0s .3s}
+  body.menu-open .menu-scrim{opacity:1;visibility:visible;transition:opacity .3s,visibility 0s}
+  body.menu-open{overflow:hidden}
+  .side-close{display:grid;place-items:center;position:absolute;top:12px;right:12px;z-index:2;width:36px;height:36px;border-radius:50%;color:inherit;opacity:.7}
+  .side-close:hover{opacity:1;background:rgba(127,127,127,.12)}
+  .side-close .ic{width:19px;height:19px}
+  .tb-menu{margin-left:-4px}
+  .tb-brand{margin-right:auto}
+  .tb-menu .ic{width:20px;height:20px}
+}
+@media (prefers-reduced-motion:reduce){ .sidebar,.menu-scrim{transition:none !important} }
+
 /* ───────── Horizons Madrassah ─────────
    The gold آفاق emblem on deep purple, the logo's two colours used brightly for a children's school.
    Type is Lexend, built for easy reading, with Readex Pro (its Arabic companion) for Arabic labels.
@@ -1628,6 +1648,7 @@ table.tg{width:100%;border-collapse:collapse;font-size:14.5px;font-variant-numer
   <symbol id="i-file" viewBox="0 0 24 24"><path d="M14 2.5H6.5a2 2 0 0 0-2 2v15a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V8z"/><path d="M14 2.5V8h5.5"/><path d="M12 11.5v6M9.5 15l2.5 2.5 2.5-2.5"/></symbol>
   <symbol id="i-trash" viewBox="0 0 24 24"><path d="M3.5 6.5h17"/><path d="M9 6.5v-2a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/><path d="m18.5 6.5-.8 12.6a2 2 0 0 1-2 1.9H8.3a2 2 0 0 1-2-1.9L5.5 6.5"/><path d="M10 11v5.5M14 11v5.5"/></symbol>
   <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3.5" y="4.5" width="17" height="16.5" rx="2.5"/><path d="M16 2.5v4M8 2.5v4M3.5 10h17"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h11"/></symbol>
   <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
   <symbol id="i-printer" viewBox="0 0 24 24"><path d="M6.5 9V2.5h11V9"/><path d="M6.5 17.5h-2a2 2 0 0 1-2-2V11a2 2 0 0 1 2-2h15a2 2 0 0 1 2 2v4.5a2 2 0 0 1-2 2h-2"/><rect x="6.5" y="14" width="11" height="7.5" rx="1"/></symbol>
   <symbol id="i-qaidah" viewBox="0 0 24 24"><path d="M6.5 3h11A1.5 1.5 0 0 1 19 4.5v15a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 5 19.5v-15A1.5 1.5 0 0 1 6.5 3Z"/><path d="M8.5 3v18"/><path d="M16 7v6"/><path d="M14.1 10.8c.3 1.8-.6 2.5-2.1 2.5s-2.3-.7-1.9-2.3"/><path d="M12 16.3v.01"/></symbol>
@@ -1658,7 +1679,8 @@ table.tg{width:100%;border-collapse:collapse;font-size:14.5px;font-variant-numer
 
 <div class="app">
 
-  <aside class="sidebar">
+  <aside class="sidebar" id="side-menu">
+    <button class="side-close" onclick="closeMenu()" aria-label="Close the menu"><svg class="ic"><use href="#i-x"/></svg></button>
     <div class="lockup" role="img" aria-label="Horizons Madrassah, for Qur'an and Arabic">
       <svg class="logo lk-mark" aria-hidden="true"><use href="#brand-mark"/></svg>
       <span class="lk-name">Horizons Madrassah</span>
@@ -1686,16 +1708,16 @@ table.tg{width:100%;border-collapse:collapse;font-size:14.5px;font-variant-numer
       </div>
     </div>
   </aside>
+  <div class="menu-scrim" onclick="closeMenu()"></div>
 
   <header class="topbar">
+    <button class="tb-theme tb-menu" id="menu-btn" onclick="toggleMenu()" aria-label="Open the menu" aria-expanded="false" aria-controls="side-menu"><svg class="ic"><use href="#i-menu"/></svg></button>
     <div class="tb-brand" role="img" aria-label="Horizons Madrassah">
       <svg class="logo tb-mark" aria-hidden="true"><use href="#brand-mark"/></svg>
       <span class="tb-name">Horizons<span class="tb-rest"> Madrassah</span></span>
     </div>
     <div class="tb-actions">
-      <button class="tb-theme" id="theme-toggle" onclick="setTheme(currentTheme() === 'dark' ? 'light' : 'dark')" aria-label="Switch theme"></button>
       <button class="btn btn-accent btn-sm staff-only" onclick="showPage('log-session')"><svg class="ic"><use href="#i-plus"/></svg>Record</button>
-      <button class="tb-theme" onclick="signOut()" aria-label="Sign out" title="Sign out"><svg class="ic"><use href="#i-logout"/></svg></button>
     </div>
   </header>
 
@@ -2514,9 +2536,6 @@ function syncThemeControls() {
     b.classList.toggle('on', on);
     b.setAttribute('aria-pressed', String(on));
   });
-  const tb = $('theme-toggle');
-  tb.innerHTML = ic(t === 'dark' ? 'sun' : 'moon');
-  tb.setAttribute('aria-label', t === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
   document.querySelector('meta[name="theme-color"]').setAttribute('content', t === 'dark' ? '#12081d' : '#250f3f');
 }
 function watchSystemTheme() {
@@ -2959,7 +2978,20 @@ function clearSessionForm() {
 }
 
 // ── Navigation ──
+// On a phone, the sidebar slides in as a menu from the side
+function setMenu(open) {
+  document.body.classList.toggle('menu-open', open);
+  const b = $('menu-btn');
+  if (b) { b.setAttribute('aria-expanded', String(open)); b.setAttribute('aria-label', open ? 'Close the menu' : 'Open the menu'); }
+  if (open) setTimeout(() => { const a = document.querySelector('.sidebar .nav-item.active') || document.querySelector('.sidebar .nav-item'); if (a) a.focus({ preventScroll: true }); }, 60);
+}
+function toggleMenu() { setMenu(!document.body.classList.contains('menu-open')); }
+function closeMenu() { if (document.body.classList.contains('menu-open')) setMenu(false); }
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
+window.addEventListener('resize', () => { if (innerWidth > 900) closeMenu(); });
+
 function showPage(id) {
+  closeMenu();
   state.currentPage = id;
   document.querySelectorAll('.page').forEach(p => p.classList.toggle('active', p.id === 'page-' + id));
   const navKey = id === 'student-profile' ? 'students' : id;
@@ -3324,6 +3356,7 @@ function viewStudent(id, silent = false) {
             ${behaviourTag(s.behaviour.rating)}
             ${triad(s)}
             <button class="btn btn-ghost btn-sm btn-icon" onclick="event.stopPropagation();exportSession('${s.id}')" aria-label="Export PDF" title="Export PDF">${ic('file')}</button>
+            ${canDeleteLesson(s) ? `<button class="btn btn-quiet btn-sm btn-icon lesson-del" onclick="event.stopPropagation();deleteLesson('${s.id}')" aria-label="Delete this lesson" title="Delete this lesson">${ic('x')}</button>` : ''}
           </div>`;
         }).join('') : emptyState('No lessons yet', isParent ? 'Their lessons will appear here as their teacher records them.' : 'Record their first lesson to start building a record.', `<button class="btn btn-accent staff-only" onclick="logSessionFor('${id}')">${ic('plus')}Record a lesson</button>`)}
       </div>
@@ -3910,6 +3943,7 @@ function renderHistory() {
           <div class="h-actions">
             <button class="btn btn-ghost btn-sm" onclick="viewSessionDetail('${s.id}')">${ic('eye')}View</button>
             <button class="btn btn-ghost btn-sm" onclick="exportSession('${s.id}')">${ic('file')}Export PDF</button>
+            ${canDeleteLesson(s) ? `<button class="btn btn-quiet btn-icon btn-sm lesson-del" onclick="deleteLesson('${s.id}')" aria-label="Delete this lesson" title="Delete this lesson">${ic('x')}</button>` : ''}
           </div>
         </div>
         ${where ? `<p class="h-meta">${ic('users')}${esc(where)}</p>` : ''}
@@ -3925,6 +3959,26 @@ function renderHistory() {
       </div>
     </article>`;
   }).join('');
+}
+
+// ── Deleting a lesson recorded by mistake ──
+// Admins can delete any lesson; teachers, the ones they recorded. The database holds to the same rule.
+const canDeleteLesson = s => state.role === 'admin' || (state.role === 'teacher' && !!state.me && s.teacherId === state.me.user_id);
+function deleteLesson(id) {
+  const s = state.sessions.find(x => x.id === id); if (!s || !canDeleteLesson(s)) return;
+  const st = getStudent(s.studentId), who = st ? firstOf(st.name) : 'this student';
+  confirmDialog({ title: 'Delete this lesson?', confirmLabel: 'Delete lesson',
+    message: `${who}’s lesson on ${formatDate(s.date, { weekday: 'long', day: 'numeric', month: 'long' })} will be removed from their record and their reports. This can’t be undone.` }, async () => {
+    const { data, error } = await db.from('sessions').delete().eq('id', id).select('id');
+    if (error) { toast('That lesson couldn’t be deleted: ' + error.message, 'warn'); return; }
+    if (Array.isArray(data) && !data.length) { toast('You can only delete lessons you recorded yourself', 'warn'); return; }
+    state.sessions = state.sessions.filter(x => x.id !== id);
+    if (state.currentSessionId === id) closeModal('modal-session-detail');
+    renderDashboard(); renderHistory();
+    if (state.currentPage === 'student-profile' && state.currentStudentId) viewStudent(state.currentStudentId, true);
+    if (state.currentPage === 'targets' && typeof renderTargets === 'function') renderTargets();
+    toast('Lesson deleted');
+  });
 }
 
 // ── Session detail ──
