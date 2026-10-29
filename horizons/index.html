@@ -1534,6 +1534,38 @@ table.tg{width:100%;border-collapse:collapse;font-size:14.5px;font-variant-numer
 
 /* The x that deletes a lesson keeps its own size beside the full width buttons on a phone */
 .h-actions .lesson-del{flex:none}
+/* Homework: its own colour so it stands apart from the lesson */
+body:not(.has-homework) .homework-only{display:none !important}
+.form-card.hw-card{position:relative;background:var(--accent-wash);background:color-mix(in srgb,var(--accent) 9%,var(--accent-wash));border:1.5px solid var(--accent-soft);box-shadow:var(--shadow-1),inset 0 4px 0 var(--accent)}
+.hw-card .fc-title{color:var(--accent-text)}
+.hw-card .fc-sub{max-width:52ch}
+.hw-card .input{background:var(--surface)}
+.hw-card .ar-sum strong{color:var(--accent-text)}
+.hw-foot{display:flex;align-items:center;justify-content:space-between;gap:12px 18px;flex-wrap:wrap;margin-top:20px;padding-top:18px;border-top:1px dashed var(--accent-soft)}
+.hw-last{flex:1 1 260px;font-size:14px;color:var(--text-3)}
+.hw-assign{margin-left:auto;background:var(--accent-text);color:var(--surface);border-color:transparent;font-weight:600}
+.hw-assign:hover{filter:brightness(1.08)}
+.hw-list{display:grid;gap:14px}
+.hw-item{padding:18px 20px;border-radius:16px;background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow-1);border-left:4px solid var(--accent)}
+.hw-latest .hw-item{box-shadow:none;margin-top:12px;background:var(--accent-wash);border-color:var(--accent-line);border-left-color:var(--accent)}
+.hw-top{display:flex;align-items:center;gap:8px 14px;flex-wrap:wrap}
+.hw-who{display:flex;align-items:center;gap:10px}
+.hw-name{font-weight:600;color:var(--heading);font-size:16px}
+.hw-set{font-size:14px;color:var(--text-3)}
+.hw-due{display:inline-flex;align-items:center;gap:6px;padding:3px 10px;border-radius:999px;font-size:13.5px;font-weight:600;color:var(--accent-text);background:var(--accent-wash);border:1px solid var(--accent-line)}
+.hw-due .ic{width:14px;height:14px}
+.hw-due.past{color:var(--text-3);background:transparent;border-color:var(--line)}
+.hw-del{margin-left:auto;flex:none}
+.hw-parts{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px 18px;margin-top:14px}
+.hw-part{display:flex;gap:10px;align-items:flex-start}
+.hw-part > .ic{width:18px;height:18px;margin-top:3px;color:var(--accent-text);flex:none}
+.hw-k{display:block;font-size:13px;color:var(--text-3)}
+.hw-part strong{display:block;font-size:15.5px;font-weight:600;color:var(--text)}
+.hw-part small{display:block;font-size:13.5px;color:var(--text-2);margin-top:1px}
+.hw-notes{margin-top:10px;font-size:15px;line-height:1.6;color:var(--text-2);white-space:pre-line;overflow-wrap:anywhere}
+.hw-parts + .hw-notes{margin-top:12px;padding-top:12px;border-top:1px dashed var(--line-2)}
+.hw-none{margin-top:12px}
+@media (max-width:640px){.hw-item{padding:15px 16px}.hw-assign{width:100%;justify-content:center}}
 /* Phone menu: the sidebar slides in from the side */
 .side-close,.menu-scrim{display:none}
 @media (max-width:900px){
@@ -1652,6 +1684,7 @@ table.tg{width:100%;border-collapse:collapse;font-size:14.5px;font-variant-numer
   <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
   <symbol id="i-printer" viewBox="0 0 24 24"><path d="M6.5 9V2.5h11V9"/><path d="M6.5 17.5h-2a2 2 0 0 1-2-2V11a2 2 0 0 1 2-2h15a2 2 0 0 1 2 2v4.5a2 2 0 0 1-2 2h-2"/><rect x="6.5" y="14" width="11" height="7.5" rx="1"/></symbol>
   <symbol id="i-qaidah" viewBox="0 0 24 24"><path d="M6.5 3h11A1.5 1.5 0 0 1 19 4.5v15a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 5 19.5v-15A1.5 1.5 0 0 1 6.5 3Z"/><path d="M8.5 3v18"/><path d="M16 7v6"/><path d="M14.1 10.8c.3 1.8-.6 2.5-2.1 2.5s-2.3-.7-1.9-2.3"/><path d="M12 16.3v.01"/></symbol>
+  <symbol id="i-homework" viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V2.8h6V4"/><path d="M8.5 11.5l2.2 2.2 4.8-4.7"/><path d="M8.5 17h7"/></symbol>
   <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2"/></symbol>
   <symbol id="i-heart" viewBox="0 0 24 24"><path d="M19 14c1.5-1.5 3-3.2 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.8 0-3 .5-4.5 2-1.5-1.5-2.7-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4 3 5.5l7 7z"/></symbol>
   <symbol id="i-moon" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9z"/></symbol>
@@ -1692,6 +1725,7 @@ table.tg{width:100%;border-collapse:collapse;font-size:14.5px;font-variant-numer
       <button class="nav-item staff-only" data-nav="register" onclick="showPage('register')"><svg class="ic"><use href="#i-register"/></svg><span>Take the register</span></button>
       <button class="nav-item staff-only" data-nav="log-session" onclick="showPage('log-session')"><svg class="ic"><use href="#i-pen"/></svg><span>Record a lesson</span></button>
       <button class="nav-item" data-nav="history" onclick="showPage('history')"><svg class="ic"><use href="#i-library"/></svg><span>Lesson history</span></button>
+      <button class="nav-item homework-only" data-nav="homework" onclick="showPage('homework')"><svg class="ic"><use href="#i-homework"/></svg><span>Homework</span></button>
       <button class="nav-item staff-only hifz-only" data-nav="targets" onclick="showPage('targets')"><svg class="ic"><use href="#i-target"/></svg><span>Targets</span></button>
       <button class="nav-item staff-only admin-only" data-nav="staff" onclick="showPage('staff')"><svg class="ic"><use href="#i-badge"/></svg><span>Staff and classes</span></button>
       <button class="nav-item staff-only admin-only fees-only" data-nav="fees" onclick="showPage('fees')"><svg class="ic"><use href="#i-fees"/></svg><span>Fees</span></button>
@@ -1910,6 +1944,27 @@ table.tg{width:100%;border-collapse:collapse;font-size:14.5px;font-variant-numer
             </div>
           </section>
 
+          <section class="form-card hw-card homework-only" id="hw-form" aria-labelledby="hw-title">
+            <div class="fc-head">
+              <div class="fc-title-wrap">
+                <span class="fc-icon dwt" data-drawn="homework"></span>
+                <div><h2 class="fc-title" id="hw-title">Homework<span lang="ar">الواجب</span></h2><p class="fc-sub">What they should prepare for next time. It goes to their parents as soon as you assign it.</p></div>
+              </div>
+            </div>
+            <div class="form-grid">
+              <div class="field full hifz-only"><span class="label">Memorise</span><div class="ayah-range" id="hwm-range"></div></div>
+              <div class="field full hifz-only"><span class="label">Revise</span><div class="ayah-range" id="hwr-range"></div></div>
+              <div class="field qaidah-only" id="hw-qd-wrap" hidden><label for="hw-qd-pages">Qa’idah pages</label><input type="number" id="hw-qd-pages" class="input" inputmode="decimal" min="0" max="60" step="0.5" placeholder="e.g. 2"></div>
+              <div class="field qaidah-only" id="hw-qd-place-wrap" hidden><label for="hw-qd-place">Qa’idah, up to</label><input type="text" id="hw-qd-place" class="input" dir="auto" maxlength="200" placeholder="e.g. The end of lesson 7"></div>
+              <div class="field"><label for="hw-due">Due</label><input type="date" id="hw-due" class="input"></div>
+              <div class="field full"><label for="hw-notes">Notes for home</label><textarea id="hw-notes" class="input short" dir="auto" maxlength="2000" placeholder="e.g. Read it to a parent three times before the lesson"></textarea></div>
+            </div>
+            <div class="hw-foot">
+              <p class="hw-last" id="hw-last" hidden></p>
+              <button type="button" class="btn hw-assign" id="hw-assign" onclick="assignHomework()"><svg class="ic"><use href="#i-homework"/></svg>Assign homework</button>
+            </div>
+          </section>
+
           <section class="form-card">
             <div class="fc-head">
               <div class="fc-title-wrap">
@@ -2030,6 +2085,21 @@ table.tg{width:100%;border-collapse:collapse;font-size:14.5px;font-variant-numer
             <button class="btn btn-primary" onclick="createClass()"><svg class="ic"><use href="#i-plus"/></svg>Add class</button>
           </div>
         </section>
+      </section>
+
+      <!-- HOMEWORK -->
+      <section class="page" id="page-homework">
+        <header class="page-head">
+          <div>
+            <h1 class="page-title">Homework</h1>
+            <p class="page-sub" id="hw-page-sub">What each student has been asked to prepare, newest first.</p>
+          </div>
+          <div class="head-actions">
+            <label class="filter" id="hw-class-wrap" hidden><span>Class</span><select id="hw-class" class="input" onchange="renderHomework()"><option value="">All classes</option></select></label>
+            <label class="filter" id="hw-filter-wrap"><span>Showing</span><select id="hw-filter" class="input" onchange="renderHomework()"><option value="">All students</option></select></label>
+          </div>
+        </header>
+        <div class="hw-list" id="hw-list"></div>
       </section>
 
       <!-- HISTORY -->
@@ -2476,7 +2546,7 @@ const INSTITUTE = 'horizons';
 const GOOGLE_CLIENT_ID = '';
 // What this school uses: Arabic and Islamic studies in lessons, the Fees page, hifz tracking and targets,
 // Qa'idah in lessons, and fee reminders by email and WhatsApp
-const FEATURES = { subjects: true, fees: true, hifz: true, qaidah: true, reminders: false };
+const FEATURES = { subjects: true, fees: true, hifz: true, qaidah: true, reminders: false, homework: true };
 const RECOVERY_LINK = location.hash.includes('type=recovery');   // arrived from a password reset email
 // When an emailed link has expired or was already used, Supabase sends people
 // back with the reason in the address. Keep it so the welcome page can say so.
@@ -2510,7 +2580,7 @@ const HIJRI_MONTHS = ['Muharram', 'Safar', 'Rabi‘ al-Awwal', 'Rabi‘ al-Thani
 
 // ── State ──
 const state = { students: [], sessions: [], classes: [], enrolments: [], guardians: [], guardiansOn: false, members: [], classTeachers: [], invites: [], requests: [],
-  me: null, role: null, orgId: null, ratings: { mem: 0, rev: 0, rec: 0, qd: 0 }, selectedBehaviour: '', currentStudentId: null, currentSessionId: null, currentPage: 'dashboard',
+  me: null, role: null, orgId: null, ratings: { mem: 0, rev: 0, rec: 0, qd: 0 }, selectedBehaviour: '', currentStudentId: null, currentSessionId: null, currentPage: 'dashboard', homework: [], hwMissing: false, hwTouched: false,
   register: { classId: '', date: '', marks: {}, saved: {} }, recentAttendance: [], registrations: [], fees: [], feeMonth: '', welcomeRole: 'teacher', userEmail: '', heroDrawn: false, editingStudentId: null, reportStudentId: null, recovering: RECOVERY_LINK, passwordJustUsed: false };
 
 // ── Small helpers ──
@@ -2975,6 +3045,7 @@ function clearSessionForm() {
   resetRevisionPicker();
   prefillPortion();
   resetQaidahCard();
+  resetHomeworkCard();
 }
 
 // ── Navigation ──
@@ -3008,6 +3079,7 @@ function showPage(id) {
   if (id === 'staff') { state.renamingClass = null; renderStaff(); }
   if (id === 'fees') renderFees();
   if (id === 'targets') renderTargets();
+  if (id === 'homework') renderHomework();
   if (id === 'log-session') playDrawn($('page-log-session'));
   window.scrollTo(0, 0);
 }
@@ -3080,6 +3152,8 @@ function renderAll() {
   if (state.role === 'admin') renderStaff();
   if (state.currentPage === 'student-profile' && state.currentStudentId) viewStudent(state.currentStudentId, true);
   if (state.currentPage === 'targets') renderTargets();
+  if (state.currentPage === 'homework') renderHomework();
+  if (FEATURES.homework) hwStudentNote();
 }
 
 // ── Dashboard ──
@@ -3339,6 +3413,7 @@ function viewStudent(id, silent = false) {
       </section>
     </div>
 
+    ${homeworkCard(st)}
     ${qdFirst ? qdCard + hzCard : hzCard + qdCard}
     ${isParent ? '' : safeguardingCard(st)}
     ${isParent ? '' : guardiansCard(st)}
@@ -4324,6 +4399,7 @@ function rangeSummary(prefix, mode) {
     return;
   }
   if (prefix === 'mem') out.textContent = (state.portionHint ? state.portionHint + ' ' : '') + (r.state === 'partial' ? 'Choose the last ayah they memorised today.' : 'Nothing new recorded.');
+  else if (prefix.startsWith('hw')) out.textContent = r.state === 'partial' ? 'Choose where it ends. The lines are worked out for you.' : 'Leave this empty if there’s none.';
   else if (mode === 'whole' && prefix === 'rev') out.textContent = r.state === 'partial' ? 'Choose where the revision ended.' : 'Choose a surah, or a whole juz.';
   else out.textContent = r.state === 'partial' ? 'Choose where it ends.' : '';
 }
@@ -5314,6 +5390,9 @@ async function whatsappReminder(studentId) {
 // and the detail in the lighter accent ink. Each line is drawn at pathLength 1 so it can draw itself in.
 // f frame, F faint frame, i ink, n fine ink (left out at small sizes)
 const DRAWN = {
+  // Homework: a writing board with lines to learn and a tick
+  homework: { x: 24, p: ['f M14 12.5H34A2.5 2.5 0 0 1 36.5 15V38A2.5 2.5 0 0 1 34 40.5H14A2.5 2.5 0 0 1 11.5 38V15A2.5 2.5 0 0 1 14 12.5Z', 'f M19.5 12.5V10H28.5V12.5',
+    'i M16.5 19.5H31.5', 'n M16.5 24H31.5', 'i M16.5 28.5H27', 'i M24.5 34L27 36.5L32 31.5'] },
   calendar: { x: 27, p: ['f M13.5 17H34.5A2.5 2.5 0 0 1 37 19.5V36A2.5 2.5 0 0 1 34.5 38.5H13.5A2.5 2.5 0 0 1 11 36V19.5A2.5 2.5 0 0 1 13.5 17Z', 'f M11 23.5H37', 'f M18 13.5V20M30 13.5V20',
     'i M25.75 27.1A4.5 4.5 0 1 0 25.75 34.9A5 5 0 0 1 25.75 27.1'] },
   book: { x: 24, p: ['f M24 21.5C20 18.5 14 18 8.5 19.75V29C14 27.5 20 28 24 31C28 28 34 27.5 39.5 29V19.75C34 18 28 18.5 24 21.5Z', 'f M24 21.5V31', 'f M15 29.5L25 39.5M33 29.5L23 39.5M14 39.5H34',
@@ -5712,7 +5791,7 @@ async function loadAll() {
       if (FEATURES.reminders) await loadReminders();
     }
   }
-  await loadTargets();
+  await Promise.all([loadTargets(), loadHomework()]);
 }
 
 // ── Parents ──
@@ -5736,6 +5815,8 @@ async function startParent(kids) {
     const seen = new Map(); state.parentTargets.forEach(r => seen.set(r.half_term_id, { id: r.half_term_id, name: r.name, starts_on: r.starts_on, ends_on: r.ends_on }));
     state.halfTerms = [...seen.values()].sort((a, b) => a.starts_on.localeCompare(b.starts_on));
   }
+  await loadHomework();
+  state.homework = state.homework.filter(h => ids.has(h.studentId));
 
   const one = kids.length === 1;
   const navLabel = one ? 'Your child' : 'Your children';
@@ -5751,6 +5832,186 @@ async function startParent(kids) {
   if (one) viewStudent(kids[0].id); else showPage('students');
 }
 
+// ── Homework ──
+// What a student should prepare for their next lesson. It's set from its own card on Record a lesson,
+// separately from the lesson, kept on the Homework page, and shown to parents as soon as it's assigned.
+function hwFromRow(r) {
+  return { id: r.id, studentId: r.student_id, classId: r.class_id || null, setBy: r.set_by || null, setByName: r.set_by_name || '',
+    setOn: r.set_on, dueOn: r.due_on || '', created: r.created_at || '',
+    mem: r.mem_from && r.mem_to ? [r.mem_from, r.mem_to] : null, rev: r.rev_from && r.rev_to ? [r.rev_from, r.rev_to] : null,
+    qdPages: r.qaidah_pages ?? null, qdPlace: r.qaidah_place || '', notes: r.notes || '' };
+}
+const byHwNewest = (a, b) => b.setOn.localeCompare(a.setOn) || (b.created || '').localeCompare(a.created || '');
+async function loadHomework() {
+  state.homework = []; state.hwMissing = false;
+  if (!FEATURES.homework) return;
+  const r = state.role === 'parent' ? await db.rpc('my_children_homework') : await db.from('homework').select('*').eq('org_id', state.orgId);
+  if (r.error) { state.hwMissing = /homework/.test(r.error.message || ''); return; }
+  state.homework = r.data.map(hwFromRow).sort(byHwNewest);
+}
+const canRemoveHomework = h => state.role === 'admin' || (state.role === 'teacher' && !!state.me && h.setBy === state.me.user_id);
+const hwSetter = h => h.setByName || (h.setBy && state.me && h.setBy === state.me.user_id ? 'you' : memberName(h.setBy));
+
+// ── The card on Record a lesson ──
+function hwPrefill() {
+  if (!FEATURES.homework || !FEATURES.hifz || state.hwTouched) return;
+  const id = $('session-student').value, st = getStudent(id);
+  let g = null;
+  if (st) {
+    // Carry on from what was memorised in this lesson, or else from what comes next
+    const m = readRange('mem');
+    if (m.state === 'ok') {
+      const [s, a] = MUSHAF.sa(m.to), up = st.hifz && st.hifz.direction === 'start';
+      g = a < MUSHAF.ayat(s) ? m.to + 1 : (up ? (s < 114 ? MUSHAF.g(s + 1, 1) : null) : (s > 1 ? MUSHAF.g(s - 1, 1) : null));
+    } else { const n = nextPortion(id); g = n ? n.g : null; }
+  }
+  setRange('hwm', g, null);
+  ['from', 'to'].forEach(e => { const s = +$('hwm-' + e + '-s').value; $('hwm-' + e + '-a').max = s ? MUSHAF.ayat(s) : ''; });
+  rangeSummary('hwm', 'mem');
+}
+function resetHomeworkCard() {
+  if (!FEATURES.homework) return;
+  state.hwTouched = false;
+  if (FEATURES.hifz) { setRange('hwr', null, null); $('hwr-to-s').value = ''; rangeSummary('hwr', 'whole'); }
+  ['hw-qd-pages', 'hw-qd-place', 'hw-notes', 'hw-due'].forEach(id => { if ($(id)) $(id).value = ''; });
+  hwPrefill();
+  hwStudentNote();
+}
+function hwStudentNote() {
+  if (!FEATURES.homework) return;
+  const st = getStudent($('session-student').value);
+  const qd = !(FEATURES.qaidah && st && st.qaidah && st.qaidah.on);
+  $('hw-qd-wrap').hidden = qd; $('hw-qd-place-wrap').hidden = qd;
+  const last = st && (state.homework || []).find(h => h.studentId === st.id);
+  $('hw-last').innerHTML = last ? `Last set ${relDate(last.setOn, true)}: ${esc(hwSummary(last))}.` : '';
+  $('hw-last').hidden = !last;
+}
+async function assignHomework() {
+  const studentId = $('session-student').value;
+  if (!studentId) { toast('Choose which student the homework is for', 'warn'); $('session-student').focus(); return; }
+  const st = getStudent(studentId);
+  const row = { student_id: studentId, notes: $('hw-notes').value.trim(), due_on: $('hw-due').value || null, qaidah_pages: null, qaidah_place: '' };
+  if (FEATURES.hifz) {
+    // A portion filled in for her that she never finished is left out, rather than stopping her
+    let m = readRange('hwm'); const r = readRange('hwr');
+    if (m.state === 'partial' && !state.hwTouched) m = { state: 'empty' };
+    if (m.state === 'invalid') { toast('Homework memorisation: ' + m.msg, 'warn'); $('hwm-to-a').focus(); return; }
+    if (m.state === 'partial') { toast('Homework memorisation: choose where it ends, or clear the surah', 'warn'); $('hwm-to-a').focus(); return; }
+    if (r.state === 'invalid') { toast('Homework revision: ' + r.msg, 'warn'); $('hwr-to-a').focus(); return; }
+    if (r.state === 'partial') { toast('Homework revision: choose where it ends, or clear the surah', 'warn'); $('hwr-to-a').focus(); return; }
+    if (m.state === 'ok') Object.assign(row, { mem_from: m.from, mem_to: m.to });
+    if (r.state === 'ok') Object.assign(row, { rev_from: r.from, rev_to: r.to });
+  }
+  if (!$('hw-qd-wrap').hidden) {
+    const raw = $('hw-qd-pages').value.trim(), p = raw === '' ? null : Number(raw);
+    if (p != null && (!isFinite(p) || p < 0 || p > 60)) { toast('Qa’idah pages should be a number from 0 to 60', 'warn'); $('hw-qd-pages').focus(); return; }
+    Object.assign(row, { qaidah_pages: p, qaidah_place: $('hw-qd-place').value.trim() });
+  }
+  if (!row.mem_from && !row.rev_from && row.qaidah_pages == null && !row.qaidah_place && !row.notes) {
+    toast('Add something for them to do first', 'warn'); return;
+  }
+  if (row.due_on && row.due_on < localISO()) { toast('The due date has already passed', 'warn'); $('hw-due').focus(); return; }
+  const mine = state.me && state.role !== 'admin' ? state.classTeachers.filter(ct => ct.user_id === state.me.user_id).map(ct => ct.class_id) : null;
+  row.class_id = classIdsOf(studentId).find(c => !mine || mine.includes(c)) || null;
+  const { data, error } = await db.from('homework').insert(row).select().single();
+  if (error) {
+    toast(/homework/.test(error.message || '') && /exist|relation/.test(error.message || '') ? 'Homework needs a database update first. Run quran-portal-update-12.sql in Supabase.' : 'The homework couldn’t be assigned: ' + error.message, 'warn');
+    return;
+  }
+  state.homework.unshift(hwFromRow(data || Object.assign({ set_on: localISO() }, row)));
+  state.homework.sort(byHwNewest);
+  resetHomeworkCard();
+  if (state.currentPage === 'homework') renderHomework();
+  const parents = state.guardians.some(g => g.student_id === studentId && g.user_id);
+  toast(`Homework assigned to ${firstOf(st.name)}${parents ? '. Their parents can see it now.' : ''}`);
+}
+
+// ── Showing a piece of homework ──
+function hwSummary(h) {
+  const parts = [];
+  if (h.mem) parts.push(`memorise ${rangeLabel(h.mem[0], h.mem[1])}`);
+  if (h.rev) parts.push(`revise ${rangeLabel(h.rev[0], h.rev[1])}`);
+  if (h.qdPages != null || h.qdPlace) parts.push('Qa’idah' + (h.qdPages != null ? ` ${pagesText(h.qdPages)}` : '') + (h.qdPlace ? ` (${h.qdPlace})` : ''));
+  const s = parts.join(', ') || h.notes;
+  return s.charAt(0).toUpperCase() + s.slice(1);
+}
+function hwItem(h, opts = {}) {
+  const st = getStudent(h.studentId), name = st ? st.name : 'A student';
+  const who = hwSetter(h);
+  const line = (icon, label, main, sub) => `<div class="hw-part">${ic(icon)}<div><span class="hw-k">${label}</span><strong dir="auto">${main}</strong>${sub ? `<small>${sub}</small>` : ''}</div></div>`;
+  const due = h.dueOn ? `<span class="hw-due${h.dueOn < localISO() ? ' past' : ''}">${ic('calendar')}Due ${formatDate(h.dueOn, { weekday: 'short', day: 'numeric', month: 'short' }).replace(',', '')}</span>` : '';
+  const parts = [h.mem ? line('book', 'Memorise', esc(rangeLabel(h.mem[0], h.mem[1])), sizeText(h.mem[0], h.mem[1])) : '',
+    h.rev ? line('repeat', 'Revise', esc(rangeLabel(h.rev[0], h.rev[1])), sizeText(h.rev[0], h.rev[1])) : '',
+    h.qdPages != null || h.qdPlace ? line('qaidah', 'Qa’idah', h.qdPages != null ? pagesText(h.qdPages) : esc(h.qdPlace), h.qdPages != null && h.qdPlace ? esc(h.qdPlace) : '') : ''].join('');
+  return `<article class="hw-item">
+    <div class="hw-top">
+      ${opts.noName ? '' : `<div class="hw-who">${avatar(name, 'sm')}<span class="hw-name">${esc(name)}</span></div>`}
+      <span class="hw-set">Set ${relDate(h.setOn, true)}${who ? ` by ${esc(who)}` : ''}</span>
+      ${due}
+      ${opts.noDelete || !canRemoveHomework(h) ? '' : `<button class="btn btn-quiet btn-icon btn-sm hw-del" onclick="removeHomework('${h.id}')" aria-label="Remove this homework" title="Remove this homework">${ic('x')}</button>`}
+    </div>
+    ${parts ? `<div class="hw-parts">${parts}</div>` : ''}
+    ${h.notes ? `<p class="hw-notes" dir="auto">${esc(h.notes)}</p>` : ''}
+  </article>`;
+}
+function removeHomework(id) {
+  const h = state.homework.find(x => x.id === id); if (!h || !canRemoveHomework(h)) return;
+  const st = getStudent(h.studentId);
+  confirmDialog({ title: 'Remove this homework?', confirmLabel: 'Remove homework',
+    message: `${st ? firstOf(st.name) + '’s' : 'This'} homework set ${relDate(h.setOn, true)} will disappear for their parents too.` }, async () => {
+    const { data, error } = await db.from('homework').delete().eq('id', id).select('id');
+    if (error) { toast('That homework couldn’t be removed: ' + error.message, 'warn'); return; }
+    if (Array.isArray(data) && !data.length) { toast('You can only remove homework you set yourself', 'warn'); return; }
+    state.homework = state.homework.filter(x => x.id !== id);
+    if (state.currentPage === 'homework') renderHomework();
+    if (state.currentPage === 'student-profile' && state.currentStudentId) viewStudent(state.currentStudentId, true);
+    hwStudentNote();
+    toast('Homework removed');
+  });
+}
+
+// ── The Homework page ──
+function renderHomework() {
+  const box = $('hw-list'); if (!box) return;
+  const sel = $('hw-filter'), cur = sel.value;
+  sel.innerHTML = `<option value="">${state.role === 'parent' ? (state.students.length === 1 ? 'Your child' : 'All your children') : 'All students'}</option>` + state.students.map(s => `<option value="${s.id}">${esc(s.name)}</option>`).join('');
+  if (cur && getStudent(cur)) sel.value = cur;
+  const cs = $('hw-class'), ccur = cs.value;
+  cs.innerHTML = '<option value="">All classes</option>' + state.classes.map(c => `<option value="${c.id}">${esc(c.name)}</option>`).join('');
+  if (state.classes.some(c => c.id === ccur)) cs.value = ccur;
+  $('hw-class-wrap').hidden = !(state.role !== 'parent' && state.classes.length > 1);
+  $('hw-filter-wrap').hidden = state.students.length < 2;
+  if (state.hwMissing) { box.innerHTML = `<div class="card">${emptyState('Homework needs a database update', 'Run quran-portal-update-12.sql in Supabase, then open this page again.')}</div>`; return; }
+  let list = state.homework || [];
+  if (sel.value) list = list.filter(h => h.studentId === sel.value);
+  if (cs.value) list = list.filter(h => classIdsOf(h.studentId).includes(cs.value));
+  if (!list.length) {
+    box.innerHTML = `<div class="card">${emptyState('No homework yet', state.role === 'parent'
+      ? 'When their teacher sets homework, it will appear here.'
+      : 'Set homework from the Homework card on Record a lesson, and it will appear here and on the parents’ page.',
+      state.role === 'parent' ? '' : `<button class="btn btn-accent staff-only" onclick="showPage('log-session')">${ic('plus')}Record a lesson</button>`)}</div>`;
+    return;
+  }
+  box.innerHTML = list.map(h => hwItem(h, { noName: state.students.length === 1 && state.role === 'parent' })).join('');
+}
+
+// ── On a student's profile: their latest homework ──
+function homeworkCard(st) {
+  if (!FEATURES.homework || state.hwMissing) return '';
+  const staff = state.role !== 'parent', mine = (state.homework || []).filter(h => h.studentId === st.id);
+  if (!mine.length && !staff) return '';
+  return `<section class="card hw-card-p">
+    <div class="card-head"><h2 class="card-title">Homework</h2>
+      ${mine.length > 1 ? `<button class="link-btn" onclick="showHomeworkFor('${st.id}')">See all ${mine.length}${ic('chev')}</button>` : staff ? `<button class="link-btn staff-only" onclick="setHomeworkFor('${st.id}')">Assign homework${ic('chev')}</button>` : ''}</div>
+    ${mine.length ? `<div class="hw-latest">${hwItem(mine[0], { noName: true })}</div>` : `<p class="note-text empty hw-none">No homework set yet.</p>`}
+  </section>`;
+}
+function showHomeworkFor(id) { showPage('homework'); $('hw-filter').value = id; renderHomework(); }
+function setHomeworkFor(id) {
+  logSessionFor(id);
+  setTimeout(() => { const c = $('hw-form'); if (c) c.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 80);
+}
+
 // ── Start ──
 function init() {
   syncThemeControls();
@@ -5760,14 +6021,23 @@ function init() {
   document.body.classList.toggle('has-hifz', FEATURES.hifz);
   document.body.classList.toggle('has-qaidah', FEATURES.qaidah);
   document.body.classList.toggle('has-reminders', FEATURES.reminders);
+  document.body.classList.toggle('has-homework', FEATURES.homework);
   if (FEATURES.hifz) { buildRangePicker('mem', 'mem', false); buildRangePicker('rev', 'whole', true); rangeSummary('rev', 'whole'); }
+  if (FEATURES.hifz && FEATURES.homework) {
+    buildRangePicker('hwm', 'mem', false); buildRangePicker('hwr', 'whole', true); rangeSummary('hwm', 'mem'); rangeSummary('hwr', 'whole');
+    // The homework portion follows today's memorisation until the teacher changes it herself
+    ['input', 'change'].forEach(t => {
+      $('mem-range').addEventListener(t, () => setTimeout(hwPrefill, 0));
+      $('hwm-range').addEventListener(t, e => { if (e.isTrusted) state.hwTouched = true; });
+    });
+  }
   buildHeroArt();
   fillDrawn();
   addRegChild();
   $('session-date').value = localISO();
   renderMoods();
   initRatings();
-  $('session-student').addEventListener('change', () => { updateSaveBar(); prefillPortion(); qaidahHint(); });
+  $('session-student').addEventListener('change', () => { updateSaveBar(); prefillPortion(); qaidahHint(); resetHomeworkCard(); });
   start();
 }
 
